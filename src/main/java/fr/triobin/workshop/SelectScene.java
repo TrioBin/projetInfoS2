@@ -3,16 +3,20 @@ package fr.triobin.workshop;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.scene.text.Text;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 import java.util.function.Consumer;
 
 public class SelectScene extends CustomScene {
+    Stage stage;
 
     public SelectScene() {
         super(new ScrollPane(), 1000, 500);
@@ -26,10 +30,9 @@ public class SelectScene extends CustomScene {
 
         // Ajouter les ateliers avec callback
         atelierContainer.getChildren().addAll(
-            createAtelier("Atelier 1"),
-            createAtelier("Atelier 2"),
-            createAddCard()
-        );
+                createAtelier("Atelier 1"),
+                createAtelier("Atelier 2"),
+                createAddCard());
 
         scrollPane.setContent(atelierContainer);
         scrollPane.setFitToHeight(true);
@@ -50,7 +53,7 @@ public class SelectScene extends CustomScene {
         Label titleLabel = new Label(title);
         titleLabel.setFont(Font.font(24));
         Label machines = new Label("... machines");
-        Label postes   = new Label("... postes");
+        Label postes = new Label("... postes");
         Label employes = new Label("... employés");
         box.getChildren().addAll(titleLabel, machines, postes, employes);
 
@@ -58,7 +61,7 @@ public class SelectScene extends CustomScene {
         box.setOnMouseClicked((MouseEvent e) -> {
             // Effet visuel (optionnel)
             box.setStyle("-fx-background-color: #FFEB9C; -fx-border-color: black;");
-            
+
             System.out.println("Atelier sélectionné : " + title);
 
             // get App instance and change window
@@ -86,6 +89,7 @@ public class SelectScene extends CustomScene {
 
             // Action de création d'atelier
             System.out.println("Créer un nouvel atelier");
+            Stage dialog = new Modal(this.stage, new CreateWorkshopPopup());
         });
 
         return addCard;
@@ -93,5 +97,6 @@ public class SelectScene extends CustomScene {
 
     public void onload(Stage stage) {
         stage.setTitle("Sélectionnez un atelier");
+        this.stage = stage;
     }
 }
