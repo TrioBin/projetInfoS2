@@ -1,5 +1,10 @@
 package fr.triobin.workshop;
 
-public class CreateWorkshopPopup {
-    
+import javafx.scene.Parent;
+import javafx.scene.Scene;
+
+public class CreateWorkshopPopup extends Scene {
+    public CreateWorkshopPopup(Parent root) {
+        super(root);
+    }
 }
