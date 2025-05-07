@@ -6,10 +6,10 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
-public class CreateWorkshopPopup extends CustomScene {
+public class CreateWorkstationPopup extends CustomScene {
     private Stage stage;
 
-    public CreateWorkshopPopup() {
+    public CreateWorkstationPopup() {
         super(new HBox(), 500, 500);
         HBox root = (HBox) getRoot();
 

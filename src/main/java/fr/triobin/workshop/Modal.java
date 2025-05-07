@@ -18,9 +18,8 @@ public class Modal {
     }
     
     public void onClose(Consumer<Object> callback) {
-        this.stage.setOnCloseRequest(e -> {
+        this.stage.setOnHidden(e -> {
             callback.accept(null);
-            this.stage.close();
         });
     }
 }

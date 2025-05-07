@@ -4,34 +4,45 @@ import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class WorkstationPanel extends CustomPanel {
+    private Stage stage;
+
     public WorkstationPanel() {
         super();
         // Espacements généraux
         this.setSpacing(20);
-        this.setPadding(new Insets(40));
         this.setStyle("-fx-background-color: white;");
+
+        ScrollPane scrollPane = new ScrollPane();
+        scrollPane.setPadding(new Insets(0, 40, 0, 40));
 
         // Grid 2 lignes × 3 colonnes
         GridPane grid = new GridPane();
         grid.setHgap(30);
         grid.setVgap(30);
 
+        int i = 0;
         // Créer les 5 cartes postes
-        for (int i = 0; i < 5; i++) {
-            StackPane poste = createPoste("Nom du poste");
+        for (i = 0; i < Memory.currentWorkshop.getWorkstations().size(); i++) {
+            StackPane poste = createPoste(Memory.currentWorkshop.getWorkstations().get(i).getRefWorkstation());
+            poste.setPrefSize(300, 100);
             grid.add(poste, i % 3, i / 3);
         }
 
         // La carte “+” en sixième position
         StackPane addCard = createAddCard();
-        grid.add(addCard, 2, 1);
+        addCard.setPrefSize(300, 100);
+        grid.add(addCard, i % 3, i / 3);
 
-        this.getChildren().add(grid);
+        scrollPane.setContent(grid);
+        scrollPane.setFitToWidth(true);
+
+        this.getChildren().add(scrollPane);
     }
 
     private StackPane createPoste(String title) {
@@ -68,8 +79,11 @@ public class WorkstationPanel extends CustomPanel {
         CustomCapacities.hoverCursorEffect(pane, Cursor.HAND);
 
         pane.setOnMouseClicked(e -> {
-            System.out.println("Créer un nouveau poste");
-            // TODO → ouvrir la popup / nouvelle fenêtre de création
+            Modal dialog = new Modal(this.stage, new CreateWorkstationPopup());
+            dialog.onClose(o -> {
+                // reload grid
+                Pane gridPane = (Pane) ((ScrollPane) this.getChildren().get(0)).getContent();
+            });
         });
 
         return pane;
@@ -77,6 +91,7 @@ public class WorkstationPanel extends CustomPanel {
 
     @Override
     public void onload(Stage stage) {
+        this.stage = stage;
         stage.setTitle("- Workstation");
     }
 }

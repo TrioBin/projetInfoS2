@@ -63,7 +63,10 @@ public class SelectScene extends CustomScene {
             // Effet visuel (optionnel)
             box.setStyle("-fx-background-color: #FFEB9C; -fx-border-color: black;");
 
-            System.out.println("Atelier sélectionné : " + title);
+            Memory.currentWorkshop = Memory.workshops.stream()
+                    .filter(workshop -> workshop.getDesignation().equals(title))
+                    .findFirst()
+                    .orElse(null);
 
             // get App instance and change window
             App app = App.getInstance();
@@ -89,13 +92,15 @@ public class SelectScene extends CustomScene {
             addCard.setStyle("-fx-background-color: #BFBFBF; -fx-border-color: black;");
 
             // Action de création d'atelier
-            System.out.println("Créer un nouvel atelier");
             Modal dialog = new Modal(this.stage, new CreateWorkshopPopup());
             dialog.onClose(o -> {
-                // Action à réaliser après la fermeture de la fenêtre
-                System.out.println("Atelier créé !");
-                App app = App.getInstance();
-                app.changeWindow(new SelectScene());
+                // Clear the scrollPane content and re-add all workshops
+                HBox atelierContainer = (HBox) ((ScrollPane) getRoot()).getContent();
+                atelierContainer.getChildren().clear();
+                Memory.workshops.forEach(workshop -> {
+                    atelierContainer.getChildren().add(createAtelier(workshop.getDesignation()));
+                });
+                atelierContainer.getChildren().add(createAddCard());
             });
         });
 

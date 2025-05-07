@@ -22,7 +22,7 @@ public class WorkshopPanel extends CustomPanel {
         atelierPanel.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
         atelierPanel.setAlignment(Pos.TOP_CENTER);
         atelierPanel.setPadding(new Insets(20));
-        Label atelierLabel = new Label("Atelier 1 :");
+        Label atelierLabel = new Label(Memory.currentWorkshop.getDesignation() + " :");
         atelierLabel.setFont(Font.font(24));
         atelierPanel.getChildren().add(atelierLabel);
 
