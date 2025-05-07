@@ -82,7 +82,17 @@ public class WorkstationPanel extends CustomPanel {
             Modal dialog = new Modal(this.stage, new CreateWorkstationPopup());
             dialog.onClose(o -> {
                 // reload grid
-                Pane gridPane = (Pane) ((ScrollPane) this.getChildren().get(0)).getContent();
+                GridPane gridPane = (GridPane) ((ScrollPane) this.getChildren().get(0)).getContent();
+                gridPane.getChildren().clear();
+                int i = 0;
+                for (i = 0; i < Memory.currentWorkshop.getWorkstations().size(); i++) {
+                    StackPane poste = createPoste(Memory.currentWorkshop.getWorkstations().get(i).getRefWorkstation());
+                    poste.setPrefSize(300, 100);
+                    gridPane.add(poste, i % 3, i / 3);
+                }
+                StackPane addCard = createAddCard();
+                addCard.setPrefSize(300, 100);
+                gridPane.add(addCard, i % 3, i / 3);
             });
         });
 

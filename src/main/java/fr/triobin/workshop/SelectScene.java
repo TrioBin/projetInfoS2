@@ -51,10 +51,15 @@ public class SelectScene extends CustomScene {
 
         CustomCapacities.hoverCursorEffect(box, Cursor.HAND);
 
+        Workshop workshop = Memory.workshops.stream()
+                .filter(w -> w.getDesignation().equals(title))
+                .findFirst()
+                .orElse(null);
+
         Label titleLabel = new Label(title);
         titleLabel.setFont(Font.font(24));
         Label machines = new Label("... machines");
-        Label postes = new Label("... postes");
+        Label postes = new Label(workshop.getWorkstations().size()+" postes");
         Label employes = new Label("... employés");
         box.getChildren().addAll(titleLabel, machines, postes, employes);
 
@@ -64,7 +69,7 @@ public class SelectScene extends CustomScene {
             box.setStyle("-fx-background-color: #FFEB9C; -fx-border-color: black;");
 
             Memory.currentWorkshop = Memory.workshops.stream()
-                    .filter(workshop -> workshop.getDesignation().equals(title))
+                    .filter(w -> w.getDesignation().equals(title))
                     .findFirst()
                     .orElse(null);
 
