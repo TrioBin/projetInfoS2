@@ -9,7 +9,7 @@ public class Cost {
         this.cost = cost;
     }
 
-    public float calcCost(Tisme t) {
+    public float calcCost(Time t) {
         return this.cost * t.getTime();
     }
 
