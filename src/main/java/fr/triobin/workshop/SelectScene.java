@@ -28,11 +28,12 @@ public class SelectScene extends CustomScene {
         atelierContainer.setStyle("-fx-background-color: white;");
         atelierContainer.setAlignment(Pos.CENTER_LEFT);
 
+        Memory.workshops.forEach(workshop -> {
+            atelierContainer.getChildren().add(createAtelier(workshop.getDesignation()));
+        });
+
         // Ajouter les ateliers avec callback
-        atelierContainer.getChildren().addAll(
-                createAtelier("Atelier 1"),
-                createAtelier("Atelier 2"),
-                createAddCard());
+        atelierContainer.getChildren().add(createAddCard());
 
         scrollPane.setContent(atelierContainer);
         scrollPane.setFitToHeight(true);
@@ -89,7 +90,13 @@ public class SelectScene extends CustomScene {
 
             // Action de création d'atelier
             System.out.println("Créer un nouvel atelier");
-            Stage dialog = new Modal(this.stage, new CreateWorkshopPopup());
+            Modal dialog = new Modal(this.stage, new CreateWorkshopPopup());
+            dialog.onClose(o -> {
+                // Action à réaliser après la fermeture de la fenêtre
+                System.out.println("Atelier créé !");
+                App app = App.getInstance();
+                app.changeWindow(new SelectScene());
+            });
         });
 
         return addCard;

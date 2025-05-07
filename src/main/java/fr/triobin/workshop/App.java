@@ -16,6 +16,7 @@ public class App extends Application {
 
     @Override
     public void start(Stage primaryStage) {
+        Memory.fakeLoad();
         CustomScene selectScene = new SelectScene();
         changeScene(primaryStage, selectScene);
         this.stage = primaryStage;

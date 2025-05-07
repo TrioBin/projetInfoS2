@@ -7,6 +7,8 @@ import javafx.scene.layout.HBox;
 import javafx.stage.Stage;
 
 public class CreateWorkshopPopup extends CustomScene {
+    private Stage stage;
+
     public CreateWorkshopPopup() {
         super(new HBox(), 500, 500);
         HBox root = (HBox) getRoot();
@@ -31,7 +33,8 @@ public class CreateWorkshopPopup extends CustomScene {
                         "-fx-text-fill: black;");
         btnCreer.setOnAction(e -> {
             System.out.println("Atelier créé : " + nomAtelier.getText());
-            // Ici vous pouvez ajouter la logique de création...
+            Memory.workshops.add(new Workshop(nomAtelier.getText()));
+            this.stage.close();
         });
 
         root.getChildren().addAll(nomAtelier, btnCreer);
@@ -40,6 +43,7 @@ public class CreateWorkshopPopup extends CustomScene {
 
     @Override
     public void onload(Stage stage) {
+        this.stage = stage;
         stage.setTitle("Créer un atelier");
     }
 }
