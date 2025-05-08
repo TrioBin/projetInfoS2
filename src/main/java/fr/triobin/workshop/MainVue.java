@@ -51,12 +51,14 @@ public class MainVue extends CustomScene {
 
         // Onglets
         ToggleGroup tabsGroup = new ToggleGroup();
-        ToggleButton tab1 = new ToggleButton("Workshop");
-        ToggleButton tab2 = new ToggleButton("Workstation");
-        ToggleButton tab3 = new ToggleButton("Operator");
+        ToggleButton tab1 = new ToggleButton("Atelier");
+        ToggleButton tab2 = new ToggleButton("Postes");
+        ToggleButton tab3 = new ToggleButton("Opérateurs");
+        ToggleButton tab4 = new ToggleButton("Produits");
         tab1.setToggleGroup(tabsGroup);
         tab2.setToggleGroup(tabsGroup);
         tab3.setToggleGroup(tabsGroup);
+        tab4.setToggleGroup(tabsGroup);
         tab1.setSelected(true);
 
         // Spacer et placeholders rouges
@@ -101,6 +103,14 @@ public class MainVue extends CustomScene {
             mainContent[0].onload(App.stage);
             root.getChildren().set(1, mainContent[0]); // Update the displayed content
         });
+
+        tab4.setOnAction(e -> {
+            // remplace mainContent par le panneau de produits
+            //mainContent[0] = new ProductPanel();
+            mainContent[0].onload(App.stage);
+            root.getChildren().set(1, mainContent[0]); // Update the displayed content
+        });
+
         // ASSEMBLAGE GLOBAL
         root.getChildren().addAll(topBar, mainContent[0]);
     }
