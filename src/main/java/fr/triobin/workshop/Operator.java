@@ -8,13 +8,15 @@ public class Operator {
     private String surname;
     private ArrayList<RefMachine> skills;
     private OperatorStatus status;
+    private String password;
 
-    public Operator(String code, String name, String surname, ArrayList<RefMachine> skills, OperatorStatus status) {
+    public Operator(String code, String name, String surname, ArrayList<RefMachine> skills, OperatorStatus status, String password) {
         this.code = code;
         this.name = name;
         this.surname = surname;
         this.skills = skills;
         this.status = status;
+        this.password = password;
     }
 
     public enum OperatorStatus {
