@@ -5,6 +5,7 @@ module fr.triobin.workshop {
     requires java.sql;
     requires com.fasterxml.jackson.core;
     requires com.fasterxml.jackson.databind;
+    requires jdk.httpserver;
 
     opens fr.triobin.workshop to javafx.fxml;
     exports fr.triobin.workshop;

@@ -2,77 +2,66 @@ package fr.triobin.workshop;
 
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
+import javafx.stage.Stage;
 
 public class OperatorPanel extends CustomPanel {
+    private Stage stage;
+
     public OperatorPanel() {
         super();
-        // Espacements généraux
-        this.setSpacing(20);
-        this.setPadding(new Insets(40));
+        this.setSpacing(0);
+        this.setPadding(new Insets(0));
         this.setStyle("-fx-background-color: white;");
 
-        // Grid 2 lignes × 3 colonnes
-        GridPane grid = new GridPane();
-        grid.setHgap(30);
-        grid.setVgap(30);
+        // Partie gauche (zone orangée)
+        VBox leftPane = new VBox(10);
+        leftPane.setPadding(new Insets(20));
+        leftPane.setPrefWidth(300);
+        leftPane.setStyle("-fx-background-color: #facc7c; -fx-border-color: #2196f3; -fx-border-width: 2px;");
 
-        // Créer les 5 cartes postes
-        for (int i = 0; i < 5; i++) {
-            StackPane poste = createPoste("Nom du poste");
-            grid.add(poste, i % 3, i / 3);
-        }
+        Label titleButton = new Label("Worker");
+        titleButton.setMaxWidth(Double.MAX_VALUE);
+        leftPane.getChildren().add(titleButton);
 
-        // La carte “+” en sixième position
-        StackPane addCard = createAddCard();
-        grid.add(addCard, 2, 1);
+        Memory.currentWorkshop.getOperators().forEach(operator -> {
+            Button operatorButton = new Button(operator.getName()+" "+operator.getSurname());
+            operatorButton.setMaxWidth(Double.MAX_VALUE);
+            leftPane.getChildren().add(operatorButton);
+        });
+        Button addButton = new Button("+");
+        addButton.setMaxWidth(Double.MAX_VALUE);
 
-        this.getChildren().add(grid);
-    }
-
-    private StackPane createPoste(String title) {
-        StackPane pane = new StackPane();
-        pane.setPrefSize(300, 200);
-        pane.setStyle("-fx-background-color: #FFD68D; -fx-border-color: black;");
-
-        Label label = new Label(title);
-        label.setFont(Font.font(20));
-        pane.getChildren().add(label);
-        StackPane.setAlignment(label, Pos.CENTER);
-
-        // Curseur main au hover
-        pane.setOnMouseEntered(e -> pane.setCursor(javafx.scene.Cursor.HAND));
-        pane.setOnMouseExited (e -> pane.setCursor(javafx.scene.Cursor.DEFAULT));
-
-        // Clique éventuel
-        pane.setOnMouseClicked(e -> {
-            System.out.println("Poste sélectionné : " + title);
-            // TODO → navigation vers la vue détaillée du poste
+        addButton.setOnAction(event -> {
+            //Create a modal
+            Modal dialog = new Modal(this.stage, new CreateOperatorPopup());
+            dialog.onClose(closeEvent -> {
+                ((VBox) this.getChildren().get(0)).getChildren().clear();
+                ((VBox) this.getChildren().get(0)).getChildren().add(titleButton);
+                Memory.currentWorkshop.getOperators().forEach(operator -> {
+                    Button operatorButton = new Button(operator.getName()+" "+operator.getSurname());
+                    operatorButton.setMaxWidth(Double.MAX_VALUE);
+                    ((VBox) this.getChildren().get(0)).getChildren().add(operatorButton);
+                });
+                ((VBox) this.getChildren().get(0)).getChildren().add(addButton);
+            });
         });
 
-        return pane;
+        leftPane.getChildren().add(addButton);
+
+        // Partie droite (grande zone grise)
+        Pane rightPane = new Pane();
+        rightPane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
+        HBox.setHgrow(rightPane, Priority.ALWAYS);
+
+        this.getChildren().addAll(leftPane, rightPane);
     }
 
-    private StackPane createAddCard() {
-        StackPane pane = new StackPane();
-        pane.setPrefSize(300, 200);
-        pane.setStyle("-fx-background-color: #FFD68D; -fx-border-color: black;");
-
-        Label plus = new Label("+");
-        plus.setFont(Font.font(60));
-        pane.getChildren().add(plus);
-        StackPane.setAlignment(plus, Pos.CENTER);
-
-        pane.setOnMouseEntered(e -> pane.setCursor(javafx.scene.Cursor.HAND));
-        pane.setOnMouseExited (e -> pane.setCursor(javafx.scene.Cursor.DEFAULT));
-
-        pane.setOnMouseClicked(e -> {
-            System.out.println("Créer un nouveau poste");
-            // TODO → ouvrir la popup / nouvelle fenêtre de création
-        });
-
-        return pane;
+    @Override
+    public void onload(Stage stage) {
+        this.stage = stage;
     }
 }

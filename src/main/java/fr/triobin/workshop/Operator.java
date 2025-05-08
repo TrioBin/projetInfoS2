@@ -42,4 +42,12 @@ public class Operator {
     public void remove(){
         this.status = OperatorStatus.BREAK;
     }
+
+    public String getName() {
+        return this.name;
+    }
+
+    public String getSurname() {
+        return this.surname;
+    }
 }

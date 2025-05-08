@@ -7,8 +7,11 @@ import javafx.stage.Stage;
 
 public class Modal {
     private Stage stage;
+    private Stage owner;
 
     public Modal(Stage owner, CustomScene scene) {
+        this.owner = owner;
+        owner.setOpacity(0.8);
         this.stage = new Stage();
         this.stage.initModality(Modality.APPLICATION_MODAL);
         this.stage.initOwner(owner);
@@ -19,6 +22,7 @@ public class Modal {
     
     public void onClose(Consumer<Object> callback) {
         this.stage.setOnHidden(e -> {
+            this.owner.setOpacity(1);
             callback.accept(null);
         });
     }

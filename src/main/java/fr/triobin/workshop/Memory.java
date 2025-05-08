@@ -2,6 +2,8 @@ package fr.triobin.workshop;
 
 import java.util.ArrayList;
 
+import fr.triobin.workshop.Operator.OperatorStatus;
+
 public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();
     public static Workshop currentWorkshop = null;
@@ -22,6 +24,10 @@ public class Memory {
         workshop1.add(new Workstation("Poste 7", "Poste 7", new Position(0, 6), new ArrayList<>()));
         workshop1.add(new Workstation("Poste 8", "Poste 8", new Position(0, 7), new ArrayList<>()));
         workshop1.add(new Workstation("Poste 9", "Poste 9", new Position(0, 8), new ArrayList<>()));
+
+        workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.AVAILABLE));
+        workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.AVAILABLE));
+        workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.AVAILABLE));
 
         workshop2.add(new Workstation("Poste 1", "Poste 3", new Position(1, 0), new ArrayList<>()));
         workshop2.add(new Workstation("Poste 2", "Poste 4", new Position(1, 1), new ArrayList<>()));

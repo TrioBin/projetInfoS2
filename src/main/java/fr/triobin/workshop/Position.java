@@ -1,19 +1,24 @@
 package fr.triobin.workshop;
 
 public class Position {
-    public int x;
-    public int y;
+    public Float x;
+    public Float y;
+
+    public Position(Float x2, Float y2) {
+        this.x = x2;
+        this.y = y2;
+    }
 
     public Position(int x, int y) {
-        this.x = x;
-        this.y = y;
+        this.x = (float) x;
+        this.y = (float) y;
     }
 
     public void print() {
         System.out.println("Position: (" + x + ", " + y + ")");
     }
 
-    public void modify(int x, int y) {
+    public void modify(Float x, Float y) {
         this.x = x;
         this.y = y;
     }

@@ -60,7 +60,7 @@ public class SelectScene extends CustomScene {
         titleLabel.setFont(Font.font(24));
         Label machines = new Label("... machines");
         Label postes = new Label(workshop.getWorkstations().size()+" postes");
-        Label employes = new Label("... employés");
+        Label employes = new Label(workshop.getOperators().size()+" employés");
         box.getChildren().addAll(titleLabel, machines, postes, employes);
 
         // === Interaction au clic ===
