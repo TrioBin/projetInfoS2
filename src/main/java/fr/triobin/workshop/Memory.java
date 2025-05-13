@@ -1,5 +1,6 @@
 package fr.triobin.workshop;
 
+import java.sql.Time;
 import java.util.ArrayList;
 import java.util.Collections;
 
@@ -7,6 +8,7 @@ import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.OPList;
+import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Product;
@@ -38,7 +40,13 @@ public class Memory {
         workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Cost(0), new ArrayList<>(),
                 MachineStatus.AVAILABLE));
 
-        Product product1 = new Product("Produit 1", "Description 1", new OPList(new ArrayList<>()));
+        Operation operation1 = new Operation("Opération 1", new Time(0));
+        workshop1.addOperation(operation1);
+
+        OPList opList1 = new OPList(new ArrayList<>());
+        opList1.addOperation(operation1);
+
+        Product product1 = new Product("Produit 1", "Description 1", opList1);
         workshop1.add(product1);
 
         workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, ""));

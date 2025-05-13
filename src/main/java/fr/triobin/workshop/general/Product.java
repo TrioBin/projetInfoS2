@@ -35,4 +35,8 @@ public class Product {
     public String getId() {
         return productCode;
     }
+
+    public void setOperations(OPList operations) {
+        this.operations = operations;
+    }
 }

@@ -1,8 +1,12 @@
 package fr.triobin.workshop.panels;
 
+import java.util.ArrayList;
+
 import fr.triobin.workshop.App;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.Modal;
+import fr.triobin.workshop.general.OPList;
+import fr.triobin.workshop.general.Product;
 import fr.triobin.workshop.popups.CreateOperationPopup;
 
 import javafx.scene.Cursor;
@@ -24,10 +28,12 @@ import javafx.collections.ObservableList;
 
 public class ProductDetails extends StackPane {
 
-    private final ObservableList<String> operations;
+    private final ObservableList<String> operations = FXCollections.observableArrayList();
+    private Product product;
 
-    public ProductDetails(Object product) {
+    public ProductDetails(Product product) {
         super();
+        this.product = product;
 
         VBox content = new VBox();
         content.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
@@ -35,7 +41,10 @@ public class ProductDetails extends StackPane {
         content.setSpacing(10);
         content.setPadding(new Insets(10));
 
-        operations = FXCollections.observableArrayList("Opération A", "Opération B", "Opération C");
+        product.getOperations().forEach(op -> {
+            operations.add(op.getName());
+        });
+
         ListView<String> listView = new ListView<>(operations);
         listView.setPrefHeight(400);
 
@@ -129,6 +138,18 @@ public class ProductDetails extends StackPane {
                 deleteZone.setVisible(false);
                 deleteZone.setMouseTransparent(true);
                 draggedItem = null;
+
+                // Save the changes to the product
+                OPList newOpList = new OPList(new ArrayList<>());
+                operations.forEach(opName -> {
+                    Memory.currentWorkshop.getOperations().forEach(op -> {
+                        if (op.getName().equals(opName)) {
+                            newOpList.addOperation(op);
+                        }
+                    });
+                });
+
+                product.setOperations(newOpList);
             });
 
             cell.setOnDragOver(event -> {
@@ -145,12 +166,14 @@ public class ProductDetails extends StackPane {
                     int draggedIdx = listView.getItems().indexOf(db.getString());
                     int thisIdx = cell.getIndex();
 
-                    if (draggedIdx != thisIdx) {
+                    if (draggedIdx != -1 && thisIdx != -1 && draggedIdx != thisIdx) {
                         String dragged = listView.getItems().remove(draggedIdx);
                         if (thisIdx > draggedIdx)
-                            thisIdx--;
-                        listView.getItems().add(thisIdx, dragged);
-                        listView.getSelectionModel().select(thisIdx);
+                            thisIdx--; // éviter le décalage après suppression
+                        if (thisIdx >= 0 && thisIdx <= listView.getItems().size()) {
+                            listView.getItems().add(thisIdx, dragged);
+                            listView.getSelectionModel().select(thisIdx);
+                        }
                     }
                     event.setDropCompleted(true);
                     event.consume();
@@ -175,7 +198,7 @@ public class ProductDetails extends StackPane {
         });
 
         deleteZone.setOnDragDropped(event -> {
-            if (draggedItem != null) {
+            if (draggedItem != null && listView.getItems().contains(draggedItem)) {
                 listView.getItems().remove(draggedItem);
             }
             event.setDropCompleted(true);
