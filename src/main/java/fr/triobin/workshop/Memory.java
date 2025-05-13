@@ -8,6 +8,7 @@ public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();
     public static Workshop currentWorkshop = null;
     public static Operator currentOperator = null;
+    public static Boolean confimation = false;
 
     public static void fakeLoad() {
         Workshop workshop1 = new Workshop("Atelier 1");

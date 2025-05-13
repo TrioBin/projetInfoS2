@@ -140,4 +140,8 @@ public class Workshop {
     public void removeMachineRef(RefMachine machine) {
         machinesRef.remove(machine);
     }
+
+    public void removeOperator(Operator operator) {
+        operators.remove(operator);
+    }
 }

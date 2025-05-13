@@ -28,7 +28,7 @@ public class OperatorDetails extends VBox {
         this.setPrefWidth(700);
 
         // Titre
-        Label title = new Label(operator.getName() + " " + operator.getSurname());
+        Label title = new Label(operator.getName() + " " + operator.getSurname() + " - " + operator.getCode());
         title.setFont(Font.font(20));
         title.setMaxWidth(Double.MAX_VALUE);
         title.setStyle("-fx-alignment: center;-fx-background-color: #f4c16b;");
@@ -67,11 +67,35 @@ public class OperatorDetails extends VBox {
         Button renameBtn = new Button("Renommer");
         renameBtn.setStyle("-fx-background-color: #fff5dc;");
 
+        renameBtn.setOnAction(event -> {
+            // Create a modal
+            Modal dialog = new Modal(App.getInstance().stage, new RenameOperatorPopup());
+            dialog.onClose(closeEvent -> {
+                ((MainVue) App.getStage().getScene()).changePanel(new OperatorPanel());
+            });
+        });
+
         Button deleteBtn = new Button("Supprimer");
         deleteBtn.setStyle("-fx-background-color: #f26c64;");
 
+        deleteBtn.setOnAction(event -> {
+            // Create a modal
+            Modal dialog = new Modal(App.getInstance().stage, new RemoveConfirmationPopup());
+            dialog.onClose(closeEvent -> {
+                if (Memory.confimation) {
+                    Memory.currentWorkshop.removeOperator(operator);
+                    ((MainVue) App.getStage().getScene()).changePanel(new OperatorPanel());
+                }
+            });
+        });
+
         Button resetBtn = new Button("Reinitialiser MDP");
         optionsBox.getChildren().addAll(optionLabel, renameBtn, deleteBtn, resetBtn);
+
+        resetBtn.setOnAction(event -> {
+            // Create a modal
+            Modal dialog = new Modal(App.getInstance().stage, new ResetPasswordPopup());
+        });
 
         // Coût horaire
         VBox costBox = new VBox();

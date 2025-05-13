@@ -76,4 +76,12 @@ public class Operator {
     public void removeSkill(RefMachine skill) {
         this.skills.remove(skill);
     }
+
+    public void setCode(String code) {
+        this.code = code;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
 }

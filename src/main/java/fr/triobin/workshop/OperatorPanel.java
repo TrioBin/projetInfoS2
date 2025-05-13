@@ -33,7 +33,8 @@ public class OperatorPanel extends CustomPanel {
         leftPane.getChildren().add(titleButton);
 
         Memory.currentWorkshop.getOperators().forEach(operator -> {
-            Button operatorButton = new Button(operator.getName()+" "+operator.getSurname());
+            Button operatorButton = new Button(
+                    operator.getName() + " " + operator.getSurname() + " - " + operator.getCode());
             operatorButton.setMaxWidth(Double.MAX_VALUE);
             leftPane.getChildren().add(operatorButton);
 
@@ -46,13 +47,14 @@ public class OperatorPanel extends CustomPanel {
         addButton.setMaxWidth(Double.MAX_VALUE);
 
         addButton.setOnAction(event -> {
-            //Create a modal
+            // Create a modal
             Modal dialog = new Modal(this.stage, new CreateOperatorPopup());
             dialog.onClose(closeEvent -> {
                 ((VBox) this.getChildren().get(0)).getChildren().clear();
                 ((VBox) this.getChildren().get(0)).getChildren().add(titleButton);
                 Memory.currentWorkshop.getOperators().forEach(operator -> {
-                    Button operatorButton = new Button(operator.getName()+" "+operator.getSurname());
+                    Button operatorButton = new Button(
+                            operator.getName() + " " + operator.getSurname() + " - " + operator.getCode());
                     operatorButton.setMaxWidth(Double.MAX_VALUE);
                     ((VBox) this.getChildren().get(0)).getChildren().add(operatorButton);
                 });

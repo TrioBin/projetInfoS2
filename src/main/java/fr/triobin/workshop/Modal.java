@@ -18,11 +18,13 @@ public class Modal {
         this.stage.setScene(scene);
         scene.onload(this.stage);
         this.stage.show();
+        this.stage.setOnHidden(e -> {
+            this.owner.setOpacity(1);
+        });
     }
 
     public void onClose(Consumer<Object> callback) {
         this.stage.setOnHidden(e -> {
-            this.owner.setOpacity(1);
             callback.accept(null);
         });
     }

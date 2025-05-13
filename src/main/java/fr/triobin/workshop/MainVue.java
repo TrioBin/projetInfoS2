@@ -115,6 +115,12 @@ public class MainVue extends CustomScene {
         root.getChildren().addAll(topBar, mainContent[0]);
     }
 
+    public void changePanel(CustomPanel newPanel) {
+        VBox root = (VBox) getRoot();
+        newPanel.onload(App.stage);
+        root.getChildren().set(1, newPanel);
+    }
+
     @Override
     public void onload(Stage stage) {
         stage.initStyle(StageStyle.UNDECORATED);
