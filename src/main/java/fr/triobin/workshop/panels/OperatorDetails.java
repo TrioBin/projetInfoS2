@@ -5,6 +5,7 @@ import fr.triobin.workshop.MainVueScene;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.Modal;
+import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.popups.AddSkillOperatorPopup;
 import fr.triobin.workshop.popups.RemoveConfirmationPopup;
@@ -13,6 +14,7 @@ import fr.triobin.workshop.popups.ResetPasswordPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.layout.Background;
 import javafx.scene.layout.BackgroundFill;
@@ -58,13 +60,16 @@ public class OperatorDetails extends VBox {
         statusLabel.setStyle(
                 "-fx-background-color: #dcdcdc; -fx-padding: 5; -fx-effect: dropshadow(gaussian, gray, 2, 0.5, 1, 1);");
 
-        HBox statuses = new HBox(10);
-        statuses.getChildren().addAll(
-                createStatusBox(Color.LIGHTGREEN),
-                createStatusBox(Color.ORANGE),
-                createStatusBox(Color.RED));
+        // Create a ComboBox for selecting the machine status
+        ComboBox<Operator.OperatorStatus> statusComboBox = new ComboBox<>();
+        statusComboBox.getItems().addAll(Operator.OperatorStatus.values());
+        statusComboBox.setValue(operator.getStatus()); // Set the current status
+        statusComboBox.setOnAction(event -> {
+            Operator.OperatorStatus selectedStatus = statusComboBox.getValue();
+            operator.modify(selectedStatus); // Update the machine's status
+        });
 
-        statusBox.getChildren().addAll(statusLabel, statuses);
+        statusBox.getChildren().addAll(statusLabel, statusComboBox);
 
         // Options
         VBox optionsBox = new VBox(5);

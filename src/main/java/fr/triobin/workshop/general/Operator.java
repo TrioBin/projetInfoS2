@@ -20,7 +20,7 @@ public class Operator {
     }
 
     public enum OperatorStatus {
-        AVAILABLE, BUSY, BREAK
+        LIBRE, EN_PAUSE, TRAVAILLANT, BREAK
     }
 
     public void print() {
