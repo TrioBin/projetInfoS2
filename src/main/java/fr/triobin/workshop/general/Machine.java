@@ -65,4 +65,8 @@ public class Machine {
     public String getName() {
         return dmachine;
     }
+
+    public MachineStatus getStatus() {
+        return status;
+    }
 }

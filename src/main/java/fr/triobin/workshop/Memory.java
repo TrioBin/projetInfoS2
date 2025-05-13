@@ -1,9 +1,14 @@
 package fr.triobin.workshop;
 
 import java.util.ArrayList;
+import java.util.Collections;
 
+import fr.triobin.workshop.general.Machine.MachineStatus;
+import fr.triobin.workshop.general.Cost;
+import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Position;
+import fr.triobin.workshop.general.RefMachine;
 import fr.triobin.workshop.general.Workshop;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
@@ -17,26 +22,22 @@ public class Memory {
 
     public static void fakeLoad() {
         Workshop workshop1 = new Workshop("Atelier 1");
-        Workshop workshop2 = new Workshop("Atelier 2");
 
         Memory.workshops.add(workshop1);
-        Memory.workshops.add(workshop2);
 
-        workshop1.add(new Workstation("Poste 1", "Poste 1", new Position(0, 0), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 2", "Poste 2", new Position(0, 1), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 3", "Poste 3", new Position(0, 2), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 4", "Poste 4", new Position(0, 3), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 5", "Poste 5", new Position(0, 4), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 6", "Poste 6", new Position(0, 5), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 7", "Poste 7", new Position(0, 6), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 8", "Poste 8", new Position(0, 7), new ArrayList<>()));
-        workshop1.add(new Workstation("Poste 9", "Poste 9", new Position(0, 8), new ArrayList<>()));
+        Workstation workstation1 = new Workstation("Poste 1", "Poste 1", new Position(0, 0), new ArrayList<>());
+
+        workshop1.add(workstation1);
+
+        RefMachine refMachine1 = new RefMachine("RefMachine 1");
+
+        workshop1.addMachineRef(refMachine1);
+
+        workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Cost(0), new ArrayList<>(),
+                MachineStatus.AVAILABLE));
 
         workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.AVAILABLE, ""));
         workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.AVAILABLE, ""));
         workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.AVAILABLE, ""));
-
-        workshop2.add(new Workstation("Poste 1", "Poste 3", new Position(1, 0), new ArrayList<>()));
-        workshop2.add(new Workstation("Poste 2", "Poste 4", new Position(1, 1), new ArrayList<>()));
     }
 }

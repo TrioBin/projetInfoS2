@@ -4,6 +4,7 @@ import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.CustomScene;
 import fr.triobin.workshop.panels.OperatorPanel;
+import fr.triobin.workshop.panels.ProductPanel;
 import fr.triobin.workshop.panels.WorkshopPanel;
 import fr.triobin.workshop.panels.WorkstationPanel;
 import javafx.geometry.Insets;
@@ -82,7 +83,7 @@ public class MainVueScene extends CustomScene {
 
         topBar.getChildren().addAll(
                 fileMenu, backButton,
-                tab1, tab2, tab3,
+                tab1, tab2, tab3, tab4,
                 spacer,
                 closeButton);
 
@@ -112,7 +113,7 @@ public class MainVueScene extends CustomScene {
 
         tab4.setOnAction(e -> {
             // remplace mainContent par le panneau de produits
-            //mainContent[0] = new ProductPanel();
+            mainContent[0] = new ProductPanel();
             mainContent[0].onload(App.stage);
             root.getChildren().set(1, mainContent[0]); // Update the displayed content
         });

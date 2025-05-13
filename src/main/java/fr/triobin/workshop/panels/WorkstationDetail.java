@@ -30,7 +30,7 @@ import javafx.scene.text.Font;
 import javafx.scene.text.Text;
 import javafx.stage.Stage;
 
-public class WorkstationDetail extends VBox {
+public class WorkstationDetail extends HBox {
     public WorkstationDetail(Workstation workstation) {
         super(10);
 
