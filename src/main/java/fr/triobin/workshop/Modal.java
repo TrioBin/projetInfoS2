@@ -19,7 +19,7 @@ public class Modal {
         scene.onload(this.stage);
         this.stage.show();
     }
-    
+
     public void onClose(Consumer<Object> callback) {
         this.stage.setOnHidden(e -> {
             this.owner.setOpacity(1);

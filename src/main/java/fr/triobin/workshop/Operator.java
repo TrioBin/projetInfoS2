@@ -52,4 +52,28 @@ public class Operator {
     public String getSurname() {
         return this.surname;
     }
+
+    public String getCode() {
+        return this.code;
+    }
+
+    public ArrayList<RefMachine> getSkills() {
+        return this.skills;
+    }
+
+    public OperatorStatus getStatus() {
+        return this.status;
+    }
+
+    public String getPassword() {
+        return this.password;
+    }
+
+    public void addSkill(RefMachine skill) {
+        this.skills.add(skill);
+    }
+
+    public void removeSkill(RefMachine skill) {
+        this.skills.remove(skill);
+    }
 }

@@ -13,6 +13,16 @@ public class CustomCapacities {
         element.setOnMouseExited(e -> element.setCursor(Cursor.DEFAULT));
     }
 
+    public static void hoverStrikethroughEffect(Node element) {
+        element.setOnMouseEntered(e -> element.setStyle("-fx-strikethrough: true;"));
+        element.setOnMouseExited(e -> element.setStyle("-fx-strikethrough: false;"));
+    }
+
+    public static void hoverStrikethroughEffect(Node element, Node hoverElement) {
+        hoverElement.setOnMouseEntered(e -> element.setStyle("-fx-strikethrough: true;"));
+        hoverElement.setOnMouseExited(e -> element.setStyle("-fx-strikethrough: false;"));
+    }
+
     public static void dragZoneEffect(Stage stage, Node element) {
         element.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

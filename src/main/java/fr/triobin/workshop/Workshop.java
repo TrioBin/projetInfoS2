@@ -7,6 +7,8 @@ public class Workshop {
     private ArrayList<Workstation> workstations;
     private ArrayList<Product> products;
     private ArrayList<Operator> operators;
+    private ArrayList<RefMachine> machinesRef;
+    private ArrayList<Operation> operations;
     private ArrayList<Goal> goals;
 
     private ArrayList<SpecializedGoal> actualGoals;
@@ -18,6 +20,7 @@ public class Workshop {
         this.operators = new ArrayList<>();
         this.goals = new ArrayList<>();
         this.actualGoals = new ArrayList<>();
+        this.machinesRef = new ArrayList<>();
     }
 
     public void add(Workstation workstation) {
@@ -124,5 +127,17 @@ public class Workshop {
             }
         }
         return null;
+    }
+
+    public ArrayList<RefMachine> getMachinesRef() {
+        return machinesRef;
+    }
+
+    public void addMachineRef(RefMachine machine) {
+        machinesRef.add(machine);
+    }
+
+    public void removeMachineRef(RefMachine machine) {
+        machinesRef.remove(machine);
     }
 }

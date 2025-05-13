@@ -7,6 +7,7 @@ import fr.triobin.workshop.Operator.OperatorStatus;
 public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();
     public static Workshop currentWorkshop = null;
+    public static Operator currentOperator = null;
 
     public static void fakeLoad() {
         Workshop workshop1 = new Workshop("Atelier 1");

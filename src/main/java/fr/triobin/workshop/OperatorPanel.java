@@ -17,6 +17,11 @@ public class OperatorPanel extends CustomPanel {
         this.setPadding(new Insets(0));
         this.setStyle("-fx-background-color: white;");
 
+        // Partie droite (grande zone grise)
+        Pane rightPane = new Pane();
+        rightPane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
+        HBox.setHgrow(rightPane, Priority.ALWAYS);
+
         // Partie gauche (zone orangée)
         VBox leftPane = new VBox(10);
         leftPane.setPadding(new Insets(20));
@@ -31,6 +36,11 @@ public class OperatorPanel extends CustomPanel {
             Button operatorButton = new Button(operator.getName()+" "+operator.getSurname());
             operatorButton.setMaxWidth(Double.MAX_VALUE);
             leftPane.getChildren().add(operatorButton);
+
+            operatorButton.setOnAction(event -> {
+                rightPane.getChildren().clear();
+                rightPane.getChildren().add(new OperatorDetails(operator));
+            });
         });
         Button addButton = new Button("+");
         addButton.setMaxWidth(Double.MAX_VALUE);
@@ -51,11 +61,6 @@ public class OperatorPanel extends CustomPanel {
         });
 
         leftPane.getChildren().add(addButton);
-
-        // Partie droite (grande zone grise)
-        Pane rightPane = new Pane();
-        rightPane.setStyle("-fx-background-color: lightgray; -fx-border-color: black;");
-        HBox.setHgrow(rightPane, Priority.ALWAYS);
 
         this.getChildren().addAll(leftPane, rightPane);
     }
