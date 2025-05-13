@@ -9,8 +9,8 @@ public class Workshop {
     private ArrayList<Workstation> workstations;
     private ArrayList<Product> products;
     private ArrayList<Operator> operators;
-    private ArrayList<RefMachine> machinesRef;
-    private ArrayList<Operation> operations;
+    private ArrayList<RefMachine> machinesRef = new ArrayList<>();
+    private ArrayList<Operation> operations = new ArrayList<>();
     private ArrayList<Goal> goals;
 
     private ArrayList<SpecializedGoal> actualGoals;
@@ -149,5 +149,21 @@ public class Workshop {
 
     public void removeWorkstation(Workstation workstation) {
         workstations.remove(workstation);
+    }
+
+    public ArrayList<Operation> getOperations() {
+        return operations;
+    }
+
+    public void setOperations(ArrayList<Operation> operations) {
+        this.operations = operations;
+    }
+
+    public void addOperation(Operation operation) {
+        this.operations.add(operation);
+    }
+
+    public void removeOperation(Operation operation) {
+        this.operations.remove(operation);
     }
 }

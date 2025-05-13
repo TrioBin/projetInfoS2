@@ -82,7 +82,7 @@ public class CreateOperatorPopup extends CustomScene {
                         System.out.println("Poste créé : " + reference.getText());
                         Memory.currentWorkshop.add(
                                         new Operator(reference.getText(), name.getText(), surname.getText(),
-                                                        new ArrayList<>(), OperatorStatus.AVAILABLE,
+                                                        new ArrayList<>(), OperatorStatus.LIBRE,
                                                         password.getText()));
                         this.stage.close();
                 });
