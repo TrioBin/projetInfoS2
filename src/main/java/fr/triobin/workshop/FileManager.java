@@ -7,6 +7,8 @@ import java.util.ArrayList;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 
+import fr.triobin.workshop.general.Workshop;
+
 public class FileManager {
     public static ArrayList<Workshop> loadFile() {
         ObjectMapper mapper = new ObjectMapper();

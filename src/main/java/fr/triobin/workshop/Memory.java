@@ -2,7 +2,11 @@ package fr.triobin.workshop;
 
 import java.util.ArrayList;
 
-import fr.triobin.workshop.Operator.OperatorStatus;
+import fr.triobin.workshop.general.Operator;
+import fr.triobin.workshop.general.Position;
+import fr.triobin.workshop.general.Workshop;
+import fr.triobin.workshop.general.Workstation;
+import fr.triobin.workshop.general.Operator.OperatorStatus;
 
 public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();

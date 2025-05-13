@@ -15,6 +15,12 @@ import javafx.stage.Stage;
 
 import java.util.function.Consumer;
 
+import fr.triobin.workshop.customgui.CustomCapacities;
+import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.Modal;
+import fr.triobin.workshop.general.Workshop;
+import fr.triobin.workshop.popups.CreateWorkshopPopup;
+
 public class SelectScene extends CustomScene {
     Stage stage;
 
@@ -75,7 +81,7 @@ public class SelectScene extends CustomScene {
 
             // get App instance and change window
             App app = App.getInstance();
-            app.changeWindow(new MainVue());
+            app.changeWindow(new MainVueScene());
         });
 
         return box;
