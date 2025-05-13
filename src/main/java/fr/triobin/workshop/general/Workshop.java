@@ -146,4 +146,8 @@ public class Workshop {
     public void removeOperator(Operator operator) {
         operators.remove(operator);
     }
+
+    public void removeWorkstation(Workstation workstation) {
+        workstations.remove(workstation);
+    }
 }

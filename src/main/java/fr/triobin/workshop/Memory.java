@@ -12,6 +12,7 @@ public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();
     public static Workshop currentWorkshop = null;
     public static Operator currentOperator = null;
+    public static Workstation currentWorkstation = null;
     public static Boolean confimation = false;
 
     public static void fakeLoad() {

@@ -48,4 +48,8 @@ public class Workstation {
     public String getRefWorkstation() {
         return refWorkstation;
     }
+
+    public ArrayList<Machine> getMachines() {
+        return machines;
+    }
 }

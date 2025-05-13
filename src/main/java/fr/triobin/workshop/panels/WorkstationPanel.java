@@ -4,6 +4,7 @@ import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.popups.CreateOperatorPopup;
+import fr.triobin.workshop.popups.CreateWorkstationPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -51,7 +52,7 @@ public class WorkstationPanel extends CustomPanel {
 
         addButton.setOnAction(event -> {
             // Create a modal
-            Modal dialog = new Modal(this.stage, new CreateOperatorPopup());
+            Modal dialog = new Modal(this.stage, new CreateWorkstationPopup());
             dialog.onClose(closeEvent -> {
                 ((VBox) this.getChildren().get(0)).getChildren().clear();
                 ((VBox) this.getChildren().get(0)).getChildren().add(titleButton);

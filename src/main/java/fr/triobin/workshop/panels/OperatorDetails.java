@@ -135,11 +135,20 @@ public class OperatorDetails extends VBox {
 
         rightPane.getChildren().add(machineActionLabel);
 
-        operator.getSkills().forEach(machine -> {
-            Button action = new Button(machine.getName());
-            action.setStyle("-fx-background-color: #fff5dc;");
-            action.setMaxWidth(Double.MAX_VALUE);
-            rightPane.getChildren().add(action);
+        operator.getSkills().forEach(refMachine -> {
+            HBox actionBox = new HBox(10);
+            Text action = new Text(refMachine.getName());
+            CustomCapacities.hoverStrikethroughEffect(action, actionBox);
+            actionBox.setStyle("-fx-background-color: #fff5dc;");
+            actionBox.setMaxWidth(Double.MAX_VALUE);
+            actionBox.setAlignment(Pos.CENTER);
+            actionBox.getChildren().add(action);
+            rightPane.getChildren().add(actionBox);
+
+            actionBox.setOnMouseClicked(e -> {
+                operator.removeSkill(refMachine);
+                rightPane.getChildren().remove(actionBox);
+            });
         });
 
         Button addAction = new Button("+");
