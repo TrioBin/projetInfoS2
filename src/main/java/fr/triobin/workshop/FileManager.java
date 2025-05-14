@@ -18,6 +18,8 @@ import fr.triobin.workshop.general.OPList;
 import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Position;
+import fr.triobin.workshop.general.Operator;
+import fr.triobin.workshop.general.Operator.OperatorStatus;
 
 public class FileManager {
     static final String[] loadOrder = { "workshop", "refmachine", "operation", "machine", "workstation", "operator" };
@@ -34,6 +36,9 @@ public class FileManager {
             while ((line = reader.readLine()) != null) {
                 if (line.equals(separation)) {
                     lineIndex++;
+                    if (lineIndex >= loadOrder.length) {
+                        lineIndex = 0;
+                    }
                     continue;
                 }
                 String[] parts = line.split(separator);
@@ -72,8 +77,14 @@ public class FileManager {
                                 new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])), machines));
                         break;
                     case "operator":
+                        ArrayList<RefMachine> skillsList = new ArrayList<>();
+                        parts[3] = parts[3].replace("[", "").replace("]", "");
+                        String[] skills = parts[3].split(listSeparator);
+                        for (String skill : skills) {
+                            skillsList.add(workshops.get(workshops.size() - 1).getMachineRef(skill));
+                        }
                         workshops.get(workshops.size() - 1).add(new Operator(parts[0], parts[1], parts[2],
-                                new ArrayList<>(), OperatorStatus.valueOf(parts[3]), parts[4]));
+                                skillsList, OperatorStatus.valueOf(parts[4]), parts[5]));
                         break;
                 }
             }
@@ -85,12 +96,66 @@ public class FileManager {
     }
 
     public static void saveFile(ArrayList<Workshop> workshops) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops.txt"))) {
-            String json = "[\n";
-            workshops.forEach(workshop -> {
-                System.out.println(workshop);
-            });
-
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops2.txt"))) {
+            String text = "";
+            for (Workshop workshop : workshops) {
+                text += workshop.getDesignation() + "\n";
+                text += separation + "\n";
+                for (RefMachine refMachine : workshop.getMachinesRef()) {
+                    text += refMachine.getName() + "\n";
+                }
+                text += separation + "\n";
+                for (Operation operation : workshop.getOperations()) {
+                    text += operation.getName() + "," + operation.getTime().toString() + "\n";
+                }
+                text += separation + "\n";
+                for (Machine machine : workshop.getMachines()) {
+                    String operations = "[";
+                    for (Operation operation : machine.getOperations()) {
+                        operations += operation.getName() + listSeparator;
+                    }
+                    if (operations.length() > 1) {
+                        operations = operations.substring(0, operations.length() - 1);
+                    }
+                    operations += "]";
+                    text += machine.getRefMachine().getName() + "," + machine.getName() + ","
+                            + machine.getPosition().x + "," + machine.getPosition().y + "," + machine.getCost().getCost()
+                            + "," + operations + "," + machine.getStatus() + "\n";
+                }
+                text += separation + "\n";
+                for (Workstation workstation : workshop.getWorkstations()) {
+                    String machines = "[";
+                    for (Machine machine : workstation.getMachines()) {
+                        machines += machine.getName() + listSeparator;
+                    }
+                    if (machines.length() > 1) {
+                        machines = machines.substring(0, machines.length() - 1);
+                    }
+                    machines += "]";
+                    text += workstation.getRefWorkstation() + "," + workstation.getDworkstation() + ","
+                            + workstation.getPosition().x + "," + workstation.getPosition().y
+                            + "," + machines + "\n";
+                }
+                text += separation + "\n";
+                for (Operator operator : workshop.getOperators()) {
+                    String skills = "[";
+                    for (RefMachine skill : operator.getSkills()) {
+                        skills += skill.getName() + listSeparator;
+                    }
+                    if (skills.length() > 1) {
+                        skills = skills.substring(0, skills.length() - 1);
+                    }
+                    skills += "]";
+                    text += operator.getCode() + "," + operator.getName() + "," + operator.getSurname() + ","
+                            + skills + "," + operator.getStatus() + "," +
+                            operator.getPassword() +
+                            "\n";
+                }
+                text += separation + "\n";
+            }
+            text = text.substring(0, text.length() - 2 - separation.length());
+            System.out.println(text);
+            writer.write(text);
         } catch (IOException e) {
             e.printStackTrace();
         }

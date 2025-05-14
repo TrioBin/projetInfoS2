@@ -25,8 +25,8 @@ public class Memory {
     public static Boolean confimation = false;
 
     public static void saveFile() {
-        System.out.println("Saving file...");
-        //FileManager.saveFile(workshops);
+        //System.out.println("Saving file...");
+        //FileManager.saveFile(Memory.workshops);
     }
 
     public static void fakeLoad() {

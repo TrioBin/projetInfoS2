@@ -58,4 +58,12 @@ public class Workstation {
     public ArrayList<Machine> getMachines() {
         return machines;
     }
+
+    public String getDworkstation() {
+        return dworkstation;
+    }
+
+    public Position getPosition() {
+        return position;
+    }
 }

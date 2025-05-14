@@ -87,4 +87,12 @@ public class Machine {
     public Cost getCost() {
         return c;
     }
+
+    public Position getPosition() {
+        return position;
+    }
+
+    public RefMachine getRefMachine() {
+        return refMachine;
+    }
 }
