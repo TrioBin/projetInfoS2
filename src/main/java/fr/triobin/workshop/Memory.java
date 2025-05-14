@@ -54,7 +54,7 @@ public class Memory {
         Product product1 = new Product("Produit 1", "Description 1", opList1);
         workshop1.add(product1);
 
-        workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, ""));
+        workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, "12345"));
         workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.LIBRE, ""));
         workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, ""));
 
