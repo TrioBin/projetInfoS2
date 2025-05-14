@@ -23,6 +23,11 @@ public class Memory {
     public static Workstation currentWorkstation = null;
     public static Boolean confimation = false;
 
+    public static void saveFile() {
+        System.out.println("Saving file...");
+        FileManager.saveFile(workshops);
+    }
+
     public static void fakeLoad() {
         Workshop workshop1 = new Workshop("Atelier 1");
 

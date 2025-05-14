@@ -2,6 +2,8 @@ package fr.triobin.workshop.general;
 
 import java.util.ArrayList;
 
+import fr.triobin.workshop.Memory;
+
 public class OPList implements Iterable<Operation> {
     private ArrayList<Operation> operations;
 
@@ -12,6 +14,7 @@ public class OPList implements Iterable<Operation> {
 
     public OPList(ArrayList<Operation> operations) {
         this.operations = operations;
+        Memory.saveFile();
     }
 
     public void print() {
@@ -23,13 +26,16 @@ public class OPList implements Iterable<Operation> {
 
     public void modifier(ArrayList<Operation> operations) {
         this.operations = operations;
+        Memory.saveFile();
     }
 
     public void addOperation(Operation operation) {
         operations.add(operation);
+        Memory.saveFile();
     }
 
     public void removeOperation(Integer operation) {
         operations.remove(operation);
+        Memory.saveFile();
     }
 }

@@ -2,6 +2,7 @@ package fr.triobin.workshop.customgui;
 
 import javafx.scene.Cursor;
 import javafx.scene.Node;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class CustomCapacities {
@@ -21,6 +22,14 @@ public class CustomCapacities {
     public static void hoverStrikethroughEffect(Node element, Node hoverElement) {
         hoverElement.setOnMouseEntered(e -> element.setStyle("-fx-strikethrough: true;"));
         hoverElement.setOnMouseExited(e -> element.setStyle("-fx-strikethrough: false;"));
+    }
+
+    public static void forceFloatTextFieldEffect(TextField element) {
+        element.textProperty().addListener((observable, oldValue, newValue) -> {
+            if (!newValue.matches("\\d*[.,]?\\d*")) {
+                element.setText(oldValue); // Revenir à l'ancienne valeur si la nouvelle est invalide
+            }
+        });
     }
 
     public static void dragZoneEffect(Stage stage, Node element) {

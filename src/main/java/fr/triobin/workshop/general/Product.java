@@ -1,5 +1,7 @@
 package fr.triobin.workshop.general;
 
+import fr.triobin.workshop.Memory;
+
 public class Product {
     private String productCode;
     private String dProduct;
@@ -9,6 +11,7 @@ public class Product {
         this.productCode = productCode;
         this.dProduct = dProduct;
         this.operations = operations;
+        Memory.saveFile();
     }
 
     public void print() {
@@ -18,10 +21,12 @@ public class Product {
     
     public void modifier(OPList operation) {
         this.operations = operation;
+        Memory.saveFile();
     }
 
     public void remove(){
         operations.removeOperation(0);
+        Memory.saveFile();
     }
 
     public String getName() {
@@ -38,5 +43,6 @@ public class Product {
 
     public void setOperations(OPList operations) {
         this.operations = operations;
+        Memory.saveFile();
     }
 }

@@ -17,9 +17,11 @@ public class FileManager {
     }
 
     public static void saveFile(ArrayList<Workshop> workshop) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops.csv"))) {
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops.json"))) {
             ObjectMapper mapper = new ObjectMapper();
             String json = mapper.writeValueAsString(workshop);
+            writer.write(json);
+            writer.flush();
         } catch (IOException e) {
             e.printStackTrace();
         }

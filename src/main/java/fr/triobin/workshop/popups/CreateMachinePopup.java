@@ -3,6 +3,7 @@ package fr.triobin.workshop.popups;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Cost;
@@ -83,16 +84,8 @@ public class CreateMachinePopup extends CustomScene {
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
         // Force X et Y à être des nombres décimaux avec 1 seule virgule ou point
-        x.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*[.,]?\\d*")) {
-                x.setText(oldValue); // Revenir à l'ancienne valeur si la nouvelle est invalide
-            }
-        });
-        y.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*[.,]?\\d*")) {
-                y.setText(oldValue); // Revenir à l'ancienne valeur si la nouvelle est invalide
-            }
-        });
+        CustomCapacities.forceFloatTextFieldEffect(x);
+        CustomCapacities.forceFloatTextFieldEffect(y);
 
         HBox position = new HBox(10);
         position.getChildren().addAll(x, y);
@@ -101,11 +94,7 @@ public class CreateMachinePopup extends CustomScene {
         TextField coutHoraire = new TextField();
         coutHoraire.setPromptText("Coût horaire");
         coutHoraire.setPrefWidth(250);
-        coutHoraire.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*[.,]?\\d*")) {
-                y.setText(oldValue); // Revenir à l'ancienne valeur si la nouvelle est invalide
-            }
-        });
+        CustomCapacities.forceFloatTextFieldEffect(coutHoraire);
 
         // Bouton « Créer »
         Button btnCreer = new Button("Créer");

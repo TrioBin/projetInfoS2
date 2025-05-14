@@ -2,6 +2,8 @@ package fr.triobin.workshop.general;
 
 import java.util.ArrayList;
 
+import fr.triobin.workshop.Memory;
+
 public class Workstation {
     private String refWorkstation;
     private String dworkstation;
@@ -13,6 +15,7 @@ public class Workstation {
         this.dworkstation = dworkstation;
         this.position = position;
         this.machines = machines;
+        Memory.saveFile();
     }
 
     public void print() {
@@ -34,15 +37,18 @@ public class Workstation {
 
     public void addMachine(Machine m) {
         machines.add(m);
+        Memory.saveFile();
     }
 
     public void removeMachine(Machine m) {
         machines.remove(m);
+        Memory.saveFile();
     }
 
     public void changeMachine(Machine m, Machine newM) {
         int index = machines.indexOf(m);
         machines.set(index, newM);
+        Memory.saveFile();
     }
 
     public String getRefWorkstation() {

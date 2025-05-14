@@ -2,6 +2,8 @@ package fr.triobin.workshop.general;
 
 import java.util.ArrayList;
 
+import fr.triobin.workshop.Memory;
+
 public class GeneralGoal extends Goal {
     private Product product;
     private int quantity;
@@ -9,6 +11,7 @@ public class GeneralGoal extends Goal {
     public GeneralGoal(Product product, int quantity) {
         this.product = product;
         this.quantity = quantity;
+        Memory.saveFile();
     }
 
     @Override

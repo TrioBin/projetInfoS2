@@ -2,17 +2,28 @@ package fr.triobin.workshop.general;
 
 import java.util.ArrayList;
 
+import com.fasterxml.jackson.annotation.JsonProperty;
+
+import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.NonFinishedProduct.ProductStatus;
 
 public class Workshop {
+    @JsonProperty
     private String designation;
+    @JsonProperty
     private ArrayList<Workstation> workstations;
+    @JsonProperty
     private ArrayList<Product> products;
+    @JsonProperty
     private ArrayList<Operator> operators;
+    @JsonProperty
     private ArrayList<RefMachine> machinesRef = new ArrayList<>();
+    @JsonProperty
     private ArrayList<Operation> operations = new ArrayList<>();
+    @JsonProperty
     private ArrayList<Goal> goals;
 
+    @JsonProperty
     private ArrayList<SpecializedGoal> actualGoals;
 
     public Workshop(String designation) {
@@ -23,22 +34,27 @@ public class Workshop {
         this.goals = new ArrayList<>();
         this.actualGoals = new ArrayList<>();
         this.machinesRef = new ArrayList<>();
+        Memory.saveFile();
     }
 
     public void add(Workstation workstation) {
         workstations.add(workstation);
+        Memory.saveFile();
     }
 
     public void add(Product product) {
         products.add(product);
+        Memory.saveFile();
     }
 
     public void add(Operator operator) {
         operators.add(operator);
+        Memory.saveFile();
     }
 
     public void add(Goal goal) {
         goals.add(goal);
+        Memory.saveFile();
     }
 
     public void print() {
@@ -66,6 +82,7 @@ public class Workshop {
         int index = goals.indexOf(generalGoal);
         goals.remove(generalGoal);
         goals.addAll(index, specializedGoals);
+        Memory.saveFile();
     }
 
     public SpecializedGoal getNextGoal() {
@@ -100,6 +117,7 @@ public class Workshop {
     public void removeActualGoal(SpecializedGoal goal) {
         actualGoals.remove(goal);
         goal.getProduct().setStatus(NonFinishedProduct.ProductStatus.FREE);
+        Memory.saveFile();
     }
 
     public String getDesignation() {
@@ -137,18 +155,22 @@ public class Workshop {
 
     public void addMachineRef(RefMachine machine) {
         machinesRef.add(machine);
+        Memory.saveFile();
     }
 
     public void removeMachineRef(RefMachine machine) {
         machinesRef.remove(machine);
+        Memory.saveFile();
     }
 
     public void removeOperator(Operator operator) {
         operators.remove(operator);
+        Memory.saveFile();
     }
 
     public void removeWorkstation(Workstation workstation) {
         workstations.remove(workstation);
+        Memory.saveFile();
     }
 
     public ArrayList<Operation> getOperations() {
@@ -157,13 +179,16 @@ public class Workshop {
 
     public void setOperations(ArrayList<Operation> operations) {
         this.operations = operations;
+        Memory.saveFile();
     }
 
     public void addOperation(Operation operation) {
         this.operations.add(operation);
+        Memory.saveFile();
     }
 
     public void removeOperation(Operation operation) {
         this.operations.remove(operation);
+        Memory.saveFile();
     }
 }

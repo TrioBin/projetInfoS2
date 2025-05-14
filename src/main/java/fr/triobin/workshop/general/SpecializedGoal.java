@@ -1,5 +1,7 @@
 package fr.triobin.workshop.general;
 
+import fr.triobin.workshop.Memory;
+
 public class SpecializedGoal extends Goal {
     private Operation operation;
     private NonFinishedProduct product;
@@ -7,6 +9,7 @@ public class SpecializedGoal extends Goal {
     public SpecializedGoal(Operation operation, NonFinishedProduct product) {
         this.operation = operation;
         this.product = product;
+        Memory.saveFile();
     }
 
     @Override

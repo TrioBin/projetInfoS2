@@ -1,6 +1,9 @@
 package fr.triobin.workshop.general;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
+
+import fr.triobin.workshop.Memory;
 
 public class Machine {
     private RefMachine refMachine;
@@ -17,6 +20,7 @@ public class Machine {
         this.c = c;
         this.operations = operations;
         this.status = status;
+        Memory.saveFile();
     }
 
     public enum MachineStatus {
@@ -39,27 +43,37 @@ public class Machine {
 
     public void modify(Position position) {
         this.position = position;
+        Memory.saveFile();
     }
 
     public void modify(Cost c) {
         this.c = c;
+        Memory.saveFile();
     }
 
     public void modify(MachineStatus status) {
         this.status = status;
+        Memory.saveFile();
+    }
+
+    public ArrayList<Operation> getOperations() {
+        return operations;
     }
 
     public void addOperation(Operation o) {
         operations.add(o);
+        Memory.saveFile();
     }
 
     public void removeOperation(Operation o) {
         operations.remove(o);
+        Memory.saveFile();
     }
 
     public void changeOperation(Operation o, Operation newO) {
         int index = operations.indexOf(o);
         operations.set(index, newO);
+        Memory.saveFile();
     }
 
     public String getName() {
@@ -68,5 +82,9 @@ public class Machine {
 
     public MachineStatus getStatus() {
         return status;
+    }
+
+    public Cost getCost() {
+        return c;
     }
 }
