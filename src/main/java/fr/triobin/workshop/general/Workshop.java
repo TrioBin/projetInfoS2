@@ -12,6 +12,7 @@ public class Workshop {
     private ArrayList<Operator> operators;
     private ArrayList<RefMachine> machinesRef = new ArrayList<>();
     private ArrayList<Operation> operations = new ArrayList<>();
+    private ArrayList<Machine> machines = new ArrayList<>();
     private ArrayList<Goal> goals;
 
     private ArrayList<SpecializedGoal> actualGoals;
@@ -185,5 +186,46 @@ public class Workshop {
     public void removeOperation(Operation operation) {
         this.operations.remove(operation);
         Memory.saveFile();
+    }
+
+    public Operation getOperation(String name) {
+        for (Operation operation : operations) {
+            if (operation.getName().equals(name)) {
+                return operation;
+            }
+        }
+        return null;
+    }
+
+    public RefMachine getMachineRef(String name) {
+        for (RefMachine machine : machinesRef) {
+            if (machine.getName().equals(name)) {
+                return machine;
+            }
+        }
+        return null;
+    }
+
+    public ArrayList<Machine> getMachines() {
+        return machines;
+    }
+
+    public void add(Machine machine) {
+        machines.add(machine);
+        Memory.saveFile();
+    }
+
+    public void removeMachine(Machine machine) {
+        machines.remove(machine);
+        Memory.saveFile();
+    }
+
+    public Machine getMachine(String name) {
+        for (Machine machine : machines) {
+            if (machine.getName().equals(name)) {
+                return machine;
+            }
+        }
+        return null;
     }
 }
