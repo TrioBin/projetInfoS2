@@ -74,6 +74,17 @@ public class ProductDetails extends StackPane {
                 operations.add(selectedOp);
                 inputComboBox.getSelectionModel().clearSelection();
             }
+
+            OPList newOpList = new OPList(new ArrayList<>());
+            operations.forEach(opName -> {
+                Memory.currentWorkshop.getOperations().forEach(op -> {
+                    if (op.getName().equals(opName)) {
+                        newOpList.addOperation(op);
+                    }
+                });
+            });
+
+            product.setOperations(newOpList);
         });
 
         HBox controls = new HBox(10, inputComboBox, addButton);

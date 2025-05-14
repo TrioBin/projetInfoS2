@@ -2,7 +2,6 @@ package fr.triobin.workshop;
 
 import java.sql.Time;
 import java.util.ArrayList;
-import java.util.Collections;
 
 import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Cost;
