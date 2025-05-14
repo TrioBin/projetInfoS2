@@ -32,6 +32,12 @@ public class CustomCapacities {
         });
     }
 
+    public static void showElementWhenHoverEffect(Node element, Node hoverElement) {
+        element.setVisible(false);
+        hoverElement.setOnMouseEntered(e -> element.setVisible(true));
+        hoverElement.setOnMouseExited(e -> element.setVisible(false));
+    }
+
     public static void dragZoneEffect(Stage stage, Node element) {
         element.setOnMousePressed(event -> {
             xOffset = event.getSceneX();

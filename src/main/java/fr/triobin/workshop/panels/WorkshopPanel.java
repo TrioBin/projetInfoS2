@@ -1,9 +1,12 @@
 package fr.triobin.workshop.panels;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
+import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.SpecializedGoal;
+import fr.triobin.workshop.popups.CreateGeneralGoal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -16,6 +19,8 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class WorkshopPanel extends CustomPanel {
+    private Stage stage;
+    
     public WorkshopPanel() {
         super();
         this.setPadding(new Insets(40));
@@ -31,7 +36,7 @@ public class WorkshopPanel extends CustomPanel {
         atelierPanel.getChildren().add(atelierLabel);
 
         ScrollPane objectifsContainer = new ScrollPane();
-        objectifsContainer.setPrefSize(300, 400);
+        objectifsContainer.setPrefSize(500, 400);
         objectifsContainer.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
         VBox objectifsContent = new VBox();
         objectifsContent.setSpacing(10);
@@ -55,18 +60,30 @@ public class WorkshopPanel extends CustomPanel {
                 objectifsContent.getChildren().remove(objectifPanel);
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction(event -> {
-            objectifsContent.getChildren().add(objectifPanel);
+                if (objectif instanceof GeneralGoal) {
+                    Memory.currentWorkshop.removeGoal((GeneralGoal) objectif);
+                } else if (objectif instanceof SpecializedGoal) {
+                    Memory.currentWorkshop.removeActualGoal((SpecializedGoal) objectif);
+                }
                 objectifsContent.getChildren().remove(objectifPanel);
             });
             objectifPanel.getChildren().addAll(objectifLabel, deleteButton);
             objectifsContent.getChildren().add(objectifPanel);
+            CustomCapacities.showElementWhenHoverEffect(deleteButton, objectifPanel);
         });
+
+        Button addButton = new Button("Add Goal");
+        addButton.setOnAction(event -> {
+            Modal dialog = new Modal(this.stage, new CreateGeneralGoal());
+        });
+        objectifsContent.getChildren().add(addButton);
 
         this.getChildren().addAll(atelierPanel, objectifsContainer);
     }
 
     @Override
     public void onload(Stage stage) {
+        this.stage = stage;
         stage.setTitle("- Workshop");
     }
 }

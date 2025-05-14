@@ -89,6 +89,7 @@ public class MainVueScene extends CustomScene {
 
         // CONTENU PRINCIPAL... (inchangé)
         final CustomPanel[] mainContent = {new WorkshopPanel()};
+            mainContent[0].onload(App.stage);
 
         tab1.setOnAction(e -> {
             // remplace mainContent par le panneau d'atelier
