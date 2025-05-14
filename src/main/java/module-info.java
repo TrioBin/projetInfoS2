@@ -11,5 +11,4 @@ module fr.triobin.workshop {
 
     opens fr.triobin.workshop to javafx.fxml;
     exports fr.triobin.workshop;
-    exports fr.triobin.workshop.general to com.fasterxml.jackson.databind;
 }

@@ -2,10 +2,13 @@ package fr.triobin.workshop.panels;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomPanel;
+import fr.triobin.workshop.general.GeneralGoal;
+import fr.triobin.workshop.general.SpecializedGoal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ScrollPane;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -27,26 +30,37 @@ public class WorkshopPanel extends CustomPanel {
         atelierLabel.setFont(Font.font(24));
         atelierPanel.getChildren().add(atelierLabel);
 
-        StackPane objectifsContainer = new StackPane();
-        VBox objectifsPanel = new VBox(15);
-        objectifsPanel.setPadding(new Insets(20));
-        objectifsPanel.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
-        objectifsPanel.setPrefSize(400, 400);
-        Label objectifsLabel = new Label("Objectifs :");
-        objectifsLabel.setFont(Font.font(24));
-        objectifsPanel.getChildren().add(objectifsLabel);
-        for (int i = 0; i < 5; i++) {
-            Region objectifCard = new Region();
-            objectifCard.setPrefSize(300, 40);
-            objectifCard.setStyle("-fx-background-color: #FFD68D; -fx-border-radius: 4px;");
-            objectifsPanel.getChildren().add(objectifCard);
-        }
-        Button addButton = new Button("+");
-        addButton.setStyle("-fx-background-color: #999999; -fx-text-fill: white; -fx-font-size: 20;");
-        addButton.setPrefSize(40, 40);
-        StackPane.setAlignment(addButton, Pos.BOTTOM_RIGHT);
-        StackPane.setMargin(addButton, new Insets(0, 10, 10, 0));
-        objectifsContainer.getChildren().addAll(objectifsPanel, addButton);
+        ScrollPane objectifsContainer = new ScrollPane();
+        objectifsContainer.setPrefSize(300, 400);
+        objectifsContainer.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
+        VBox objectifsContent = new VBox();
+        objectifsContent.setSpacing(10);
+        objectifsContent.setPadding(new Insets(10));
+        objectifsContainer.setContent(objectifsContent);
+
+        Memory.currentWorkshop.getGoals().forEach(objectif -> {
+            StackPane objectifPanel = new StackPane();
+            objectifPanel.setPrefSize(300, 50);
+            objectifPanel.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
+            objectifPanel.setAlignment(Pos.CENTER);
+            objectifPanel.setPadding(new Insets(10));
+            Label objectifLabel = new Label();
+            if (objectif instanceof GeneralGoal) {
+            objectifLabel = new Label(((GeneralGoal) objectif).getProduct().getName() + " " + ((GeneralGoal) objectif).getQuantity());
+            } else if (objectif instanceof SpecializedGoal) {
+            objectifLabel = new Label(((SpecializedGoal) objectif).getOperation().getName() + " " + ((SpecializedGoal) objectif).getProduct().getProduct().getName());
+            } else {
+                objectifLabel = new Label("Unknown goal type");
+            }
+                objectifsContent.getChildren().remove(objectifPanel);
+            Button deleteButton = new Button("Delete");
+            deleteButton.setOnAction(event -> {
+            objectifsContent.getChildren().add(objectifPanel);
+                objectifsContent.getChildren().remove(objectifPanel);
+            });
+            objectifPanel.getChildren().addAll(objectifLabel, deleteButton);
+            objectifsContent.getChildren().add(objectifPanel);
+        });
 
         this.getChildren().addAll(atelierPanel, objectifsContainer);
     }

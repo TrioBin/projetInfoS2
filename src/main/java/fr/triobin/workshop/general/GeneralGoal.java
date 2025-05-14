@@ -29,4 +29,12 @@ public class GeneralGoal extends Goal {
         }
         return goals;
     }
+
+    public Product getProduct() {
+        return product;
+    }
+
+    public int getQuantity() {
+        return quantity;
+    }
 }

@@ -2,28 +2,18 @@ package fr.triobin.workshop.general;
 
 import java.util.ArrayList;
 
-import com.fasterxml.jackson.annotation.JsonProperty;
-
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.NonFinishedProduct.ProductStatus;
 
 public class Workshop {
-    @JsonProperty
     private String designation;
-    @JsonProperty
     private ArrayList<Workstation> workstations;
-    @JsonProperty
     private ArrayList<Product> products;
-    @JsonProperty
     private ArrayList<Operator> operators;
-    @JsonProperty
     private ArrayList<RefMachine> machinesRef = new ArrayList<>();
-    @JsonProperty
     private ArrayList<Operation> operations = new ArrayList<>();
-    @JsonProperty
     private ArrayList<Goal> goals;
 
-    @JsonProperty
     private ArrayList<SpecializedGoal> actualGoals;
 
     public Workshop(String designation) {
@@ -117,6 +107,11 @@ public class Workshop {
     public void removeActualGoal(SpecializedGoal goal) {
         actualGoals.remove(goal);
         goal.getProduct().setStatus(NonFinishedProduct.ProductStatus.FREE);
+        Memory.saveFile();
+    }
+
+    public void removeGoal(Goal goal) {
+        goals.remove(goal);
         Memory.saveFile();
     }
 

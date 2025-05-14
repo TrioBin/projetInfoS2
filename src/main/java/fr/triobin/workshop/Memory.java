@@ -5,6 +5,7 @@ import java.util.ArrayList;
 
 import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Cost;
+import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.OPList;
 import fr.triobin.workshop.general.Operation;
@@ -25,7 +26,7 @@ public class Memory {
 
     public static void saveFile() {
         System.out.println("Saving file...");
-        FileManager.saveFile(workshops);
+        //FileManager.saveFile(workshops);
     }
 
     public static void fakeLoad() {
@@ -56,5 +57,7 @@ public class Memory {
         workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, ""));
         workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.LIBRE, ""));
         workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, ""));
+
+        workshop1.add(new GeneralGoal(product1, 10));
     }
 }

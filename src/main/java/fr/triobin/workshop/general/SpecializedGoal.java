@@ -20,4 +20,8 @@ public class SpecializedGoal extends Goal {
     public NonFinishedProduct getProduct() {
         return product;
     }
+
+    public Operation getOperation() {
+        return operation;
+    }
 }

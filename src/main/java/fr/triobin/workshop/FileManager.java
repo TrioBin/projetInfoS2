@@ -12,7 +12,7 @@ import fr.triobin.workshop.general.Workshop;
 public class FileManager {
     public static ArrayList<Workshop> loadFile() {
         ObjectMapper mapper = new ObjectMapper();
-        ArrayList<Workshop> obj = mapper.readValue("", Workshop[].class);
+        //ArrayList<Workshop> obj = mapper.readValue("", Workshop[].class);
         return null; // TODO: Implement file loading logic
     }
 
