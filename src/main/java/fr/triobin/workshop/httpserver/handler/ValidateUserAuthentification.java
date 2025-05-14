@@ -7,20 +7,26 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.net.httpserver.HttpHandler;
-
-import fr.triobin.workshop.Memory;
-
 import com.sun.net.httpserver.HttpExchange;
 
+import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.general.Operator; // Updated to match the correct package for Operator
+
 public class ValidateUserAuthentification implements HttpHandler {
+
     @Override
     public void handle(HttpExchange echange) {
-        try {// Récupérer les paramètres de la requête
+        try {
             String query = echange.getRequestURI().getQuery();
             Map<String, String> queryParams = parseQueryParams(query);
-// afficher si l'authentification est réussie ou non
-            String reponse = valideoupas(queryParams.get("username"), queryParams.get("password")) ? "Authentification reusite"
-                    : "Authentification non reusite";
+
+            String username = queryParams.get("user");
+            String password = queryParams.get("password");
+
+            String reponse = valideoupas(username, password)
+                    ? "Authentification reussie"
+                    : "Authentification non reussie";
+
             echange.sendResponseHeaders(200, reponse.length());
             OutputStream os = echange.getResponseBody();
             os.write(reponse.getBytes());
@@ -30,7 +36,7 @@ public class ValidateUserAuthentification implements HttpHandler {
         }
     }
 
-    // Méthode utilitaire pour parser les paramètres de la requête
+    // Méthode pour parser les paramètres
     private Map<String, String> parseQueryParams(String query) throws UnsupportedEncodingException {
         Map<String, String> queryParams = new HashMap<>();
         if (query != null) {
@@ -42,13 +48,31 @@ public class ValidateUserAuthentification implements HttpHandler {
                 queryParams.put(key, value);
             }
         }
-            return queryParams;
+        return queryParams;
+    }
+
+    // Méthode principale d'authentification
+    private Boolean valideoupas(String username, String password) {
+        if (username == null || password == null) {
+            return false;
         }
 
-    // methode pour vérifier si l'identifiant et le mot de passe sont corrects
-    private Boolean valideoupas(String username, String password) {
-        Boolean isValid = Memory.currentWorkshop.getOperators().stream()
-                .anyMatch(operator -> operator.getCode().equals(username) && operator.getPassword().equals(password));
-        return isValid;
+        if (Memory.currentWorkshop == null) {
+            return false;
+        }
+
+        if (Memory.currentWorkshop.getOperators() == null) {
+            return false;
+        }
+
+        for (Operator operator : Memory.currentWorkshop.getOperators()) {
+            System.out.println("  - code = '" + operator.getCode() + "', password = '" + operator.getPassword() + "'");
+            if (operator.getCode().trim().equals(username.trim()) &&
+                operator.getPassword().trim().equals(password.trim())) {
+                return true;
+            }
+        }
+
+        return false;
     }
 }
