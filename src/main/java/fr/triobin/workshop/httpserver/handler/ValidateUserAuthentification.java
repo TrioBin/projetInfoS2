@@ -18,14 +18,9 @@ public class ValidateUserAuthentification implements HttpHandler {
         try {// Récupérer les paramètres de la requête
             String query = echange.getRequestURI().getQuery();
             Map<String, String> queryParams = parseQueryParams(query);
-
-            // Exemple : Afficher les paramètres dans la console
-            queryParams.forEach((key, value) -> System.out.println(key + " = " + value));
-
-            Memory.currentWorkshop.getOperators()
-                    .forEach(operator -> System.out.println(operator.getCode() + " " + operator.getPassword()));
-
-            String reponse = "Authentification";
+// afficher si l'authentification est réussie ou non
+            String reponse = valideoupas(queryParams.get("username"), queryParams.get("password")) ? "Authentification reusite"
+                    : "Authentification non reusite";
             echange.sendResponseHeaders(200, reponse.length());
             OutputStream os = echange.getResponseBody();
             os.write(reponse.getBytes());
@@ -47,6 +42,13 @@ public class ValidateUserAuthentification implements HttpHandler {
                 queryParams.put(key, value);
             }
         }
-        return queryParams;
+            return queryParams;
+        }
+
+    // methode pour vérifier si l'identifiant et le mot de passe sont corrects
+    private Boolean valideoupas(String username, String password) {
+        Boolean isValid = Memory.currentWorkshop.getOperators().stream()
+                .anyMatch(operator -> operator.getCode().equals(username) && operator.getPassword().equals(password));
+        return isValid;
     }
 }
