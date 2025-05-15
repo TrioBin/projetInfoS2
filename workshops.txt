@@ -10,14 +10,9 @@ Poste 1,Poste 1,0,0,[Machine 1]
 __________
 O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
 __________
-Atelier 2
+Produit 1,Description 1,[Operation 1]
 __________
-RefMachine 1
-__________
-Operation 1,00:00:00
-__________
-RefMachine 1,Machine 1,0,0,1.0,[Operation 1],AVAILABLE
-__________
-Poste 1,Poste 1,0,0,[Machine 1]
-__________
-O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
+Ggoal,Produit 1,10
+Sgoal,Operation 1,1
+Sgoal,Operation 1,1
+Sgoal,Operation 1,2

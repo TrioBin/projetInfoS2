@@ -14,21 +14,26 @@ import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.RefMachine;
 import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Machine;
+import fr.triobin.workshop.general.NonFinishedProduct;
 import fr.triobin.workshop.general.OPList;
 import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
+import fr.triobin.workshop.general.Product;
+import fr.triobin.workshop.general.GeneralGoal;
 
 public class FileManager {
-    static final String[] loadOrder = { "workshop", "refmachine", "operation", "machine", "workstation", "operator" };
+    static final String[] loadOrder = { "workshop", "refmachine", "operation", "machine", "workstation", "operator",
+            "product", "goal" };
     static final String separation = "__________";
     static final String separator = ",";
     static final String listSeparator = ";";
 
     public static ArrayList<Workshop> loadFile() {
         // Load the file
+        ArrayList<NonFinishedProduct> nonFinishedProducts = new ArrayList<>();
         Integer lineIndex = 0;
         ArrayList<Workshop> workshops = new ArrayList<>();
         try (BufferedReader reader = new BufferedReader(new FileReader("workshops.txt"))) {
@@ -86,13 +91,38 @@ public class FileManager {
                         workshops.get(workshops.size() - 1).add(new Operator(parts[0], parts[1], parts[2],
                                 skillsList, OperatorStatus.valueOf(parts[4]), parts[5]));
                         break;
+                    case "product":
+                        OPList opList2 = new OPList(new ArrayList<>());
+                        parts[2] = parts[2].replace("[", "").replace("]", "");
+                        String[] operations2 = parts[2].split(listSeparator);
+                        for (String operation : operations2) {
+                            opList2.addOperation(workshops.get(workshops.size() - 1).getOperation(operation));
+                        }
+                        workshops.get(workshops.size() - 1).add(new Product(parts[0], parts[1], opList2));
+                        break;
+                    case "goal":
+                        if (parts[0] == "Ggoal") {
+                            workshops.get(workshops.size() - 1).add(new GeneralGoal(
+                                    workshops.get(workshops.size() - 1).getProduct(parts[1]),
+                                    Integer.parseInt(parts[2])));
+                        } else if (parts[0] == "Sgoal") {
+
+                            workshops.get(workshops.size() - 1).add(new GeneralGoal(
+                                    workshops.get(workshops.size() - 1).getProduct(parts[1]),
+                                    Integer.parseInt(parts[2])));
+                        }
+                        break;
                 }
             }
-        } catch (IOException e) {
-            e.printStackTrace();
         }
+    }catch(
 
-        return workshops;
+    IOException e)
+    {
+        e.printStackTrace();
+    }
+
+    return workshops;
     }
 
     public static void saveFile(ArrayList<Workshop> workshops) {
@@ -119,7 +149,8 @@ public class FileManager {
                     }
                     operations += "]";
                     text += machine.getRefMachine().getName() + "," + machine.getName() + ","
-                            + machine.getPosition().x + "," + machine.getPosition().y + "," + machine.getCost().getCost()
+                            + machine.getPosition().x + "," + machine.getPosition().y + ","
+                            + machine.getCost().getCost()
                             + "," + operations + "," + machine.getStatus() + "\n";
                 }
                 text += separation + "\n";

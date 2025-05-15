@@ -7,12 +7,14 @@ import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.Machine;
+import fr.triobin.workshop.general.NonFinishedProduct;
 import fr.triobin.workshop.general.OPList;
 import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Product;
 import fr.triobin.workshop.general.RefMachine;
+import fr.triobin.workshop.general.SpecializedGoal;
 import fr.triobin.workshop.general.Workshop;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
@@ -59,5 +61,6 @@ public class Memory {
         workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, ""));
 
         workshop1.add(new GeneralGoal(product1, 10));
+        workshop1.add(new SpecializedGoal(operation1, new NonFinishedProduct(product1)));
     }
 }

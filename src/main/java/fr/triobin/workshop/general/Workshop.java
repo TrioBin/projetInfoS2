@@ -228,4 +228,13 @@ public class Workshop {
         }
         return null;
     }
+
+    public Product getProduct(String name) {
+        for (Product product : products) {
+            if (product.getName().equals(name)) {
+                return product;
+            }
+        }
+        return null;
+    }
 }
