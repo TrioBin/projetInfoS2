@@ -109,9 +109,11 @@ public class FileManager {
                         System.out.println("But : " + parts[0]);
 
                         if ("Ggoal".equals(parts[0])) {
-                            workshops.get(workshops.size() - 1).add(new GeneralGoal(
-                                    workshops.get(workshops.size() - 1).getProduct(parts[1]),
-                                    Integer.parseInt(parts[2])));
+                            workshops.get(workshops.size() - 1).getProducts().forEach(product2 -> {
+                                System.out.println("Produit : " + product2.getName());
+                            });
+                            //workshops.get(workshops.size() - 1).add(new GeneralGoal(product2,
+                            //        Integer.parseInt(parts[2])));
                         } else if ("Sgoal".equals(parts[0])) {
                             workshops.get(workshops.size() - 1).add(new SpecializedGoal(
                                     workshops.get(workshops.size() - 1).getOperation(parts[1]),

@@ -44,7 +44,6 @@ public class WorkshopPanel extends CustomPanel {
         objectifsContainer.setContent(objectifsContent);
 
         Memory.currentWorkshop.getGoals().forEach(objectif -> {
-            System.out.println(objectif);
             StackPane objectifPanel = new StackPane();
             objectifPanel.setPrefSize(300, 50);
             objectifPanel.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
@@ -52,6 +51,7 @@ public class WorkshopPanel extends CustomPanel {
             objectifPanel.setPadding(new Insets(10));
             Label objectifLabel = new Label();
             if (objectif instanceof GeneralGoal) {
+            System.out.println(((GeneralGoal) objectif).getProduct());
             objectifLabel = new Label(((GeneralGoal) objectif).getProduct().getName() + " " + ((GeneralGoal) objectif).getQuantity());
             } else if (objectif instanceof SpecializedGoal) {
             objectifLabel = new Label(((SpecializedGoal) objectif).getOperation().getName() + " " + ((SpecializedGoal) objectif).getProduct().getProduct().getName());
