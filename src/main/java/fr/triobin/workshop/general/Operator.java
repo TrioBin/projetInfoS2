@@ -94,4 +94,9 @@ public class Operator {
         this.password = password;
         Memory.saveFile();
     }
+
+    public void setStatus(OperatorStatus status) {
+        this.status = status;
+        Memory.saveFile();
+    }
 }

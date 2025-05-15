@@ -12,6 +12,10 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
+import java.io.FileReader;
+import java.io.BufferedReader;
+import java.io.IOException;
+
 public class HTTPServer {
 
     public static void main(String[] args) {
@@ -34,14 +38,30 @@ public class HTTPServer {
         @Override
         public void handle(HttpExchange echange) {
             try {
-// lire le fichier 
-                String reponse = ;
-                echange.sendResponseHeaders(200, reponse.length());
+                // Lire le fichier HTML
+                StringBuilder contenuHTML = new StringBuilder();
+                try (BufferedReader br = new BufferedReader(new FileReader("src/main/java/fr/triobin/workshop/httpserver/index.html"))) {
+                    String ligne;
+                    while ((ligne = br.readLine()) != null) {
+                        contenuHTML.append(ligne).append("\n");
+                    }
+                }
+
+                // Envoyer le contenu HTML en réponse
+                String reponse = contenuHTML.toString();
+                echange.sendResponseHeaders(200, reponse.getBytes().length);
                 OutputStream os = echange.getResponseBody();
                 os.write(reponse.getBytes());
                 os.close();
-            } catch (Exception ex) {
+
+            } catch (IOException ex) {
                 ex.printStackTrace();
+                String erreur = "Erreur lors de la lecture du fichier HTML.";
+                try {
+                    echange.sendResponseHeaders(500, erreur.length());
+                    echange.getResponseBody().write(erreur.getBytes());
+                    echange.getResponseBody().close();
+                } catch (IOException ignored) {}
             }
         }
     }
