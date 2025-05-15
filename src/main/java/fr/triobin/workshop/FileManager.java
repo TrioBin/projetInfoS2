@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import fr.triobin.workshop.general.Workshop;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.RefMachine;
+import fr.triobin.workshop.general.SpecializedGoal;
 import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.NonFinishedProduct;
@@ -26,7 +27,7 @@ import fr.triobin.workshop.general.GeneralGoal;
 
 public class FileManager {
     static final String[] loadOrder = { "workshop", "refmachine", "operation", "machine", "workstation", "operator",
-            "product", "goal" };
+            "product", "nonfinishedproduct", "goal" };
     static final String separation = "__________";
     static final String separator = ",";
     static final String listSeparator = ";";
@@ -100,29 +101,30 @@ public class FileManager {
                         }
                         workshops.get(workshops.size() - 1).add(new Product(parts[0], parts[1], opList2));
                         break;
+                    case "nonfinishedproduct":
+                        Product product = workshops.get(workshops.size() - 1).getProduct(parts[0]);
+                        nonFinishedProducts.add(new NonFinishedProduct(product));
+                        break;
                     case "goal":
-                        if (parts[0] == "Ggoal") {
-                            workshops.get(workshops.size() - 1).add(new GeneralGoal(
-                                    workshops.get(workshops.size() - 1).getProduct(parts[1]),
-                                    Integer.parseInt(parts[2])));
-                        } else if (parts[0] == "Sgoal") {
+                        System.out.println("But : " + parts[0]);
 
+                        if ("Ggoal".equals(parts[0])) {
                             workshops.get(workshops.size() - 1).add(new GeneralGoal(
                                     workshops.get(workshops.size() - 1).getProduct(parts[1]),
                                     Integer.parseInt(parts[2])));
+                        } else if ("Sgoal".equals(parts[0])) {
+                            workshops.get(workshops.size() - 1).add(new SpecializedGoal(
+                                    workshops.get(workshops.size() - 1).getOperation(parts[1]),
+                                    nonFinishedProducts.get(Integer.parseInt(parts[2]))));
                         }
                         break;
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }catch(
 
-    IOException e)
-    {
-        e.printStackTrace();
-    }
-
-    return workshops;
+        return workshops;
     }
 
     public static void saveFile(ArrayList<Workshop> workshops) {
@@ -185,7 +187,6 @@ public class FileManager {
                 text += separation + "\n";
             }
             text = text.substring(0, text.length() - 2 - separation.length());
-            System.out.println(text);
             writer.write(text);
         } catch (IOException e) {
             e.printStackTrace();

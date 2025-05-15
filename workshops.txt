@@ -12,7 +12,10 @@ O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
 __________
 Produit 1,Description 1,[Operation 1]
 __________
+Produit 1
+Produit 1
+__________
 Ggoal,Produit 1,10
+Sgoal,Operation 1,0
+Sgoal,Operation 1,0
 Sgoal,Operation 1,1
-Sgoal,Operation 1,1
-Sgoal,Operation 1,2
