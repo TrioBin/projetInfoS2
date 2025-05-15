@@ -2,6 +2,7 @@ package fr.triobin.workshop.popups;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.Workshop;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
@@ -16,7 +17,7 @@ public class CreateWorkshopPopup extends CustomScene {
         super(new HBox(), 500, 500);
         HBox root = (HBox) getRoot();
 
-        TextField nomAtelier = new TextField();
+        TextField nomAtelier = new CustomTextField();
         nomAtelier.setPromptText("Nom de l’atelier");
         nomAtelier.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis

@@ -114,15 +114,10 @@ public class FileManager {
                         break;
                 }
             }
+        } catch (IOException e) {
+            e.printStackTrace();
         }
-    }catch(
-
-    IOException e)
-    {
-        e.printStackTrace();
-    }
-
-    return workshops;
+        return workshops;
     }
 
     public static void saveFile(ArrayList<Workshop> workshops) {
