@@ -110,6 +110,8 @@ public class OperatorDetails extends VBox {
         resetBtn.setOnAction(event -> {
             // Create a modal
             Modal dialog = new Modal(App.getInstance().stage, new ResetPasswordPopup());
+            dialog.onClose(closeEvent -> {
+            });
         });
 
         // Coût horaire

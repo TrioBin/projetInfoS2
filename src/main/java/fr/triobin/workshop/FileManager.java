@@ -35,12 +35,15 @@ public class FileManager {
     static final String separator = ",";
     static final String listSeparator = ";";
 
+    private static Boolean readStatus = false;
+
     public static ArrayList<Workshop> loadFile() {
+        readStatus = true;
         // Load the file
         ArrayList<NonFinishedProduct> nonFinishedProducts = new ArrayList<>();
         Integer lineIndex = 0;
         ArrayList<Workshop> workshops = new ArrayList<>();
-        
+
         try (BufferedReader reader = new BufferedReader(new FileReader("workshops.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -69,7 +72,9 @@ public class FileManager {
                         parts[5] = parts[5].replace("[", "").replace("]", "");
                         String[] operations = parts[5].split(listSeparator);
                         for (String operation : operations) {
-                            opList.add(workshops.get(workshops.size() - 1).getOperation(operation));
+                            if (operation != "") {
+                                opList.add(workshops.get(workshops.size() - 1).getOperation(operation));
+                            }
                         }
                         workshops.get(workshops.size() - 1).add(new Machine(refMachine, parts[1],
                                 new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])),
@@ -81,7 +86,9 @@ public class FileManager {
                         parts[4] = parts[4].replace("[", "").replace("]", "");
                         String[] machinesList = parts[4].split(listSeparator);
                         for (String machine : machinesList) {
-                            machines.add(workshops.get(workshops.size() - 1).getMachine(machine));
+                            if (machine != "") {
+                                machines.add(workshops.get(workshops.size() - 1).getMachine(machine));
+                            }
                         }
                         workshops.get(workshops.size() - 1).add(new Workstation(parts[0], parts[1],
                                 new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])), machines));
@@ -91,7 +98,9 @@ public class FileManager {
                         parts[3] = parts[3].replace("[", "").replace("]", "");
                         String[] skills = parts[3].split(listSeparator);
                         for (String skill : skills) {
-                            skillsList.add(workshops.get(workshops.size() - 1).getMachineRef(skill));
+                            if (skill != "") {
+                                skillsList.add(workshops.get(workshops.size() - 1).getMachineRef(skill));
+                            }
                         }
                         workshops.get(workshops.size() - 1).add(new Operator(parts[0], parts[1], parts[2],
                                 skillsList, OperatorStatus.valueOf(parts[4]), parts[5]));
@@ -101,7 +110,9 @@ public class FileManager {
                         parts[2] = parts[2].replace("[", "").replace("]", "");
                         String[] operations2 = parts[2].split(listSeparator);
                         for (String operation : operations2) {
-                            opList2.addOperation(workshops.get(workshops.size() - 1).getOperation(operation));
+                            if (operation != "") {
+                                opList2.addOperation(workshops.get(workshops.size() - 1).getOperation(operation));
+                            }
                         }
                         workshops.get(workshops.size() - 1).add(new Product(parts[0], parts[1], opList2));
                         break;
@@ -130,7 +141,10 @@ public class FileManager {
     }
 
     public static void saveFile(ArrayList<Workshop> workshops) {
-        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops2.txt"))) {
+        if (!readStatus) {
+            return;
+        }
+        try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops.txt"))) {
             String text = "";
             for (Workshop workshop : workshops) {
                 text += workshop.getDesignation() + "\n";
@@ -146,7 +160,9 @@ public class FileManager {
                 for (Machine machine : workshop.getMachines()) {
                     String operations = "[";
                     for (Operation operation : machine.getOperations()) {
-                        operations += operation.getName() + listSeparator;
+                        if (operation != null) {
+                            operations += operation.getName() + listSeparator;
+                        }
                     }
                     if (operations.length() > 1) {
                         operations = operations.substring(0, operations.length() - 1);
@@ -161,7 +177,9 @@ public class FileManager {
                 for (Workstation workstation : workshop.getWorkstations()) {
                     String machines = "[";
                     for (Machine machine : workstation.getMachines()) {
-                        machines += machine.getName() + listSeparator;
+                        if (machine != null) {
+                            machines += machine.getName() + listSeparator;
+                        }
                     }
                     if (machines.length() > 1) {
                         machines = machines.substring(0, machines.length() - 1);
@@ -175,7 +193,9 @@ public class FileManager {
                 for (Operator operator : workshop.getOperators()) {
                     String skills = "[";
                     for (RefMachine skill : operator.getSkills()) {
-                        skills += skill.getName() + listSeparator;
+                        if (skill != null) { // Add null check
+                            skills += skill.getName() + listSeparator;
+                        }
                     }
                     if (skills.length() > 1) {
                         skills = skills.substring(0, skills.length() - 1);
@@ -190,7 +210,9 @@ public class FileManager {
                 for (Product product : workshop.getProducts()) {
                     String operations = "[";
                     for (Operation operation : product.getOperation()) {
-                        operations += operation.getName() + listSeparator;
+                        if (operation != null) {
+                            operations += operation.getName() + listSeparator;
+                        }
                     }
                     if (operations.length() > 1) {
                         operations = operations.substring(0, operations.length() - 1);
@@ -234,7 +256,9 @@ public class FileManager {
                 text += goalString;
                 text += separation + "\n";
             }
-            text = text.substring(0, text.length() - 2 - separation.length());
+            if (text.length() > 2 + separation.length()) {
+                text = text.substring(0, text.length() - 2 - separation.length());
+            }
             writer.write(text);
         } catch (IOException e) {
             e.printStackTrace();

@@ -4,7 +4,7 @@ RefMachine 1
 __________
 Operation 1,00:00:00
 __________
-RefMachine 1,Machine 1,0.0,0.0,1.0,[Operation 1],AVAILABLE
+RefMachine 1,Machine 1,0.0,0.0,2.0,[Operation 1],AVAILABLE
 __________
 Poste 1,Poste 1,0.0,0.0,[Machine 1]
 __________
