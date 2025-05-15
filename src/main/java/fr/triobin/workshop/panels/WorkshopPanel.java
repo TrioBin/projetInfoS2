@@ -44,6 +44,7 @@ public class WorkshopPanel extends CustomPanel {
         objectifsContainer.setContent(objectifsContent);
 
         Memory.currentWorkshop.getGoals().forEach(objectif -> {
+            System.out.println(objectif);
             StackPane objectifPanel = new StackPane();
             objectifPanel.setPrefSize(300, 50);
             objectifPanel.setStyle("-fx-background-color: #D9D9D9; -fx-border-color: black;");
