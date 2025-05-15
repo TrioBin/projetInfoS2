@@ -237,4 +237,13 @@ public class Workshop {
         }
         return null;
     }
+
+    public Operator getOperator(String name) {
+        for (Operator operator : operators) {
+            if (operator.getCode().equals(name)) {
+                return operator;
+            }
+        }
+        return null;
+    }
 }

@@ -11,6 +11,7 @@ import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.Operator;
+import fr.triobin.workshop.general.Operator.OperatorStatus;
 
 public class GetUserStatus implements HttpHandler {
     @Override
@@ -21,6 +22,7 @@ public class GetUserStatus implements HttpHandler {
 
             String username = queryParams.get("user");
             String password = queryParams.get("password");
+            String status = queryParams.get("status");
 
             Boolean isAuthenticated = ValidateUserAuthentification.valideoupas(username, password);
 
@@ -29,7 +31,19 @@ public class GetUserStatus implements HttpHandler {
             if (isAuthenticated) {
                 Operator operator = Memory.currentWorkshop.getOperator(username);
                 if (operator != null) {
-                    reponse = "Status de l'opérateur " + username + ": " + operator.getStatus();
+                    if (status == null) {
+                        // Aucun statut fourni : on retourne le statut actuel
+                        reponse = operator.getStatus().toString();
+                    } else {
+                        // Statut fourni : on essaye de le mettre à jour
+                        try {
+                            OperatorStatus nouveauStatus = OperatorStatus.valueOf(status.toUpperCase());
+                            operator.setStatus(nouveauStatus);
+                            reponse = "Statut mis à jour : " + nouveauStatus;
+                        } catch (IllegalArgumentException ex) {
+                            reponse = "Statut invalide : " + status;
+                        }
+                    }
                 } else {
                     reponse = "Opérateur non trouvé";
                 }
@@ -37,7 +51,8 @@ public class GetUserStatus implements HttpHandler {
                 reponse = "Authentification échouée";
             }
 
-            echange.sendResponseHeaders(200, reponse.length());
+            echange.getResponseHeaders().add("Content-Type", "text/plain; charset=UTF-8");
+            echange.sendResponseHeaders(200, reponse.getBytes().length);
             OutputStream os = echange.getResponseBody();
             os.write(reponse.getBytes());
             os.close();
