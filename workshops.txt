@@ -10,7 +10,7 @@ Poste 1,Poste 1,0,0,[Machine 1]
 __________
 O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
 __________
-Produit 1,Description 1,[Operation 1]
+Produit 1,Produit 1,[Operation 1]
 __________
 Produit 1
 Produit 1

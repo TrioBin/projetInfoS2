@@ -45,4 +45,8 @@ public class Product {
         this.operations = operations;
         Memory.saveFile();
     }
+
+    public OPList getOperation() {
+        return operations;
+    }
 }

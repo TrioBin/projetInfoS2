@@ -8,6 +8,8 @@ import java.io.IOException;
 import java.lang.reflect.Array;
 import java.sql.Time;
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import fr.triobin.workshop.general.Workshop;
 import fr.triobin.workshop.general.Workstation;
@@ -24,6 +26,7 @@ import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
 import fr.triobin.workshop.general.Product;
 import fr.triobin.workshop.general.GeneralGoal;
+import fr.triobin.workshop.general.Goal;
 
 public class FileManager {
     static final String[] loadOrder = { "workshop", "refmachine", "operation", "machine", "workstation", "operator",
@@ -37,6 +40,7 @@ public class FileManager {
         ArrayList<NonFinishedProduct> nonFinishedProducts = new ArrayList<>();
         Integer lineIndex = 0;
         ArrayList<Workshop> workshops = new ArrayList<>();
+        
         try (BufferedReader reader = new BufferedReader(new FileReader("workshops.txt"))) {
             String line;
             while ((line = reader.readLine()) != null) {
@@ -106,14 +110,10 @@ public class FileManager {
                         nonFinishedProducts.add(new NonFinishedProduct(product));
                         break;
                     case "goal":
-                        System.out.println("But : " + parts[0]);
-
                         if ("Ggoal".equals(parts[0])) {
-                            workshops.get(workshops.size() - 1).getProducts().forEach(product2 -> {
-                                System.out.println("Produit : " + product2.getName());
-                            });
-                            //workshops.get(workshops.size() - 1).add(new GeneralGoal(product2,
-                            //        Integer.parseInt(parts[2])));
+                            Product product2 = workshops.get(workshops.size() - 1).getProduct(parts[1]);
+                            workshops.get(workshops.size() - 1).add(new GeneralGoal(product2,
+                                    Integer.parseInt(parts[2])));
                         } else if ("Sgoal".equals(parts[0])) {
                             workshops.get(workshops.size() - 1).add(new SpecializedGoal(
                                     workshops.get(workshops.size() - 1).getOperation(parts[1]),
@@ -186,6 +186,52 @@ public class FileManager {
                             operator.getPassword() +
                             "\n";
                 }
+                text += separation + "\n";
+                for (Product product : workshop.getProducts()) {
+                    String operations = "[";
+                    for (Operation operation : product.getOperation()) {
+                        operations += operation.getName() + listSeparator;
+                    }
+                    if (operations.length() > 1) {
+                        operations = operations.substring(0, operations.length() - 1);
+                    }
+                    operations += "]";
+                    text += product.getId() + "," + product.getName() + "," + operations + "\n";
+                }
+                text += separation + "\n";
+
+                String goalString = "";
+                ArrayList<NonFinishedProduct> nonFinishedProducts = new ArrayList<>();
+                ArrayList<Integer> nonFinishedProductsHash = new ArrayList<>();
+                String nonFinishedProductString = "";
+
+                for (Goal goal : workshop.getGoals()) {
+                    if (goal instanceof GeneralGoal) {
+                        GeneralGoal ggoal = (GeneralGoal) goal;
+                        goalString += "Ggoal" + "," + ggoal.getProduct().getId() + "," + ggoal.getQuantity() + "\n";
+                    } else if (goal instanceof SpecializedGoal) {
+                        SpecializedGoal sgoal = (SpecializedGoal) goal;
+                        int elementIndex = -1;
+                        if (!nonFinishedProductsHash.contains(sgoal.getProduct().hashCode())) {
+                            nonFinishedProducts.add(sgoal.getProduct());
+                            nonFinishedProductsHash.add(sgoal.getProduct().hashCode());
+                            elementIndex = nonFinishedProducts.size() - 1;
+                        } else {
+                            elementIndex = nonFinishedProductsHash.indexOf(sgoal.getProduct().hashCode());
+                        }
+                        goalString += "Sgoal" + "," + sgoal.getOperation().getName() + ","
+                                + elementIndex
+                                + "\n";
+                    }
+                }
+
+                for (NonFinishedProduct nonFinishedProduct : nonFinishedProducts) {
+                    nonFinishedProductString += nonFinishedProduct.getProduct().getName() + "\n";
+                }
+
+                text += nonFinishedProductString;
+                text += separation + "\n";
+                text += goalString;
                 text += separation + "\n";
             }
             text = text.substring(0, text.length() - 2 - separation.length());

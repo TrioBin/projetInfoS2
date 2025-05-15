@@ -20,7 +20,7 @@ import javafx.stage.Stage;
 
 public class WorkshopPanel extends CustomPanel {
     private Stage stage;
-    
+
     public WorkshopPanel() {
         super();
         this.setPadding(new Insets(40));
@@ -51,14 +51,15 @@ public class WorkshopPanel extends CustomPanel {
             objectifPanel.setPadding(new Insets(10));
             Label objectifLabel = new Label();
             if (objectif instanceof GeneralGoal) {
-            System.out.println(((GeneralGoal) objectif).getProduct());
-            objectifLabel = new Label(((GeneralGoal) objectif).getProduct().getName() + " " + ((GeneralGoal) objectif).getQuantity());
+                objectifLabel = new Label(
+                        ((GeneralGoal) objectif).getProduct().getName() + " " + ((GeneralGoal) objectif).getQuantity());
             } else if (objectif instanceof SpecializedGoal) {
-            objectifLabel = new Label(((SpecializedGoal) objectif).getOperation().getName() + " " + ((SpecializedGoal) objectif).getProduct().getProduct().getName());
+                objectifLabel = new Label(((SpecializedGoal) objectif).getOperation().getName() + " "
+                        + ((SpecializedGoal) objectif).getProduct().getProduct().getName());
             } else {
                 objectifLabel = new Label("Unknown goal type");
             }
-                objectifsContent.getChildren().remove(objectifPanel);
+            objectifsContent.getChildren().remove(objectifPanel);
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction(event -> {
                 if (objectif instanceof GeneralGoal) {

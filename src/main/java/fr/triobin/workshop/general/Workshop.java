@@ -231,7 +231,7 @@ public class Workshop {
 
     public Product getProduct(String name) {
         for (Product product : products) {
-            if (product.getId().equals(name)) {
+            if (product.getName().equals(name)) {
                 return product;
             }
         }
