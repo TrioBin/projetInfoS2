@@ -29,7 +29,7 @@ public class GetUserStatus implements HttpHandler {
             if (isAuthenticated) {
                 Operator operator = Memory.currentWorkshop.getOperator(username);
                 if (operator != null) {
-                    reponse = "Status de l'opérateur " + username + ": " + operator.getStatus();
+                    reponse = operator.getStatus().toString();
                 } else {
                     reponse = "Opérateur non trouvé";
                 }

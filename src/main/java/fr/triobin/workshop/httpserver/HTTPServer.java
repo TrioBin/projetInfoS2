@@ -34,7 +34,8 @@ public class HTTPServer {
         @Override
         public void handle(HttpExchange echange) {
             try {
-                String reponse = "Bonjour depuis le serveur Java !";
+// lire le fichier 
+                String reponse = ;
                 echange.sendResponseHeaders(200, reponse.length());
                 OutputStream os = echange.getResponseBody();
                 os.write(reponse.getBytes());
