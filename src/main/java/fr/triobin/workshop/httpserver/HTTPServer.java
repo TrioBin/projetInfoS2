@@ -3,6 +3,7 @@ package fr.triobin.workshop.httpserver;
 import com.sun.net.httpserver.HttpServer;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.httpserver.handler.GetUserStatus;
 import fr.triobin.workshop.httpserver.handler.ValidateUserAuthentification;
 
 import com.sun.net.httpserver.HttpHandler;
@@ -20,6 +21,7 @@ public class HTTPServer {
             HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
             serveur.createContext("/", new MonHandler());
             serveur.createContext("/userAuthentification", new ValidateUserAuthentification());
+            serveur.createContext("/userStatus", new GetUserStatus());
             serveur.setExecutor(null); // Default executor
             serveur.start();
             System.out.println("Serveur HTTP démarré sur http://localhost:8000");

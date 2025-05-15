@@ -10,10 +10,9 @@ import com.sun.net.httpserver.HttpHandler;
 import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
-import fr.triobin.workshop.general.Operator; // Updated to match the correct package for Operator
+import fr.triobin.workshop.general.Operator;
 
-public class ValidateUserAuthentification implements HttpHandler {
-
+public class GetUserStatus implements HttpHandler {
     @Override
     public void handle(HttpExchange echange) {
         try {
@@ -23,9 +22,20 @@ public class ValidateUserAuthentification implements HttpHandler {
             String username = queryParams.get("user");
             String password = queryParams.get("password");
 
-            String reponse = valideoupas(username, password)
-                    ? "Authentification reussie"
-                    : "Authentification non reussie";
+            Boolean isAuthenticated = ValidateUserAuthentification.valideoupas(username, password);
+
+            String reponse;
+
+            if (isAuthenticated) {
+                Operator operator = Memory.currentWorkshop.getOperator(username);
+                if (operator != null) {
+                    reponse = "Status de l'opérateur " + username + ": " + operator.getStatus();
+                } else {
+                    reponse = "Opérateur non trouvé";
+                }
+            } else {
+                reponse = "Authentification échouée";
+            }
 
             echange.sendResponseHeaders(200, reponse.length());
             OutputStream os = echange.getResponseBody();
@@ -49,30 +59,5 @@ public class ValidateUserAuthentification implements HttpHandler {
             }
         }
         return queryParams;
-    }
-
-    // Méthode principale d'authentification
-    public static Boolean valideoupas(String username, String password) {
-        if (username == null || password == null) {
-            return false;
-        }
-
-        if (Memory.currentWorkshop == null) {
-            return false;
-        }
-
-        if (Memory.currentWorkshop.getOperators() == null) {
-            return false;
-        }
-
-        for (Operator operator : Memory.currentWorkshop.getOperators()) {
-            System.out.println("  - code = '" + operator.getCode() + "', password = '" + operator.getPassword() + "'");
-            if (operator.getCode().trim().equals(username.trim()) &&
-                operator.getPassword().trim().equals(password.trim())) {
-                return true;
-            }
-        }
-
-        return false;
     }
 }
