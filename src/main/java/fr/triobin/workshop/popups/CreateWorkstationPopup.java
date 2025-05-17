@@ -7,6 +7,7 @@ import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Workstation;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -55,12 +56,37 @@ public class CreateWorkstationPopup extends CustomScene {
                         "-fx-background-radius: 5;" +
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
+                        Label labelDimension = new Label("Dimension :");
+        labelDimension.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
+        labelDimension.setPadding(new Insets(10, 0, 0, 0));
+
+        TextField width = new TextField();
+        width.setPromptText("X");
+        width.setPrefWidth(250);
+        // style pour fond gris clair et bords arrondis
+        width.setStyle(
+                "-fx-background-color: #e0e0e0;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
+
+        TextField heigth = new TextField();
+        heigth.setPromptText("Y");
+        heigth.setPrefWidth(250);
+        // style pour fond gris clair et bords arrondis
+        heigth.setStyle(
+                "-fx-background-color: #e0e0e0;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
+
         // Force X et Y à être des nombres décimaux avec 1 seule virgule ou point
-        CustomCapacities.forceFloatTextFieldEffect(x);
-        CustomCapacities.forceFloatTextFieldEffect(y);
+        CustomCapacities.forceFloatTextFieldEffect(width);
+        CustomCapacities.forceFloatTextFieldEffect(heigth);
 
         HBox position = new HBox(10);
         position.getChildren().addAll(x, y);
+
+        HBox dimension = new HBox(10);
+        position.getChildren().addAll(width, heigth);
 
         // Bouton « Créer »
         Button btnCreer = new Button("Créer");
@@ -74,7 +100,7 @@ public class CreateWorkstationPopup extends CustomScene {
         btnCreer.setOnAction(e -> {
             System.out.println("Poste créé : " + nomAtelier.getText());
             Memory.currentWorkshop.add(
-                    new Workstation(nomAtelier.getText(), nomAtelier.getText(), new Position(Float.parseFloat(x.getText()), Float.parseFloat(y.getText())), new ArrayList<>()));
+                    new Workstation(nomAtelier.getText(), nomAtelier.getText(), new Position(Float.parseFloat(x.getText()), Float.parseFloat(y.getText())), new Dimension2D(Float.parseFloat(width.getText()), Float.parseFloat(heigth.getText())), new ArrayList<>()));
             this.stage.close();
         });
 
@@ -83,7 +109,7 @@ public class CreateWorkstationPopup extends CustomScene {
         btnContainer.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
         btnContainer.getChildren().add(btnCreer);
 
-        root.getChildren().addAll(nomAtelier, labelPosition, position, btnContainer);
+        root.getChildren().addAll(nomAtelier, labelPosition, position, labelDimension, dimension, btnContainer);
         root.setPadding(new Insets(20));
     }
 

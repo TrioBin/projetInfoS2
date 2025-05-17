@@ -4,13 +4,13 @@ RefMachine 1
 __________
 Operation 1,00:00:00
 __________
-RefMachine 1,Machine 1,0.0,0.0,2.0,[Operation 1],AVAILABLE
+RefMachine 1,Machine 1,100.0,95.0,0.0,0.0,2.0,[],AVAILABLE
 __________
-Poste 1,Poste 1,0.0,0.0,[Machine 1]
+Poste 1,Poste 1,50.0,39.0,0.0,0.0,[]
 __________
-O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
+O1,Nom 1,Prenom 1,[],LIBRE,password
 __________
-Produit 1,Produit 1,[Operation 1]
+Produit 1,Produit 1,[]
 __________
 Produit 1
 Produit 1

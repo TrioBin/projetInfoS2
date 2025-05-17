@@ -3,17 +3,20 @@ package fr.triobin.workshop.general;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
+import javafx.geometry.Dimension2D;
 
 public class Workstation {
     private String refWorkstation;
     private String dworkstation;
     private Position position;
+    private Dimension2D dimension;
     private ArrayList<Machine> machines;
 
-    public Workstation(String refWorkstation, String dworkstation, Position position, ArrayList<Machine> machines) {
+    public Workstation(String refWorkstation, String dworkstation, Position position, Dimension2D dimension, ArrayList<Machine> machines) {
         this.refWorkstation = refWorkstation;
         this.dworkstation = dworkstation;
         this.position = position;
+        this.dimension = dimension;
         this.machines = machines;
         Memory.saveFile();
     }
@@ -29,10 +32,17 @@ public class Workstation {
 
     public void modify(Position position) {
         this.position = position;
+        Memory.saveFile();
+    }
+
+    public void modify(Dimension2D dimension) {
+        this.dimension = dimension;
+        Memory.saveFile();
     }
 
     public void modify(ArrayList<Machine> machines) {
         this.machines = machines;
+        Memory.saveFile();
     }
 
     public void addMachine(Machine m) {
@@ -65,5 +75,9 @@ public class Workstation {
 
     public Position getPosition() {
         return position;
+    }
+
+    public Dimension2D getDimension() {
+        return dimension;
     }
 }

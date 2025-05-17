@@ -24,6 +24,7 @@ import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
+import javafx.geometry.Dimension2D;
 import fr.triobin.workshop.general.Product;
 import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.Goal;
@@ -69,8 +70,8 @@ public class FileManager {
                     case "machine":
                         RefMachine refMachine = workshops.get(workshops.size() - 1).getMachineRef(parts[0]);
                         ArrayList<Operation> opList = new ArrayList<>();
-                        parts[5] = parts[5].replace("[", "").replace("]", "");
-                        String[] operations = parts[5].split(listSeparator);
+                        parts[7] = parts[7].replace("[", "").replace("]", "");
+                        String[] operations = parts[7].split(listSeparator);
                         for (String operation : operations) {
                             if (operation != "") {
                                 opList.add(workshops.get(workshops.size() - 1).getOperation(operation));
@@ -78,20 +79,22 @@ public class FileManager {
                         }
                         workshops.get(workshops.size() - 1).add(new Machine(refMachine, parts[1],
                                 new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])),
-                                new Cost(Float.parseFloat(parts[4])), opList,
-                                MachineStatus.valueOf(parts[6])));
+                                new Dimension2D(Float.parseFloat(parts[4]), Float.parseFloat(parts[5])),
+                                new Cost(Float.parseFloat(parts[6])), opList,
+                                MachineStatus.valueOf(parts[8])));
                         break;
                     case "workstation":
                         ArrayList<Machine> machines = new ArrayList<>();
-                        parts[4] = parts[4].replace("[", "").replace("]", "");
-                        String[] machinesList = parts[4].split(listSeparator);
+                        parts[6] = parts[6].replace("[", "").replace("]", "");
+                        String[] machinesList = parts[6].split(listSeparator);
                         for (String machine : machinesList) {
                             if (machine != "") {
                                 machines.add(workshops.get(workshops.size() - 1).getMachine(machine));
                             }
                         }
                         workshops.get(workshops.size() - 1).add(new Workstation(parts[0], parts[1],
-                                new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])), machines));
+                                new Position(Float.parseFloat(parts[2]), Float.parseFloat(parts[3])),
+                                new Dimension2D(Float.parseFloat(parts[4]), Float.parseFloat(parts[5])), machines));
                         break;
                     case "operator":
                         ArrayList<RefMachine> skillsList = new ArrayList<>();
@@ -170,6 +173,7 @@ public class FileManager {
                     operations += "]";
                     text += machine.getRefMachine().getName() + "," + machine.getName() + ","
                             + machine.getPosition().x + "," + machine.getPosition().y + ","
+                            + machine.getDimension().getWidth() + "," + machine.getDimension().getHeight() + ","
                             + machine.getCost().getCost()
                             + "," + operations + "," + machine.getStatus() + "\n";
                 }
@@ -187,6 +191,7 @@ public class FileManager {
                     machines += "]";
                     text += workstation.getRefWorkstation() + "," + workstation.getDworkstation() + ","
                             + workstation.getPosition().x + "," + workstation.getPosition().y
+                            + "," + workstation.getDimension().getWidth() + "," + workstation.getDimension().getHeight()
                             + "," + machines + "\n";
                 }
                 text += separation + "\n";

@@ -8,6 +8,7 @@ import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.popups.AddSkillOperatorPopup;
+import fr.triobin.workshop.popups.ChangeWorkstationPosition;
 import fr.triobin.workshop.popups.CreateMachinePopup;
 import fr.triobin.workshop.popups.CreateOperatorPopup;
 import fr.triobin.workshop.popups.RemoveConfirmationPopup;
@@ -55,7 +56,10 @@ public class WorkstationDetail extends HBox {
         titleButton.setMaxWidth(Double.MAX_VALUE);
         leftPane.getChildren().add(titleButton);
 
+        System.out.println("Workstation: " + workstation.getMachines());
+
         workstation.getMachines().forEach(machine -> {
+            System.out.println("Machine: " + machine);
             Button machineButton = new Button(machine.getName());
             machineButton.setMaxWidth(Double.MAX_VALUE);
             leftPane.getChildren().add(machineButton);
@@ -89,7 +93,18 @@ public class WorkstationDetail extends HBox {
             });
         });
 
+        Button changePositionButton = new Button("Changer position");
+        changePositionButton.setMaxWidth(Double.MAX_VALUE);
+        changePositionButton.setOnAction(event -> {
+            // Create a modal
+            Modal dialog = new Modal(App.getStage(), new ChangeWorkstationPosition());
+            dialog.onClose(closeEvent -> {
+                
+            });
+        });
+
         leftPane.getChildren().add(addButton);
+        leftPane.getChildren().add(changePositionButton);
 
         this.getChildren().addAll(leftPane, rightPane);
     }

@@ -13,6 +13,7 @@ import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.RefMachine;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.Machine.MachineStatus;
+import javafx.geometry.Dimension2D;
 import javafx.geometry.Insets;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
@@ -90,6 +91,35 @@ public class CreateMachinePopup extends CustomScene {
         HBox position = new HBox(10);
         position.getChildren().addAll(x, y);
 
+        Label labelDimension = new Label("Dimension :");
+        labelDimension.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
+        labelDimension.setPadding(new Insets(10, 0, 0, 0));
+
+        TextField width = new TextField();
+        width.setPromptText("X");
+        width.setPrefWidth(250);
+        // style pour fond gris clair et bords arrondis
+        width.setStyle(
+                "-fx-background-color: #e0e0e0;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
+
+        TextField heigth = new TextField();
+        heigth.setPromptText("Y");
+        heigth.setPrefWidth(250);
+        // style pour fond gris clair et bords arrondis
+        heigth.setStyle(
+                "-fx-background-color: #e0e0e0;" +
+                        "-fx-background-radius: 5;" +
+                        "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
+
+        // Force X et Y à être des nombres décimaux avec 1 seule virgule ou point
+        CustomCapacities.forceFloatTextFieldEffect(width);
+        CustomCapacities.forceFloatTextFieldEffect(heigth);
+
+        HBox dimension = new HBox(10);
+        dimension.getChildren().addAll(width, heigth);
+
         // input cout horaire
         TextField coutHoraire = new TextField();
         coutHoraire.setPromptText("Coût horaire");
@@ -113,6 +143,7 @@ public class CreateMachinePopup extends CustomScene {
                                     .get(typeMachine.getSelectionModel().getSelectedIndex()),
                             nomMachine.getText(),
                             new Position(Float.parseFloat(x.getText()), Float.parseFloat(y.getText())),
+                            new Dimension2D(Float.parseFloat(width.getText()), Float.parseFloat(heigth.getText())),
                             new Cost(Float.parseFloat(coutHoraire.getText())), new ArrayList<>(),
                             MachineStatus.AVAILABLE));
             this.stage.close();
@@ -124,7 +155,7 @@ public class CreateMachinePopup extends CustomScene {
         btnContainer.getChildren().add(btnCreer);
 
         // Ajout des éléments au conteneur principal
-        root.getChildren().addAll(nomMachine, typeMachine, labelPosition, position, coutHoraire, btnContainer);
+        root.getChildren().addAll(nomMachine, typeMachine, labelPosition, position, labelDimension, dimension, coutHoraire, btnContainer);
         root.setPadding(new Insets(20));
     }
 

@@ -1,8 +1,11 @@
 package fr.triobin.workshop;
 
+import java.util.Map;
+
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.map.MapStage;
 import fr.triobin.workshop.panels.OperatorPanel;
 import fr.triobin.workshop.panels.ProductPanel;
 import fr.triobin.workshop.panels.WorkshopPanel;
@@ -34,6 +37,8 @@ public class MainVueScene extends CustomScene {
         super(new VBox(), 1000, 500);
         VBox root = (VBox) getRoot();
 
+        MapStage mapStage = new MapStage(this);
+
         // BARRE DU HAUT
         HBox topBar = new HBox(10);
         topBar.setPadding(new Insets(5, 10, 5, 10));
@@ -53,6 +58,7 @@ public class MainVueScene extends CustomScene {
         Button backButton = new Button("<");
         backButton.setOnAction(e -> {
             App app = App.getInstance();
+            mapStage.close();
             app.changeWindow(new SelectScene());
         });
 
@@ -77,6 +83,7 @@ public class MainVueScene extends CustomScene {
         closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
         closeButton.setOnAction(e -> {
             App app = App.getInstance();
+            mapStage.close();
             app.getStage().close();
         });
         CustomCapacities.hoverCursorEffect(closeButton, Cursor.HAND);
@@ -88,8 +95,8 @@ public class MainVueScene extends CustomScene {
                 closeButton);
 
         // CONTENU PRINCIPAL... (inchangé)
-        final CustomPanel[] mainContent = {new WorkshopPanel()};
-            mainContent[0].onload(App.stage);
+        final CustomPanel[] mainContent = { new WorkshopPanel() };
+        mainContent[0].onload(App.stage);
 
         tab1.setOnAction(e -> {
             // remplace mainContent par le panneau d'atelier
@@ -135,5 +142,14 @@ public class MainVueScene extends CustomScene {
         // get topBar
         HBox topBar = (HBox) ((VBox) getRoot()).getChildren().get(0);
         CustomCapacities.dragZoneEffect(stage, topBar);
+    }
+
+    public void goToMachine() {
+        VBox root = (VBox) getRoot();
+        ((ToggleButton) ((HBox) root.getChildren().get(0)).getChildren().get(2)).setSelected(false);
+        ((ToggleButton) ((HBox) root.getChildren().get(0)).getChildren().get(3)).setSelected(true);
+        ((ToggleButton) ((HBox) root.getChildren().get(0)).getChildren().get(4)).setSelected(false);
+        ((ToggleButton) ((HBox) root.getChildren().get(0)).getChildren().get(5)).setSelected(false);
+        root.getChildren().set(1, new WorkstationPanel());
     }
 }

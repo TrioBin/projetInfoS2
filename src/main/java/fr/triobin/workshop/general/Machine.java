@@ -4,19 +4,22 @@ import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
+import javafx.geometry.Dimension2D;
 
 public class Machine {
     private RefMachine refMachine;
     private String dmachine;
     private Position position;
+    private Dimension2D dimension;
     private Cost c;
     private ArrayList<Operation> operations;
     private MachineStatus status;
 
-    public Machine(RefMachine refMachine, String dmachine, Position position, Cost c, ArrayList<Operation> operations, MachineStatus status) {
+    public Machine(RefMachine refMachine, String dmachine, Position position, Dimension2D dimension, Cost c, ArrayList<Operation> operations, MachineStatus status) {
         this.refMachine = refMachine;
         this.dmachine = dmachine;
         this.position = position;
+        this.dimension = dimension;
         this.c = c;
         this.operations = operations;
         this.status = status;
@@ -43,6 +46,11 @@ public class Machine {
 
     public void modify(Position position) {
         this.position = position;
+        Memory.saveFile();
+    }
+
+    public void modify(Dimension2D dimension) {
+        this.dimension = dimension;
         Memory.saveFile();
     }
 
@@ -94,5 +102,14 @@ public class Machine {
 
     public RefMachine getRefMachine() {
         return refMachine;
+    }
+
+    public void setPosition(Position position) {
+        this.position = position;
+        Memory.saveFile();
+    }
+
+    public Dimension2D getDimension() {
+        return dimension;
     }
 }

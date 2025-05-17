@@ -18,6 +18,7 @@ import fr.triobin.workshop.general.SpecializedGoal;
 import fr.triobin.workshop.general.Workshop;
 import fr.triobin.workshop.general.Workstation;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
+import javafx.geometry.Dimension2D;
 
 public class Memory {
     public static ArrayList<Workshop> workshops = new ArrayList<>();
@@ -35,7 +36,7 @@ public class Memory {
 
         Memory.workshops.add(workshop1);
 
-        Workstation workstation1 = new Workstation("Poste 1", "Poste 1", new Position(0, 0), new ArrayList<>());
+        Workstation workstation1 = new Workstation("Poste 1", "Poste 1", new Position(0, 0), new Dimension2D(0, 0), new ArrayList<>());
 
         workshop1.add(workstation1);
 
@@ -43,7 +44,7 @@ public class Memory {
 
         workshop1.addMachineRef(refMachine1);
 
-        workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Cost(0), new ArrayList<>(),
+        workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Dimension2D(0, 0), new Cost(0), new ArrayList<>(),
                 MachineStatus.AVAILABLE));
 
         Operation operation1 = new Operation("Opération 1", new Time(0));
