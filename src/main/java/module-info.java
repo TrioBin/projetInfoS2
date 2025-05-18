@@ -10,5 +10,6 @@ module fr.triobin.workshop {
     requires javafx.base;
 
     opens fr.triobin.workshop to javafx.fxml;
+    opens fr.triobin.workshop.general to com.fasterxml.jackson.databind;
     exports fr.triobin.workshop;
 }

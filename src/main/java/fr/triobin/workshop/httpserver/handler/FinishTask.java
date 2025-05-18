@@ -7,13 +7,16 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.net.httpserver.HttpHandler;
+import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.Operator;
+import fr.triobin.workshop.general.Task;
+import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
 
-public class GetUserStatus implements HttpHandler {
+public class FinishTask implements HttpHandler {
     @Override
     public void handle(HttpExchange echange) {
         try {
@@ -22,7 +25,6 @@ public class GetUserStatus implements HttpHandler {
 
             String username = queryParams.get("user");
             String password = queryParams.get("password");
-            String status = queryParams.get("status");
 
             Boolean isAuthenticated = ValidateUserAuthentification.valideoupas(username, password);
 
@@ -31,18 +33,16 @@ public class GetUserStatus implements HttpHandler {
             if (isAuthenticated) {
                 Operator operator = Memory.currentWorkshop.getOperator(username);
                 if (operator != null) {
-                    if (status == null) {
-                        // Aucun statut fourni : on retourne le statut actuel
-                        reponse = "{\"status\": \"" + operator.getStatus().toString() + "\"}";
+                    // On termine la tâche de l'opérateur
+                    Task currentTask = operator.getCurrentTask();
+                    if (currentTask == null) {
+                        reponse = "{\"message\": \"Aucune tâche en cours\"}";
                     } else {
-                        // Statut fourni : on essaye de le mettre à jour
-                        try {
-                            OperatorStatus nouveauStatus = OperatorStatus.valueOf(status.toUpperCase());
-                            operator.setStatus(nouveauStatus);
-                            reponse = "{\"status\": \"" + nouveauStatus.toString() + "\"}";
-                        } catch (IllegalArgumentException ex) {
-                            reponse = "{\"message\": \"Statut invalide : " + status + "\"}";
-                        }
+                    operator.setCurrentTask(null);
+                    operator.modify(OperatorStatus.LIBRE);
+                    currentTask.getMachine().modify(MachineStatus.AVAILABLE);
+                    Memory.currentWorkshop.removeActualGoal(currentTask.getGoal());
+                    reponse = "{}";
                     }
                 } else {
                     reponse = "{\"message\": \"Opérateur non trouvé\"}";

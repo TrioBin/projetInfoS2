@@ -44,11 +44,11 @@ public class Memory {
 
         workshop1.addMachineRef(refMachine1);
 
-        workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Dimension2D(0, 0), new Cost(0), new ArrayList<>(),
-                MachineStatus.AVAILABLE));
-
         Operation operation1 = new Operation("Opération 1", new Time(0));
         workshop1.addOperation(operation1);
+
+        workstation1.addMachine(new Machine(refMachine1, "Machine 1", new Position(0, 0), new Dimension2D(0, 0), new Cost(0), new ArrayList<Operation>(java.util.Arrays.asList(operation1)),
+                MachineStatus.AVAILABLE));
 
         OPList opList1 = new OPList(new ArrayList<>());
         opList1.addOperation(operation1);
@@ -61,6 +61,5 @@ public class Memory {
         workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, ""));
 
         workshop1.add(new GeneralGoal(product1, 10));
-        workshop1.add(new SpecializedGoal(operation1, new NonFinishedProduct(product1)));
     }
 }

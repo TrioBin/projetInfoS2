@@ -11,6 +11,7 @@ public class Operator {
     private ArrayList<RefMachine> skills;
     private OperatorStatus status;
     private String password;
+    private Task currentTask;
 
     public Operator(String code, String name, String surname, ArrayList<RefMachine> skills, OperatorStatus status, String password) {
         this.code = code;
@@ -98,5 +99,14 @@ public class Operator {
     public void setStatus(OperatorStatus status) {
         this.status = status;
         Memory.saveFile();
+    }
+
+    public void setCurrentTask(Task task) {
+        this.currentTask = task;
+        Memory.saveFile();
+    }
+
+    public Task getCurrentTask() {
+        return this.currentTask;
     }
 }

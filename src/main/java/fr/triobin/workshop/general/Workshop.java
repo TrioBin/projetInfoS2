@@ -3,6 +3,7 @@ package fr.triobin.workshop.general;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.NonFinishedProduct.ProductStatus;
 
 public class Workshop {
@@ -25,6 +26,11 @@ public class Workshop {
         this.goals = new ArrayList<>();
         this.actualGoals = new ArrayList<>();
         this.machinesRef = new ArrayList<>();
+        Memory.saveFile();
+    }
+
+    public void add(Machine machine) {
+        this.machines.add(machine);
         Memory.saveFile();
     }
 
@@ -78,6 +84,40 @@ public class Workshop {
 
     public SpecializedGoal getNextGoal() {
         return getNextGoal(0);
+    }
+
+    public Task getNextGoal(ArrayList<RefMachine> skills) {
+        ArrayList<Integer> notValidProductHashes = new ArrayList<>();
+        for (int i = 0; i < goals.size(); i++) {
+            Goal goal = goals.get(i);
+            if (goal instanceof SpecializedGoal) {
+                SpecializedGoal specializedGoal = (SpecializedGoal) goal;
+                if (specializedGoal.getProduct().getStatus() == ProductStatus.FREE && !notValidProductHashes.contains(specializedGoal.getProduct().hashCode())) {
+                    ArrayList<Machine> possibleMachines = new ArrayList<>();
+                    for (Machine machine : this.getMachines()) {
+                        if (machine.getStatus() == MachineStatus.AVAILABLE && machine.getOperations().contains(specializedGoal.getOperation())) {
+                            System.out.println(machine.getRefMachine() + " " + skills.toString());
+                            if (skills.contains(machine.getRefMachine())) {
+                                possibleMachines.add(machine);
+                            }
+                        }
+                    }
+                    if (possibleMachines.size() >= 1) {
+                        goals.remove(i);
+                        specializedGoal.getProduct().setStatus(ProductStatus.USED);
+                        actualGoals.add(specializedGoal);
+                        possibleMachines.get(0).modify(MachineStatus.USED);
+                        return new Task(specializedGoal, possibleMachines.get(0));
+                    } else {
+                        notValidProductHashes.add(specializedGoal.getProduct().hashCode());
+                    }
+                }
+            } else if (goal instanceof GeneralGoal) {
+                replaceToSpecializedGoalsFrom((GeneralGoal) goal);
+                return getNextGoal(skills);
+            }
+        }
+        return null;
     }
 
     public SpecializedGoal getNextGoal(int i) {
@@ -208,11 +248,6 @@ public class Workshop {
 
     public ArrayList<Machine> getMachines() {
         return machines;
-    }
-
-    public void add(Machine machine) {
-        machines.add(machine);
-        Memory.saveFile();
     }
 
     public void removeMachine(Machine machine) {

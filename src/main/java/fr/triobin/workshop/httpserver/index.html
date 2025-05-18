@@ -1,5 +1,6 @@
 <!DOCTYPE html>
 <html lang="fr">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -10,32 +11,84 @@
         .fade-in {
             animation: fadeIn 0.5s ease-in-out;
         }
-        
+
         @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
-            to { opacity: 1; transform: translateY(0); }
+            from {
+                opacity: 0;
+                transform: translateY(10px);
+            }
+
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
         }
-        
+
         .pulse {
             animation: pulse 2s infinite;
         }
-        
+
         @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.05); }
-            100% { transform: scale(1); }
+            0% {
+                transform: scale(1);
+            }
+
+            50% {
+                transform: scale(1.05);
+            }
+
+            100% {
+                transform: scale(1);
+            }
         }
-        
+
         .task-card {
             transition: all 0.3s ease;
         }
-        
+
         .task-card:hover {
             transform: translateY(-5px);
             box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1);
         }
+
+        .password-toggle {
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .password-toggle:hover {
+            transform: scale(1.1);
+        }
+
+        .shake {
+            animation: shake 0.5s;
+        }
+
+        @keyframes shake {
+
+            0%,
+            100% {
+                transform: translateX(0);
+            }
+
+            20%,
+            60% {
+                transform: translateX(-5px);
+            }
+
+            40%,
+            80% {
+                transform: translateX(5px);
+            }
+        }
+
+        /* Error Box */
+        #error-message {
+            animation: fadeIn 0.3s ease-in-out;
+        }
     </style>
 </head>
+
 <body class="bg-gray-100 min-h-screen flex items-center justify-center p-4">
     <div class="w-full max-w-md bg-white rounded-xl shadow-lg overflow-hidden fade-in">
         <!-- Header -->
@@ -46,30 +99,45 @@
             </h1>
             <p class="text-blue-100 mt-1">Gérez vos tâches simplement</p>
         </div>
-        
+
         <!-- Main Content -->
         <div class="p-6">
-            <!-- ID Input -->
-            <div class="mb-6">
-                <label for="user-id" class="block text-gray-700 font-medium mb-2">
-                    <i class="fas fa-id-card mr-2"></i>Votre identifiant
-                </label>
-                <div class="flex">
-                    <input 
-                        type="text" 
-                        id="user-id" 
-                        placeholder="Entrez votre ID..."
-                        class="flex-1 px-4 py-2 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-blue-500"
-                    >
-                    <button 
-                        id="submit-btn"
-                        class="bg-blue-600 hover:bg-blue-700 text-white px-4 py-2 rounded-r-lg transition duration-200"
-                    >
-                        <i class="fas fa-check mr-1"></i> Valider
-                    </button>
-                </div>
+            <div id="error-message"
+                class="hidden bg-red-100 border border-red-400 text-red-700 px-4 py-3 rounded relative mb-4 fade-in"
+                role="alert">
+                <strong class="font-bold">Erreur :</strong>
+                <span id="error-text" class="block sm:inline"></span>
             </div>
-            
+
+            <!-- ID Input -->
+            <div id="login-form" class="fade-in">
+                <div class="mb-6">
+                    <label for="user-id" class="block text-gray-700 font-medium mb-2">
+                        <i class="fas fa-id-card mr-2"></i>Identifiant
+                    </label>
+                    <input type="text" id="user-id" placeholder="Entrez votre ID..."
+                        class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500">
+                </div>
+
+                <div class="mb-6">
+                    <label for="password" class="block text-gray-700 font-medium mb-2">
+                        <i class="fas fa-lock mr-2"></i>Mot de passe
+                    </label>
+                    <div class="relative">
+                        <input type="password" id="password" placeholder="Entrez votre mot de passe..."
+                            class="w-full px-4 py-2 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-blue-500 pr-10">
+                        <div id="toggle-password" class="password-toggle absolute right-3 top-3 text-gray-400">
+                            <i class="fas fa-eye"></i>
+                        </div>
+                    </div>
+                </div>
+
+                <button id="login-btn"
+                    class="w-full bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 text-white px-4 py-3 rounded-lg flex items-center justify-center transition duration-200 shadow-md">
+                    <i class="fas fa-sign-in-alt mr-2"></i> Se connecter
+                </button>
+            </div>
+
             <!-- User Info (hidden by default) -->
             <div id="user-info" class="hidden fade-in">
                 <div class="flex items-center mb-6">
@@ -81,47 +149,58 @@
                         <p class="text-gray-500 text-sm">ID: <span id="display-id">12345</span></p>
                     </div>
                 </div>
-                
+
                 <!-- Next Task -->
                 <div class="mb-6">
                     <h3 class="text-gray-700 font-medium mb-3 flex items-center">
                         <i class="fas fa-tasks mr-2"></i>Votre tâche suivante
                     </h3>
-                    <div id="next-task" class="task-card bg-blue-50 border border-blue-100 rounded-lg p-4 cursor-pointer pulse">
+                    <div id="next-task"
+                        class="task-card bg-blue-50 border border-blue-100 rounded-lg p-4 cursor-pointer pulse">
                         <div class="flex items-start">
                             <div class="bg-blue-100 p-2 rounded-lg mr-3">
                                 <i class="fas fa-file-alt text-blue-600"></i>
                             </div>
                             <div>
-                                <h4 class="font-medium text-blue-800">Tâche #<span id="task-id">T001</span></h4>
-                                <p id="task-desc" class="text-gray-700 mt-1">Préparer le rapport trimestriel pour l'équipe marketing</p>
+                                <h4 class="font-medium text-blue-800">Tâche <span id="task-productId"></span></h4>
+                                <p id="task-desc" class="text-gray-700 mt-1">Chargement ...</p>
                                 <div class="flex items-center mt-2 text-sm text-gray-500">
                                     <i class="far fa-clock mr-1"></i>
-                                    <span id="task-time">Due: Aujourd'hui, 16:00</span>
+                                    <span id="task-time">∞</span>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="flex justify-center mt-4">
+                        <button id="complete-task-btn"
+                            class="bg-green-600 hover:bg-green-700 text-white px-6 py-3 rounded-full flex items-center transition duration-200 shadow-md">
+                            <i class="fas fa-check mr-2"></i> Tâche terminée
+                        </button>
+                    </div>
                 </div>
-                
+
                 <!-- Pause Button -->
                 <div class="flex justify-center">
-                    <button 
-                        id="pause-btn"
-                        class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full flex items-center transition duration-200 shadow-md"
-                    >
+                    <button id="pause-btn"
+                        class="bg-orange-500 hover:bg-orange-600 text-white px-6 py-3 rounded-full flex items-center transition duration-200 shadow-md">
                         <i class="fas fa-pause mr-2"></i> Mettre en pause
                     </button>
                 </div>
-                
+
                 <!-- Status Indicator -->
-                <div id="status-indicator" class="mt-6 text-center text-sm text-gray-500 flex items-center justify-center">
+                <div id="status-indicator"
+                    class="mt-6 text-center text-sm text-gray-500 flex items-center justify-center">
                     <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                     <span>Actif</span>
                 </div>
+
+                <button id="logout-btn"
+                    class="w-full mt-6 border border-gray-300 text-gray-600 px-4 py-2 rounded-lg flex items-center justify-center transition duration-200 hover:bg-gray-50">
+                    <i class="fas fa-sign-out-alt mr-2"></i> Se déconnecter
+                </button>
             </div>
         </div>
-        
+
         <!-- Footer -->
         <div class="bg-gray-50 px-6 py-3 text-center text-gray-500 text-sm">
             <p>© 2023 Task Manager Pro</p>
@@ -129,105 +208,248 @@
     </div>
 
     <script>
-        document.addEventListener('DOMContentLoaded', function() {
+        document.addEventListener('DOMContentLoaded', function () {
+            // DOM Elements
             const userIdInput = document.getElementById('user-id');
-            const submitBtn = document.getElementById('submit-btn');
+            const passwordInput = document.getElementById('password');
+            const togglePassword = document.getElementById('toggle-password');
+            const loginBtn = document.getElementById('login-btn');
+            const loginForm = document.getElementById('login-form');
             const userInfo = document.getElementById('user-info');
             const pauseBtn = document.getElementById('pause-btn');
+            const logoutBtn = document.getElementById('logout-btn');
             const statusIndicator = document.getElementById('status-indicator');
             const usernameDisplay = document.getElementById('username');
             const displayId = document.getElementById('display-id');
-            const taskId = document.getElementById('task-id');
+            const taskProductId = document.getElementById('task-productId');
             const taskDesc = document.getElementById('task-desc');
             const taskTime = document.getElementById('task-time');
-            
-            // Sample user data (in a real app, this would come from an API)
-            const users = {
-                '12345': {
-                    name: 'Jean Dupont',
-                    nextTask: {
-                        id: 'T001',
-                        description: 'Préparer le rapport trimestriel pour l\'équipe marketing',
-                        due: 'Aujourd\'hui, 16:00'
-                    }
-                },
-                '67890': {
-                    name: 'Marie Martin',
-                    nextTask: {
-                        id: 'T042',
-                        description: 'Réviser les propositions de budget pour le Q4',
-                        due: 'Demain, 10:30'
-                    }
-                }
-            };
-            
-            // Submit handler
-            submitBtn.addEventListener('click', function() {
+            const completeTaskBtn = document.getElementById('complete-task-btn');
+
+            // Toggle password visibility
+            let passwordVisible = false;
+            togglePassword.addEventListener('click', function () {
+                passwordVisible = !passwordVisible;
+                passwordInput.type = passwordVisible ? 'text' : 'password';
+                togglePassword.innerHTML = passwordVisible ? '<i class="fas fa-eye-slash"></i>' : '<i class="fas fa-eye"></i>';
+            });
+
+            // Login handler
+            loginBtn.addEventListener('click', async () => {
                 const userId = userIdInput.value.trim();
-                
-                if (userId === '') {
-                    alert('Veuillez entrer un identifiant');
+                const password = passwordInput.value;
+
+                if (userId === '' || password === '') {
+                    showError('Veuillez remplir tous les champs');
                     return;
                 }
-                
-                // Simulate user lookup
-                setTimeout(() => {
-                    if (users[userId]) {
-                        // Update UI with user data
-                        usernameDisplay.textContent = users[userId].name;
-                        displayId.textContent = userId;
-                        taskId.textContent = users[userId].nextTask.id;
-                        taskDesc.textContent = users[userId].nextTask.description;
-                        taskTime.textContent = `Due: ${users[userId].nextTask.due}`;
-                        
-                        // Show user info
-                        userInfo.classList.remove('hidden');
-                        userInfo.classList.add('fade-in');
-                    } else {
-                        alert('Identifiant non reconnu');
-                    }
-                }, 500);
+
+                rawRes = await fetch(`/userAuthentification?user=${userId}&password=${password}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const res = await rawRes.text();
+                if (res.status === 403) {
+                    showError('Identifiant ou mot de passe incorrect');
+                    return;
+                }
+
+                const rawUser = await fetch(`/user?user=${userId}&password=${password}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const user = await rawUser.json();
+
+                // Successful login
+                loginSuccess(user);
             });
-            
+
+            async function finishTask() {
+                const rawRes = await fetch(`/finishTask?user=${userIdInput.value}&password=${passwordInput.value}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                var res = await rawRes.json();
+
+                if (res.message) {
+                    showError(res.message);
+                    return;
+                }
+            }
+
+            async function getNextTask() {
+                const rawRes = await fetch(`/getNextTask?user=${userIdInput.value}&password=${passwordInput.value}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                var res = await rawRes.json();
+
+                if (res.message) {
+                    showError(res.message);
+                    return;
+                }
+
+                taskProductId.textContent = res.goal.operation.name;
+                taskDesc.textContent = res.machine.name + " - " + res.productHash;
+                taskTime.textContent = res.goal.operation.time;
+            }
+
+            function showError(message) {
+                const errorBox = document.getElementById('error-message');
+                const errorText = document.getElementById('error-text');
+                errorText.textContent = message;
+                errorBox.classList.remove('hidden');
+                loginForm.classList.add('shake');
+                setTimeout(() => { loginForm.classList.remove('shake'); }, 500);
+                setTimeout(() => { errorBox.classList.add('hidden'); }, 4000);
+            }
+
+            function loginSuccess(user) {
+                // Update UI with user data
+                usernameDisplay.textContent = user.name.toUpperCase() + " " + user.surname;
+                displayId.textContent = user.code;
+                // taskProductId.textContent = user.nextTask.id;
+                // taskDesc.textContent = user.nextTask.description;
+                // taskTime.textContent = `Due: ${user.nextTask.due}`;
+
+                // Switch to user info view
+                loginForm.classList.add('hidden');
+                userInfo.classList.remove('hidden');
+                userInfo.classList.add('fade-in');
+
+                // Clear password field
+                //passwordInput.value = '';
+                getNextTask()
+                refreshUserStatus()
+            }
+
             // Pause button handler
             let isPaused = false;
-            pauseBtn.addEventListener('click', function() {
-                isPaused = !isPaused;
-                
-                if (isPaused) {
+
+            async function refreshUserStatus() {
+                const rawRes = await fetch(`/userStatus?user=${userIdInput.value}&password=${passwordInput.value}`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
+                const res = await rawRes.json();
+                console.log(res);
+
+                if (res.message) {
+                    showError(res.message);
+                    return;
+                }
+
+                // Update status indicator
+                if (res.status === 'EN_PAUSE') {
                     pauseBtn.innerHTML = '<i class="fas fa-play mr-2"></i> Reprendre';
-                    pauseBtn.classList.remove('bg-orange-500', 'hover:bg-orange-600');
-                    pauseBtn.classList.add('bg-green-500', 'hover:bg-green-600');
-                    
+                    pauseBtn.classList.remove('from-orange-500', 'to-amber-500', 'hover:from-orange-600', 'hover:to-amber-600');
+                    pauseBtn.classList.add('from-green-500', 'to-emerald-500', 'hover:from-green-600', 'hover:to-emerald-600');
+
                     statusIndicator.innerHTML = `
                         <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
                         <span>En pause</span>
                     `;
-                    
-                    // Add visual feedback
-                    document.getElementById('next-task').classList.remove('pulse');
-                } else {
+                    isPaused = true;
+                } else if (res.status === 'LIBRE') {
                     pauseBtn.innerHTML = '<i class="fas fa-pause mr-2"></i> Mettre en pause';
-                    pauseBtn.classList.remove('bg-green-500', 'hover:bg-green-600');
-                    pauseBtn.classList.add('bg-orange-500', 'hover:bg-orange-600');
-                    
+                    pauseBtn.classList.remove('from-green-500', 'to-emerald-500', 'hover:from-green-600', 'hover:to-emerald-600');
+                    pauseBtn.classList.add('from-orange-500', 'to-amber-500', 'hover:from-orange-600', 'hover:to-amber-600');
+
                     statusIndicator.innerHTML = `
                         <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
                         <span>Actif</span>
                     `;
-                    
+                    isPaused = false;
+                }
+            }
+
+            pauseBtn.addEventListener('click', async () => {
+                isPaused = !isPaused;
+
+                if (isPaused) {
+                    await fetch(`/userStatus?user=${userIdInput.value}&password=${passwordInput.value}&status=EN_PAUSE`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+
+                    pauseBtn.innerHTML = '<i class="fas fa-play mr-2"></i> Reprendre';
+                    pauseBtn.classList.remove('from-orange-500', 'to-amber-500', 'hover:from-orange-600', 'hover:to-amber-600');
+                    pauseBtn.classList.add('from-green-500', 'to-emerald-500', 'hover:from-green-600', 'hover:to-emerald-600');
+
+                    statusIndicator.innerHTML = `
+                        <div class="w-3 h-3 bg-yellow-500 rounded-full mr-2"></div>
+                        <span>En pause</span>
+                    `;
+
+                    // Add visual feedback
+                    document.getElementById('next-task').classList.remove('pulse');
+                } else {
+                    await fetch(`/userStatus?user=${userIdInput.value}&password=${passwordInput.value}&status=LIBRE`, {
+                        method: 'GET',
+                        headers: {
+                            'Content-Type': 'application/json'
+                        },
+                    });
+
+                    pauseBtn.innerHTML = '<i class="fas fa-pause mr-2"></i> Mettre en pause';
+                    pauseBtn.classList.remove('from-green-500', 'to-emerald-500', 'hover:from-green-600', 'hover:to-emerald-600');
+                    pauseBtn.classList.add('from-orange-500', 'to-amber-500', 'hover:from-orange-600', 'hover:to-amber-600');
+
+                    statusIndicator.innerHTML = `
+                        <div class="w-3 h-3 bg-green-500 rounded-full mr-2"></div>
+                        <span>Actif</span>
+                    `;
+
                     // Add visual feedback
                     document.getElementById('next-task').classList.add('pulse');
                 }
             });
-            
+
+            completeTaskBtn.addEventListener('click', async () => {
+                // Optionally, you can update the UI or fetch the next task here
+                // For example, you could clear the task details or fetch a new task from the server
+                taskProductId.textContent = '';
+                taskDesc.textContent = '';
+                taskTime.textContent = '';
+
+                await finishTask();
+                await getNextTask();
+            });
+
+            // Logout handler
+            logoutBtn.addEventListener('click', function () {
+                userInfo.classList.add('hidden');
+                loginForm.classList.remove('hidden');
+                userIdInput.value = '';
+                passwordInput.value = '';
+            });
+
             // Allow submission with Enter key
-            userIdInput.addEventListener('keypress', function(e) {
+            userIdInput.addEventListener('keypress', function (e) {
                 if (e.key === 'Enter') {
-                    submitBtn.click();
+                    loginBtn.click();
+                }
+            });
+
+            passwordInput.addEventListener('keypress', function (e) {
+                if (e.key === 'Enter') {
+                    loginBtn.click();
                 }
             });
         });
     </script>
 </body>
+
 </html>
