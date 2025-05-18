@@ -59,6 +59,11 @@ public class WorkshopPanel extends CustomPanel {
             } else {
                 objectifLabel = new Label("Unknown goal type");
             }
+            if (Memory.currentWorkshop.getActualGoals().contains(objectif)) {
+                objectifLabel.setStyle("-fx-text-fill: green;");
+            } else {
+                objectifLabel.setStyle("-fx-text-fill: red;");
+            }
             objectifsContent.getChildren().remove(objectifPanel);
             Button deleteButton = new Button("Delete");
             deleteButton.setOnAction(event -> {
@@ -77,6 +82,8 @@ public class WorkshopPanel extends CustomPanel {
         Button addButton = new Button("Add Goal");
         addButton.setOnAction(event -> {
             Modal dialog = new Modal(this.stage, new CreateGeneralGoal());
+            dialog.onClose((obj) -> {
+            });
         });
         objectifsContent.getChildren().add(addButton);
 
