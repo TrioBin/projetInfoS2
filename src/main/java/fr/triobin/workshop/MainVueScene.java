@@ -5,6 +5,7 @@ import java.util.Map;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.httpserver.HTTPServer;
 import fr.triobin.workshop.map.MapStage;
 import fr.triobin.workshop.panels.OperatorPanel;
 import fr.triobin.workshop.panels.ProductPanel;
@@ -37,6 +38,8 @@ public class MainVueScene extends CustomScene {
         super(new VBox(), 1000, 500);
         VBox root = (VBox) getRoot();
 
+        HTTPServer.start();
+
         MapStage mapStage = new MapStage(this);
 
         // BARRE DU HAUT
@@ -59,6 +62,7 @@ public class MainVueScene extends CustomScene {
         backButton.setOnAction(e -> {
             App app = App.getInstance();
             mapStage.close();
+            HTTPServer.stop();
             app.changeWindow(new SelectScene());
         });
 
@@ -84,6 +88,7 @@ public class MainVueScene extends CustomScene {
         closeButton.setOnAction(e -> {
             App app = App.getInstance();
             mapStage.close();
+            HTTPServer.stop();
             app.getStage().close();
         });
         CustomCapacities.hoverCursorEffect(closeButton, Cursor.HAND);

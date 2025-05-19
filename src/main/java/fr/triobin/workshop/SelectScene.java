@@ -121,5 +121,8 @@ public class SelectScene extends CustomScene {
     public void onload(Stage stage) {
         stage.setTitle("Sélectionnez un atelier");
         this.stage = stage;
+        stage.setOnCloseRequest(e -> {
+            System.exit(0);
+        });
     }
 }

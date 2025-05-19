@@ -23,10 +23,30 @@ import java.io.IOException;
 
 public class HTTPServer {
 
-    public static void main(String[] args) {
-        Memory.workshops = FileManager.loadFile();
-        Memory.saveFile();
-        Memory.currentWorkshop = Memory.workshops.get(0);
+    public static HttpServer serveur;
+
+    // public static void main(String[] args) {
+    //     Memory.workshops = FileManager.loadFile();
+    //     Memory.saveFile();
+    //     Memory.currentWorkshop = Memory.workshops.get(0);
+    //     try {
+    //         HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
+    //         serveur.createContext("/", new MonHandler());
+    //         serveur.createContext("/userAuthentification", new ValidateUserAuthentification());
+    //         serveur.createContext("/userStatus", new GetUserStatus());
+    //         serveur.createContext("/getNextTask", new GetNextTask());
+    //         serveur.createContext("/user", new GetUser());
+    //         serveur.createContext("/finishTask", new FinishTask());
+    //         serveur.setExecutor(null); // Default executor
+    //         serveur.start();
+    //         HTTPServer.serveur = serveur;
+    //         System.out.println("Serveur HTTP démarré sur http://localhost:8000");
+    //     } catch (Exception e) {
+    //         e.printStackTrace();
+    //     }
+    // }
+
+    public static void start() {
         try {
             HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
             serveur.createContext("/", new MonHandler());
@@ -37,7 +57,16 @@ public class HTTPServer {
             serveur.createContext("/finishTask", new FinishTask());
             serveur.setExecutor(null); // Default executor
             serveur.start();
+            HTTPServer.serveur = serveur;
             System.out.println("Serveur HTTP démarré sur http://localhost:8000");
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void stop() {
+        try {
+            HTTPServer.serveur.stop(0);
         } catch (Exception e) {
             e.printStackTrace();
         }
