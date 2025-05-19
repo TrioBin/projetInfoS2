@@ -2,3 +2,4 @@
 target
 *.class
 ._*
+pom.xml
