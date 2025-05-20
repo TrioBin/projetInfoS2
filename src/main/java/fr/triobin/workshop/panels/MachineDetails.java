@@ -1,14 +1,19 @@
 package fr.triobin.workshop.panels;
 
+import fr.triobin.workshop.App;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
+import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operation;
+import fr.triobin.workshop.popups.ChangeMachinePosition;
+import fr.triobin.workshop.popups.ChangeWorkstationPosition;
 import fr.triobin.workshop.general.Cost;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.collections.FXCollections;
 import javafx.geometry.Pos;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
@@ -24,6 +29,8 @@ public class MachineDetails extends VBox {
         this.setStyle("-fx-background-color: white;");
         this.setSpacing(0);
         this.setPrefWidth(450);
+
+        Memory.currentMachine = machine;
 
         // Create a label for the machine name
         Label machineNameLabel = new Label(machine.getName());
@@ -84,8 +91,18 @@ public class MachineDetails extends VBox {
             }
         });
 
+        Button changePositionButton = new Button("Changer position");
+        changePositionButton.setMaxWidth(Double.MAX_VALUE);
+        changePositionButton.setOnAction(event -> {
+            // Create a modal
+            Modal dialog = new Modal(App.getStage(), new ChangeMachinePosition());
+            dialog.onClose(closeEvent -> {
+                
+            });
+        });
+
         // Add components to the VBox
         this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField, new Text("Operations:"),
-                opsList);
+                opsList, changePositionButton);
     }
 }
