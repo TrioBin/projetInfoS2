@@ -20,30 +20,32 @@ import java.io.FileReader;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
+import java.io.InputStreamReader;
 
 public class HTTPServer {
 
     public static HttpServer serveur;
 
     // public static void main(String[] args) {
-    //     Memory.workshops = FileManager.loadFile();
-    //     Memory.saveFile();
-    //     Memory.currentWorkshop = Memory.workshops.get(0);
-    //     try {
-    //         HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
-    //         serveur.createContext("/", new MonHandler());
-    //         serveur.createContext("/userAuthentification", new ValidateUserAuthentification());
-    //         serveur.createContext("/userStatus", new GetUserStatus());
-    //         serveur.createContext("/getNextTask", new GetNextTask());
-    //         serveur.createContext("/user", new GetUser());
-    //         serveur.createContext("/finishTask", new FinishTask());
-    //         serveur.setExecutor(null); // Default executor
-    //         serveur.start();
-    //         HTTPServer.serveur = serveur;
-    //         System.out.println("Serveur HTTP démarré sur http://localhost:8000");
-    //     } catch (Exception e) {
-    //         e.printStackTrace();
-    //     }
+    // Memory.workshops = FileManager.loadFile();
+    // Memory.saveFile();
+    // Memory.currentWorkshop = Memory.workshops.get(0);
+    // try {
+    // HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
+    // serveur.createContext("/", new MonHandler());
+    // serveur.createContext("/userAuthentification", new
+    // ValidateUserAuthentification());
+    // serveur.createContext("/userStatus", new GetUserStatus());
+    // serveur.createContext("/getNextTask", new GetNextTask());
+    // serveur.createContext("/user", new GetUser());
+    // serveur.createContext("/finishTask", new FinishTask());
+    // serveur.setExecutor(null); // Default executor
+    // serveur.start();
+    // HTTPServer.serveur = serveur;
+    // System.out.println("Serveur HTTP démarré sur http://localhost:8000");
+    // } catch (Exception e) {
+    // e.printStackTrace();
+    // }
     // }
 
     public static void start() {
@@ -79,7 +81,10 @@ public class HTTPServer {
                 // Lire le fichier HTML
                 StringBuilder contenuHTML = new StringBuilder();
                 try (BufferedReader br = new BufferedReader(
-                        new FileReader("src/main/java/fr/triobin/workshop/httpserver/index.html"))) {
+                        new InputStreamReader(
+                                getClass().getClassLoader()
+                                        .getResourceAsStream("fr/triobin/workshop/index.html"),
+                                "UTF-8"))) {
                     String ligne;
                     while ((ligne = br.readLine()) != null) {
                         contenuHTML.append(ligne).append("\n");

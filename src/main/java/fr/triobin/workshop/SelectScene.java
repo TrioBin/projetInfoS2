@@ -6,6 +6,7 @@ import javafx.scene.Cursor;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.*;
 import javafx.scene.text.Font;
@@ -124,5 +125,6 @@ public class SelectScene extends CustomScene {
         stage.setOnCloseRequest(e -> {
             System.exit(0);
         });
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/fr/triobin/workshop/icon.png")));
     }
 }

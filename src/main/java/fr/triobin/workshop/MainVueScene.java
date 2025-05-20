@@ -23,6 +23,7 @@ import javafx.scene.control.ScrollPane;
 import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
+import javafx.scene.image.Image;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -147,6 +148,8 @@ public class MainVueScene extends CustomScene {
         // get topBar
         HBox topBar = (HBox) ((VBox) getRoot()).getChildren().get(0);
         CustomCapacities.dragZoneEffect(stage, topBar);
+
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/fr/triobin/workshop/icon.png")));
     }
 
     public void goToMachine() {

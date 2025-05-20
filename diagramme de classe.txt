@@ -1,0 +1,180 @@
+@startuml
+class Workshop {
+    -designation: String
+    -workstations: ArrayList<Workstation>
+    -products: ArrayList<Product>
+    -operators: ArrayList<Operator>
+    -machinesRef: ArrayList<RefMachine>
+    -operations: ArrayList<Operation>
+    -machines: ArrayList<Machine>
+    -goals: ArrayList<Goal>
+    -actualGoals: ArrayList<SpecializedGoal>
+    +Workshop(designation: String)
+    -replaceToSpecializedGoalsFrom(generalGoal: GeneralGoal): void
+    +getNextGoal(skills: ArrayList<RefMachine>): Task
+}
+
+class Cost {
+    -cost: float
+    +Cost(cost: float)
+    +calcCost(t: Time): float
+}
+
+abstract class Goal {
+}
+
+class GeneralGoal extends Goal {
+    -product: Product
+    -quantity: int
+    +GeneralGoal(product: Product, quantity: int)
+    +getSpecializedGoals(): ArrayList<SpecializedGoal>
+}
+
+class SpecializedGoal extends Goal {
+    -operation: Operation
+    -product: NonFinishedProduct
+    +SpecializedGoal(operation: Operation, product: NonFinishedProduct)
+}
+
+class Machine {
+    -refMachine: RefMachine
+    -dmachine: String
+    -position: Position
+    -dimension: Dimension2D
+    -c: Cost
+    -operations: ArrayList<Operation>
+    -status: MachineStatus
+    +Machine(refMachine: RefMachine, dmachine: String, position: Position, dimension: Dimension2D, c: Cost, operations: ArrayList<Operation>, status: MachineStatus)
+}
+
+enum MachineStatus {
+    AVAILABLE
+    USED
+    MAINTENANCE
+}
+
+class NonFinishedProduct {
+    -product: Product
+    -status: NonFinishedProduct
+    +NonFinishedProduct(product: Product)
+}
+
+enum ProductStatus {
+    FREE
+    USED
+}
+
+class Operation {
+    -name: String
+    -time: Time
+    +Operation(name: String, time: Time)
+    +isCompatible(skills: ArrayList<RefMachine>): Boolean
+}
+
+class Operator {
+    -code: String
+    -name: String
+    -surname: String
+    -skills: ArrayList<RefMachine>
+    -status: OperatorStatus
+    -password: String
+    -currentTask: Task
+    +Operator(code: String, name: String, surname: String, skills: ArrayList<RefMachine>, status: OperatorStatus, password: String, currentTask: Task)
+}
+
+enum OperatorStatus {
+    LIBRE
+    EN_PAUSE
+    TRAVAILLANT
+}
+
+class OPList implements Iterable<Operation> {
+    -operations: ArrayList<Operation>
+    +OPList(ArrayList<Operation>)
+}
+
+class Position {
+    +x: Float
+    +y: Float
+    +Position(x: int, y: int)
+    +Position(x: Float, y: Float)
+}
+
+class Product {
+    -productCode: String
+    -dProduct: String
+    -operations: OPList
+    +Product(productCode: String, dProduct: String, operations: OPList)
+}
+
+class RefMachine {
+    -code: String
+    +RefMachine(code: String)
+}
+
+class Task {
+    -goal: SpecializedGoal
+    -machine: Machine
+    -productHash: Integer
+    +Task(goal: SpecializedGoal, machine: Machine)
+}
+
+class Workstation {
+    -refWorkstation: String
+    -dworkstation: String
+    -position: Position
+    -dimension: Dimension2D
+    -machines: ArrayList<Machine>
+    +Workstation(refWorkstation: String, dworkstation: String, position: Position, dimension: Dimension2D, machines: ArrayList<Machine>)
+}
+
+' Héritages
+GeneralGoal --|> Goal
+SpecializedGoal --|> Goal
+OPList ..|> Iterable
+
+' Associations / Compositions avec multiplicités
+Workshop "1" o-- "*" Workstation
+Workshop "1" o-- "*" Product
+Workshop "1" o-- "*" Operator
+Workshop "1" o-- "*" RefMachine       : machinesRef
+Workshop "1" o-- "*" Operation
+Workshop "1" o-- "*" Machine
+Workshop "1" o-- "*" Goal
+Workshop "1" o-- "*" SpecializedGoal : actualGoals
+
+Product "1" --> "1" OPList              : operations
+Product "1" o-- "*" Operation
+
+Machine "1" --> "1" RefMachine
+Machine "1" --> "1" Position
+Machine "1" --> "1" Dimension2D
+Machine "1" --> "1" Cost
+Machine "1" o-- "*" Operation           : operations
+Machine "1" --> "1" MachineStatus
+
+Workstation "1" --> "1" Position
+Workstation "1" --> "1" Dimension2D
+Workstation "1" o-- "*" Machine         : machines
+
+Operator "1" o-- "*" RefMachine         : skills
+Operator "1" --> "1" OperatorStatus
+Operator "0..1" --> "1" Task            : currentTask
+
+Operation "1" --> "1" Time
+
+GeneralGoal "1" --> "1" Product
+GeneralGoal "1" --> "*" SpecializedGoal : getSpecializedGoals()
+
+SpecializedGoal "1" --> "1" Operation
+SpecializedGoal "1" --> "1" NonFinishedProduct
+
+Task "1" --> "1" SpecializedGoal
+Task "1" --> "1" Machine
+
+NonFinishedProduct "1" --> "1" Product
+NonFinishedProduct "1" --> "1" ProductStatus
+
+Cost "1" --> "1" Time
+
+@enduml

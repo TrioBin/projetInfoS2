@@ -74,7 +74,7 @@ public class Workshop {
         }
     }
 
-    public void replaceToSpecializedGoalsFrom(GeneralGoal generalGoal) {
+    private void replaceToSpecializedGoalsFrom(GeneralGoal generalGoal) {
         ArrayList<SpecializedGoal> specializedGoals = generalGoal.getSpecializedGoals();
         int index = goals.indexOf(generalGoal);
         goals.remove(generalGoal);
