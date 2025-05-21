@@ -75,6 +75,9 @@ public class MapScene extends CustomScene {
                     Position pos = workstation.getPosition();
                     r.setX(pos.x);
                     r.setY(pos.y);
+                    // Mettre à jour la dimension du rectangle
+                    r.setWidth(workstation.getDimension().getWidth());
+                    r.setHeight(workstation.getDimension().getHeight());
                     // Mettre à jour la position du label
                     label.setX(r.getX() + r.getWidth() / 2 - label.getLayoutBounds().getWidth() / 2);
                     label.setY(r.getY() + r.getHeight() / 2 + label.getLayoutBounds().getHeight() / 4);
@@ -143,6 +146,9 @@ public class MapScene extends CustomScene {
                     Position pos = machine.getPosition();
                     r.setX(pos.x);
                     r.setY(pos.y);
+                    // Mettre à jour la dimension du rectangle
+                    r.setWidth(machine.getDimension().getWidth());
+                    r.setHeight(machine.getDimension().getHeight());
                     // Mettre à jour la position du label
                     label.setX(r.getX() + r.getWidth() / 2 - label.getLayoutBounds().getWidth() / 2);
                     label.setY(r.getY() + r.getHeight() / 2 + label.getLayoutBounds().getHeight() / 4);

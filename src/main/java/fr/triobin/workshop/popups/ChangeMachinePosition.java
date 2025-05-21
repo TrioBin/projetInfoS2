@@ -56,7 +56,7 @@ public class ChangeMachinePosition extends CustomScene {
                 float h = Float.parseFloat(hField.getText());
 
                 Memory.currentMachine.modify(new Position(x, y));
-                Memory.currentMachine.modify(new Dimension2D(h, w));
+                Memory.currentMachine.modify(new Dimension2D(w, h));
 
                 Memory.saveFile();
                 stage.close();

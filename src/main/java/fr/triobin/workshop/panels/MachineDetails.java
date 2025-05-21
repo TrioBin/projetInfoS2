@@ -102,7 +102,7 @@ public class MachineDetails extends VBox {
         });
 
         // Add components to the VBox
-        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField, new Text("Operations:"),
-                opsList, changePositionButton);
+        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField, changePositionButton, new Text("Operations:"),
+                opsList);
     }
 }
