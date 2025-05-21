@@ -8,6 +8,7 @@ import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.popups.ChangeMachinePosition;
 import fr.triobin.workshop.popups.ChangeWorkstationPosition;
+import fr.triobin.workshop.popups.MaintenanceReason;
 import fr.triobin.workshop.general.Cost;
 import javafx.beans.property.BooleanProperty;
 import javafx.beans.property.SimpleBooleanProperty;
@@ -46,8 +47,21 @@ public class MachineDetails extends VBox {
         statusComboBox.getItems().addAll(Machine.MachineStatus.values());
         statusComboBox.setValue(machine.getStatus()); // Set the current status
         statusComboBox.setOnAction(event -> {
-            Machine.MachineStatus selectedStatus = statusComboBox.getValue();
-            machine.modify(selectedStatus); // Update the machine's status
+            if (statusComboBox.getValue() == Machine.MachineStatus.MAINTENANCE) {
+                // Open a modal for maintenance
+                Modal dialog = new Modal(App.getStage(), new MaintenanceReason());
+                dialog.onClose(closeEvent -> {
+                    if (Memory.confimation) {
+                        Machine.MachineStatus selectedStatus = statusComboBox.getValue();
+                        machine.modify(selectedStatus); // Update the machine's status
+                    } else {
+                        statusComboBox.setValue(machine.getStatus()); // Reset to previous status
+                    }
+                });
+            } else {
+                Machine.MachineStatus selectedStatus = statusComboBox.getValue();
+                machine.modify(selectedStatus); // Update the machine's status
+            }
         });
 
         ListView<Operation> opsList = new ListView<Operation>(
@@ -97,12 +111,13 @@ public class MachineDetails extends VBox {
             // Create a modal
             Modal dialog = new Modal(App.getStage(), new ChangeMachinePosition());
             dialog.onClose(closeEvent -> {
-                
+
             });
         });
 
         // Add components to the VBox
-        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField, changePositionButton, new Text("Operations:"),
+        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField,
+                changePositionButton, new Text("Operations:"),
                 opsList);
     }
 }

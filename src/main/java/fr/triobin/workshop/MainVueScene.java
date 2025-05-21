@@ -90,7 +90,7 @@ public class MainVueScene extends CustomScene {
             App app = App.getInstance();
             mapStage.close();
             HTTPServer.stop();
-            app.getStage().close();
+            app.changeWindow(new SelectScene());
         });
         CustomCapacities.hoverCursorEffect(closeButton, Cursor.HAND);
 
