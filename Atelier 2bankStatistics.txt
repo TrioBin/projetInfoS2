@@ -2,3 +2,4 @@
 22052025,08:17,O1,Cout machine,0.03
 22052025,08:17,O1,Salaire opérateur,0.23
 22052025,08:17,O1,Cout machine,0.07
+22052025,10:54,null,Ajout d'argent dans la banque,100.0

@@ -19,8 +19,9 @@ public class Statistic {
     public static void addStatMachine(Timestamp timestamp, String machineName, RefMachine refMachine, String reason) {
         try {
             // use file writer to append the statistics to a file
-            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt", true);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy"+separator+"HH:mm");
+            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt",
+                    true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy" + separator + "HH:mm");
             String toWrite = timestamp.toLocalDateTime().format(formatter);
             toWrite += separator + machineName + separator + refMachine.getName() + separator + reason;
             fileWriter.write(toWrite + "\n");
@@ -33,7 +34,8 @@ public class Statistic {
     public static List<MachineEvent> readMachineStatistics() {
         List<MachineEvent> events = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt"));
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(separator);
@@ -56,10 +58,16 @@ public class Statistic {
     public static void addStatBank(Timestamp timestamp, Operator operator, String reason, Float cost) {
         try {
             // use file writer to append the statistics to a file
-            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt", true);
-            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy"+separator+"HH:mm");
+            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt",
+                    true);
+            DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy" + separator + "HH:mm");
             String toWrite = timestamp.toLocalDateTime().format(formatter);
-            toWrite += separator + operator.getCode()  + separator + reason + separator + cost;
+            if (operator == null) {
+                toWrite += separator + "null";
+            } else {
+                toWrite += separator + operator.getName();
+            }
+            toWrite += separator + reason + separator + cost;
             fileWriter.write(toWrite + "\n");
             fileWriter.close();
         } catch (Exception e) {
@@ -70,7 +78,8 @@ public class Statistic {
     public static List<BankEvent> readBankStatistics() {
         List<BankEvent> events = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt"));
+            BufferedReader reader = new BufferedReader(
+                    new FileReader(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(separator);

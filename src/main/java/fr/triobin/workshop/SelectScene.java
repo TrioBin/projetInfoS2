@@ -65,10 +65,11 @@ public class SelectScene extends CustomScene {
         // ----- Contenu principal -----
         Label titleLabel = new Label(title);
         titleLabel.setFont(Font.font(24));
-        Label machines = new Label("… machines");
         Label postes = new Label(workshop.getWorkstations().size() + " postes");
+        Label machines = new Label(workshop.getMachines().size() + " machines");
         Label employes = new Label(workshop.getOperators().size() + " employés");
-        box.getChildren().addAll(titleLabel, machines, postes, employes);
+        Label money = new Label(workshop.getBank() + " €");
+        box.getChildren().addAll(titleLabel, postes, machines, employes, money);
 
         // ----- Bouton Supprimer -----
         Button deleteBtn = new Button("❌");

@@ -8,6 +8,7 @@ import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.SpecializedGoal;
 import fr.triobin.workshop.popups.AddInBankPopup;
 import fr.triobin.workshop.popups.CreateGeneralGoal;
+import fr.triobin.workshop.popups.RenameWorkshopPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
@@ -50,7 +51,15 @@ public class WorkshopPanel extends CustomPanel {
         bankContainer.setSpacing(10);
         bankContainer.getChildren().addAll(bankLabel, addInBankButton);
 
-        atelierPanel.getChildren().addAll(atelierLabel, bankContainer);
+        Button renameButton = new Button("Rename");
+        renameButton.setOnAction(event -> {
+            Modal dialog = new Modal(this.stage, new RenameWorkshopPopup());
+            dialog.onClose((obj) -> {
+                atelierLabel.setText(Memory.currentWorkshop.getDesignation() + " :");
+            });
+        });
+
+        atelierPanel.getChildren().addAll(atelierLabel, bankContainer, renameButton);
 
         ScrollPane objectifsContainer = new ScrollPane();
         objectifsContainer.setPrefSize(500, 400);

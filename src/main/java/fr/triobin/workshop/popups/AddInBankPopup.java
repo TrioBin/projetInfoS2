@@ -14,13 +14,13 @@ import javafx.stage.Stage;
 
 public class AddInBankPopup extends CustomScene {
     private Stage stage;
-    
+
     public AddInBankPopup() {
         super(new VBox(), 300, 200);
         Memory.confimation = false;
         VBox root = (VBox) getRoot();
         root.setStyle("-fx-padding: 20; -fx-spacing: 10;");
-        
+
         CustomTextField moneyInput = new CustomTextField();
         moneyInput.setPromptText("Combien d'€ ?");
         moneyInput.setMaxWidth(200);
@@ -32,6 +32,13 @@ public class AddInBankPopup extends CustomScene {
                 return;
             }
             float amount = Float.parseFloat(input);
+            if (amount > 0) {
+                Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), null, "Ajout d'argent dans la banque",
+                        amount);
+            } else {
+                Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), null, "Retrait d'argent de la banque",
+                        -amount);
+            }
             Memory.currentWorkshop.addBank(amount);
             this.stage.close();
         });
@@ -45,6 +52,13 @@ public class AddInBankPopup extends CustomScene {
                 return;
             }
             float amount = Float.parseFloat(input);
+            if (amount > 0) {
+                Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), null, "Ajout d'argent dans la banque",
+                        amount);
+            } else {
+                Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), null, "Retrait d'argent de la banque",
+                        -amount);
+            }
             Memory.currentWorkshop.addBank(amount);
             this.stage.close();
         });

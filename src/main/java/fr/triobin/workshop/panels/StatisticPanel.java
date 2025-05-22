@@ -193,7 +193,13 @@ public class StatisticPanel extends CustomPanel {
         });
 
         TableColumn<BankEvent, String> colMachine = new TableColumn<>("Operateur");
-        colMachine.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getOperator().getCode()));
+        colMachine.setCellValueFactory(cell -> {
+            if (cell.getValue() == null || cell.getValue().getOperator() == null) {
+                return new SimpleStringProperty("null");
+            } else {
+                return new SimpleStringProperty(cell.getValue().getOperator().getCode());
+            }
+        });
 
         TableColumn<BankEvent, String> colRef = new TableColumn<>("Raison");
         colRef.setCellValueFactory(cell -> new SimpleStringProperty(cell.getValue().getReason()));

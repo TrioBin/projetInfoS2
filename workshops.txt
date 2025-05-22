@@ -1,4 +1,4 @@
-Atelier 1,200.0
+Atelier 2,500.0
 __________
 RefMachine 1
 __________

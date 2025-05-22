@@ -311,4 +311,9 @@ public class Workshop implements Cloneable {
         clone.machines = new ArrayList<>(this.machines);
         return clone;
     }
+
+    public void setDesignation(String designation) {
+        this.designation = designation;
+        Memory.saveFile();
+    }
 }

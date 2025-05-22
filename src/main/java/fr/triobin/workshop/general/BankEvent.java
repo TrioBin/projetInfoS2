@@ -12,7 +12,11 @@ public class BankEvent {
 
     public BankEvent (String date, String time, String operator, String reason, String cost) {
         this.timestamp = convertToTimestamp(date, time);
-        this.operator = Memory.currentWorkshop.getOperator(operator);
+        if (operator.equals("null")) {
+            this.operator = null;
+        } else {
+            this.operator = Memory.currentWorkshop.getOperator(operator);
+        }
         this.reason = reason;
         this.cost = Float.parseFloat(cost);
     }
