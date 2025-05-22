@@ -68,7 +68,6 @@ class Operation {
     -name: String
     -time: Time
     +Operation(name: String, time: Time)
-    +isCompatible(skills: ArrayList<RefMachine>): Boolean
 }
 
 class Operator {

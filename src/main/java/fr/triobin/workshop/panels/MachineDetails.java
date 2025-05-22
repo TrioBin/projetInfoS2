@@ -38,7 +38,7 @@ public class MachineDetails extends VBox {
         machineNameLabel.setAlignment(Pos.CENTER);
 
         // Create a label for the machine status
-        Label statusLabel = new Label("Status:");
+        Label statusLabel = new Label("Statut:");
         statusLabel.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
 
         // Create a ComboBox for selecting the machine status

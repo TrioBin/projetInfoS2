@@ -27,13 +27,4 @@ public class Operation {
     public Time getTime() {
         return time;
     }
-
-    public Boolean isCompatible(ArrayList<RefMachine> skills) {
-        for (RefMachine skill : skills) {
-            if (skill.getName().equals(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
 }

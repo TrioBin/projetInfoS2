@@ -37,7 +37,7 @@ public class Operator {
         for (RefMachine skill : skills) {
             System.out.println(skill);
         }
-        System.out.println("Status: " + status);
+        System.out.println("Statut: " + status);
     }
 
     public void modify(ArrayList<RefMachine> skills) {

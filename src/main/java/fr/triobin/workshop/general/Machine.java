@@ -36,7 +36,7 @@ public class Machine {
         System.out.println("RefMachine: " + refMachine.getName());
         System.out.println("Position: " + position.x + " " + position.y);
         System.out.println("Cost: " + c.getCost());
-        System.out.println("Status: " + status);
+        System.out.println("Statut: " + status);
         System.out.println("Operations: ");
         for (Operation o : operations) {
             o.print();
