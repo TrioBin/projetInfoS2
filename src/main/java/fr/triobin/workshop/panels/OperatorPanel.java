@@ -32,7 +32,7 @@ public class OperatorPanel extends CustomPanel {
         leftPane.setPrefWidth(300);
         leftPane.setStyle("-fx-background-color: #facc7c; -fx-border-color: #2196f3; -fx-border-width: 2px;");
 
-        Label titleButton = new Label("Worker");
+        Label titleButton = new Label("Employés :");
         titleButton.setMaxWidth(Double.MAX_VALUE);
         leftPane.getChildren().add(titleButton);
 

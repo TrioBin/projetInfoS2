@@ -3,6 +3,7 @@ package fr.triobin.workshop.panels;
 import fr.triobin.workshop.App;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operation;
@@ -92,7 +93,7 @@ public class MachineDetails extends VBox {
                     }
                 }));
 
-        TextField costField = new TextField();
+        CustomTextField costField = new CustomTextField();
         costField.setText(String.valueOf(machine.getCost().getCost()));
         CustomCapacities.forceFloatTextFieldEffect(costField);
         costField.setOnAction(event -> {
@@ -105,7 +106,7 @@ public class MachineDetails extends VBox {
             }
         });
 
-        Button changePositionButton = new Button("Changer position");
+        Button changePositionButton = new Button("Changer la position");
         changePositionButton.setMaxWidth(Double.MAX_VALUE);
         changePositionButton.setOnAction(event -> {
             // Create a modal
@@ -116,8 +117,8 @@ public class MachineDetails extends VBox {
         });
 
         // Add components to the VBox
-        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cost:"), costField,
-                changePositionButton, new Text("Operations:"),
+        this.getChildren().addAll(machineNameLabel, statusLabel, statusComboBox, new Text("Cout:"), costField,
+                changePositionButton, new Text("Opérations:"),
                 opsList);
     }
 }

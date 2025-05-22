@@ -17,7 +17,7 @@ public class CreateWorkshopPopup extends CustomScene {
         super(new HBox(), 500, 500);
         HBox root = (HBox) getRoot();
 
-        TextField nomAtelier = new CustomTextField();
+        CustomTextField nomAtelier = new CustomTextField();
         nomAtelier.setPromptText("Nom de l’atelier");
         nomAtelier.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis

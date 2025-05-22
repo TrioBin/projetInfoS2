@@ -156,7 +156,7 @@ public class OperatorDetails extends VBox {
         VBox rightPane = new VBox(10);
         rightPane.setStyle("-fx-background-color: #f4c16b;");
         rightPane.setPrefWidth(350);
-        Label machineActionLabel = new Label("Machine action");
+        Label machineActionLabel = new Label("Compétences machines");
         machineActionLabel.setStyle(
                 "-fx-background-color: #dcdcdc; -fx-padding: 5; -fx-effect: dropshadow(gaussian, gray, 2, 0.5, 1, 1);");
 

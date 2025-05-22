@@ -2,6 +2,7 @@ package fr.triobin.workshop.popups;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.Product;
 import javafx.scene.control.Button;
@@ -25,7 +26,7 @@ public class CreateGeneralGoal extends CustomScene {
         Memory.currentWorkshop.getProducts().forEach(product -> productComboBox.getItems().add(product.getName()));
         productComboBox.getSelectionModel().selectFirst();
 
-        TextField quantityField = new TextField();
+        CustomTextField quantityField = new CustomTextField();
         quantityField.setPromptText("Quantité");
 
         // Bouton pour ajouter l'objectif

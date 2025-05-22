@@ -28,11 +28,11 @@ public class ImportPopup extends CustomScene {
         root.setStyle("-fx-padding: 20; -fx-spacing: 10;");
 
         TextArea importArea = new TextArea();
-        importArea.setPromptText("Enter the import code");
+        importArea.setPromptText("Entrez le code de l'atelier ici...");
         importArea.setWrapText(true);
         importArea.setPrefRowCount(6);
 
-        Button importButton = new Button("Import");
+        Button importButton = new Button("Importer");
         importButton.setOnAction(event -> {
             String code = importArea.getText();
             if (!code.isEmpty()) {
@@ -54,13 +54,13 @@ public class ImportPopup extends CustomScene {
             }
         });
 
-        Button cancelButton = new Button("Cancel");
+        Button cancelButton = new Button("Annuler");
         cancelButton.setOnAction(event -> {
             Memory.confimation = false;
             stage.close();
         });
 
-        root.getChildren().addAll(new Label("Import Workshop"), importArea, importButton, cancelButton);
+        root.getChildren().addAll(new Label("Importer l'atelier"), importArea, importButton, cancelButton);
     }
 
     @Override

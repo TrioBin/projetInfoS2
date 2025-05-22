@@ -26,7 +26,7 @@ public class Operator {
     }
 
     public enum OperatorStatus {
-        LIBRE, EN_PAUSE, TRAVAILLANT, BREAK
+        LIBRE, EN_PAUSE, TRAVAILLANT, ABSENT, BREAK
     }
 
     public void print() {

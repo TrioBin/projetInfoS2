@@ -24,8 +24,8 @@ public class CreateOperatorPopup extends CustomScene {
                 super(new VBox(), 500, 500);
                 VBox root = (VBox) getRoot();
 
-                TextField reference = new TextField();
-                reference.setPromptText("Référence");
+                CustomTextField reference = new CustomTextField();
+                reference.setPromptText("Code :");
                 reference.setPrefWidth(250);
                 // style pour fond gris clair et bords arrondis
                 reference.setStyle(
@@ -37,7 +37,7 @@ public class CreateOperatorPopup extends CustomScene {
                 labelIdentity.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
                 labelIdentity.setPadding(new Insets(10, 0, 0, 0));
 
-                TextField name = new TextField();
+                CustomTextField name = new CustomTextField();
                 name.setPromptText("Nom");
                 name.setPrefWidth(250);
                 // style pour fond gris clair et bords arrondis
@@ -46,7 +46,7 @@ public class CreateOperatorPopup extends CustomScene {
                                                 "-fx-background-radius: 5;" +
                                                 "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
-                TextField surname = new TextField();
+                CustomTextField surname = new CustomTextField();
                 surname.setPromptText("Prénom");
                 surname.setPrefWidth(250);
                 // style pour fond gris clair et bords arrondis
@@ -58,8 +58,8 @@ public class CreateOperatorPopup extends CustomScene {
                 HBox position = new HBox(10);
                 position.getChildren().addAll(name, surname);
 
-                TextField password = new TextField();
-                password.setPromptText("Password");
+                CustomTextField password = new CustomTextField();
+                password.setPromptText("Mot de passe");
                 password.setPrefWidth(250);
                 // style pour fond gris clair et bords arrondis
                 password.setStyle(

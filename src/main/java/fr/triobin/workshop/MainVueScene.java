@@ -80,7 +80,7 @@ public class MainVueScene extends CustomScene {
             });
         });
 
-        MenuItem openMapButton = new MenuItem("Open Map");
+        MenuItem openMapButton = new MenuItem("Ouvrir la carte");
         openMapButton.setOnAction(e -> {
             if (mapStage[0] != null) {
                 mapStage[0].close();

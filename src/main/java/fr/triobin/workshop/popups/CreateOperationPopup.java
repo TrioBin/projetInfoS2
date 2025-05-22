@@ -5,6 +5,7 @@ import java.util.function.UnaryOperator;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.Operation;
 import javafx.scene.control.Button;
 import javafx.scene.control.TextField;
@@ -21,11 +22,11 @@ public class CreateOperationPopup extends CustomScene {
 
         root.setPrefSize(500, 500);
 
-        TextField nameField = new TextField();
+        CustomTextField nameField = new CustomTextField();
         nameField.setPromptText("Nom de l'opération");
         nameField.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 
-        TextField timeField = new TextField();
+        CustomTextField timeField = new CustomTextField();
         timeField.setPromptText("Temps de l'opération (hh:mm:ss)");
         timeField.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 

@@ -2,6 +2,7 @@ package fr.triobin.workshop.popups;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
@@ -20,7 +21,7 @@ public class ResetPasswordPopup extends CustomScene {
         // Create a input field for the new password
         Label label = new Label("Entrez le nouveau mot de passe :");
 
-        TextField passwordField = new TextField();
+        CustomTextField passwordField = new CustomTextField();
         passwordField.setPromptText("Nouveau mot de passe");
         passwordField.setPrefWidth(200);
         passwordField.setOnKeyPressed(event -> {

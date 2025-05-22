@@ -228,6 +228,6 @@ public class MapScene extends CustomScene {
             evt.consume();
         });
 
-        stage.setTitle("Map Scene");
+        stage.setTitle("Carte de l'atelier");
     }
 }

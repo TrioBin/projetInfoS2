@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Machine;
@@ -30,7 +31,7 @@ public class CreateMachinePopup extends CustomScene {
         super(new VBox(), 500, 500);
         VBox root = (VBox) getRoot();
 
-        TextField nomMachine = new TextField();
+        CustomTextField nomMachine = new CustomTextField();
         nomMachine.setPromptText("Nom de la machine");
         nomMachine.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -66,7 +67,7 @@ public class CreateMachinePopup extends CustomScene {
         labelPosition.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
         labelPosition.setPadding(new Insets(10, 0, 0, 0));
 
-        TextField x = new TextField();
+        CustomTextField x = new CustomTextField();
         x.setPromptText("X");
         x.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -75,7 +76,7 @@ public class CreateMachinePopup extends CustomScene {
                         "-fx-background-radius: 5;" +
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
-        TextField y = new TextField();
+        CustomTextField y = new CustomTextField();
         y.setPromptText("Y");
         y.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -95,7 +96,7 @@ public class CreateMachinePopup extends CustomScene {
         labelDimension.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
         labelDimension.setPadding(new Insets(10, 0, 0, 0));
 
-        TextField width = new TextField();
+        CustomTextField width = new CustomTextField();
         width.setPromptText("X");
         width.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -104,7 +105,7 @@ public class CreateMachinePopup extends CustomScene {
                         "-fx-background-radius: 5;" +
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
-        TextField heigth = new TextField();
+        CustomTextField heigth = new CustomTextField();
         heigth.setPromptText("Y");
         heigth.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -121,7 +122,7 @@ public class CreateMachinePopup extends CustomScene {
         dimension.getChildren().addAll(width, heigth);
 
         // input cout horaire
-        TextField coutHoraire = new TextField();
+        CustomTextField coutHoraire = new CustomTextField();
         coutHoraire.setPromptText("Coût / heure");
         coutHoraire.setPrefWidth(250);
         CustomCapacities.forceFloatTextFieldEffect(coutHoraire);

@@ -5,6 +5,7 @@ import java.nio.Buffer;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.Position;
 import javafx.geometry.Dimension2D;
 import javafx.scene.control.Button;
@@ -26,22 +27,22 @@ public class ChangeMachinePosition extends CustomScene {
 
         HBox positionBox = new HBox();
 
-        TextField xField = new TextField();
+        CustomTextField xField = new CustomTextField();
         xField.setText(String.valueOf(Memory.currentMachine.getPosition().x));
         CustomCapacities.forceFloatTextFieldEffect(xField);
 
-        TextField yField = new TextField();
+        CustomTextField yField = new CustomTextField();
         yField.setText(String.valueOf(Memory.currentMachine.getPosition().y));
         CustomCapacities.forceFloatTextFieldEffect(yField);
         positionBox.getChildren().addAll(new Label("Position : "), xField, yField);
 
         HBox dimensionBox = new HBox();
 
-        TextField wField = new TextField();
+        CustomTextField wField = new CustomTextField();
         wField.setText(String.valueOf(Memory.currentMachine.getDimension().getWidth()));
         CustomCapacities.forceFloatTextFieldEffect(wField);
 
-        TextField hField = new TextField();
+        CustomTextField hField = new CustomTextField();
         hField.setText(String.valueOf(Memory.currentMachine.getDimension().getHeight()));
         CustomCapacities.forceFloatTextFieldEffect(hField);
         dimensionBox.getChildren().addAll(new Label("Dimension : "), wField, hField);

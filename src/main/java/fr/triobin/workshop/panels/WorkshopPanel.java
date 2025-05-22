@@ -37,13 +37,13 @@ public class WorkshopPanel extends CustomPanel {
         Label atelierLabel = new Label(Memory.currentWorkshop.getDesignation() + " :");
         atelierLabel.setFont(Font.font(24));
 
-        Label bankLabel = new Label("Bank: " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
+        Label bankLabel = new Label("Argent : " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
         bankLabel.setFont(Font.font(18));
         Button addInBankButton = new Button("+");
         addInBankButton.setOnAction(event -> {
             Modal dialog = new Modal(this.stage, new AddInBankPopup());
             dialog.onClose((obj) -> {
-                bankLabel.setText("Bank: " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
+                bankLabel.setText("Argent : " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
             });
         });
         HBox bankContainer = new HBox();
@@ -51,7 +51,7 @@ public class WorkshopPanel extends CustomPanel {
         bankContainer.setSpacing(10);
         bankContainer.getChildren().addAll(bankLabel, addInBankButton);
 
-        Button renameButton = new Button("Rename");
+        Button renameButton = new Button("Renommer");
         renameButton.setOnAction(event -> {
             Modal dialog = new Modal(this.stage, new RenameWorkshopPopup());
             dialog.onClose((obj) -> {
@@ -83,7 +83,7 @@ public class WorkshopPanel extends CustomPanel {
                 objectifLabel = new Label(((SpecializedGoal) objectif).getOperation().getName() + " "
                         + ((SpecializedGoal) objectif).getProduct().getProduct().getName());
             } else {
-                objectifLabel = new Label("Unknown goal type");
+                objectifLabel = new Label("Type d'objectif inconnu");
             }
             if (Memory.currentWorkshop.getActualGoals().contains(objectif)) {
                 objectifLabel.setStyle("-fx-text-fill: green;");
@@ -105,7 +105,7 @@ public class WorkshopPanel extends CustomPanel {
             CustomCapacities.showElementWhenHoverEffect(deleteButton, objectifPanel);
         });
 
-        Button addButton = new Button("Add Goal");
+        Button addButton = new Button("Ajouter un objectif");
         addButton.setOnAction(event -> {
             Modal dialog = new Modal(this.stage, new CreateGeneralGoal());
             dialog.onClose((obj) -> {

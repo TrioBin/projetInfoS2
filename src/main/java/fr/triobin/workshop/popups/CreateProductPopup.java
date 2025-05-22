@@ -6,6 +6,7 @@ import java.util.function.UnaryOperator;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.OPList;
 import fr.triobin.workshop.general.Operation;
 import fr.triobin.workshop.general.Product;
@@ -24,7 +25,7 @@ public class CreateProductPopup extends CustomScene {
 
         root.setPrefSize(500, 500);
 
-        TextField nameField = new TextField();
+        CustomTextField nameField = new CustomTextField();
         nameField.setPromptText("Nom du produit");
         nameField.setStyle("-fx-background-color: white; -fx-text-fill: black;");
 

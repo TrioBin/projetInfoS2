@@ -116,6 +116,9 @@ public class FileManager {
                         skillsList.add(workshops.get(workshops.size() - 1).getMachineRef(skill));
                     }
                 }
+                if (parts[4].equals("TRAVAILLANT")) {
+                    parts[4] = "ABSENT";
+                }
                 workshops.get(workshops.size() - 1).add(new Operator(parts[0], parts[1], parts[2],
                         skillsList, OperatorStatus.valueOf(parts[4]), parts[5], new Cost(Float.parseFloat(parts[6]))));
                 break;

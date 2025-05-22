@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.Position;
 import fr.triobin.workshop.general.Workstation;
 import javafx.geometry.Dimension2D;
@@ -23,7 +24,7 @@ public class CreateWorkstationPopup extends CustomScene {
         super(new VBox(), 500, 500);
         VBox root = (VBox) getRoot();
 
-        TextField nomAtelier = new TextField();
+        CustomTextField nomAtelier = new CustomTextField();
         nomAtelier.setPromptText("Nom du Poste");
         nomAtelier.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -38,7 +39,7 @@ public class CreateWorkstationPopup extends CustomScene {
         labelPosition.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
         labelPosition.setPadding(new Insets(10, 0, 0, 0));
 
-        TextField x = new TextField();
+        CustomTextField x = new CustomTextField();
         x.setPromptText("X");
         x.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -47,7 +48,7 @@ public class CreateWorkstationPopup extends CustomScene {
                         "-fx-background-radius: 5;" +
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
-        TextField y = new TextField();
+        CustomTextField y = new CustomTextField();
         y.setPromptText("Y");
         y.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -60,7 +61,7 @@ public class CreateWorkstationPopup extends CustomScene {
         labelDimension.setStyle("-fx-font-size: 16px; -fx-text-fill: black;");
         labelDimension.setPadding(new Insets(10, 0, 0, 0));
 
-        TextField width = new TextField();
+        CustomTextField width = new CustomTextField();
         width.setPromptText("X");
         width.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis
@@ -69,7 +70,7 @@ public class CreateWorkstationPopup extends CustomScene {
                         "-fx-background-radius: 5;" +
                         "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
 
-        TextField heigth = new TextField();
+        CustomTextField heigth = new CustomTextField();
         heigth.setPromptText("Y");
         heigth.setPrefWidth(250);
         // style pour fond gris clair et bords arrondis

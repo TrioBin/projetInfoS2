@@ -8,6 +8,7 @@ import java.nio.file.StandardCopyOption;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.general.Operator;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,8 +26,8 @@ public class RenameWorkshopPopup extends CustomScene {
         VBox root = (VBox) getRoot();
 
         // Input field for the new name
-        TextField nameField = new TextField();
-        nameField.setPromptText("Enter new reference name");
+        CustomTextField nameField = new CustomTextField();
+        nameField.setPromptText("Entrer le nouveau nom de l'atelier");
 
         // Enter action
         nameField.setOnAction(event -> {
@@ -62,7 +63,7 @@ public class RenameWorkshopPopup extends CustomScene {
         buttonContainer.setPadding(new Insets(10));
 
         // Button to confirm the renaming
-        Button renameButton = new Button("Rename");
+        Button renameButton = new Button("Renommer");
         renameButton.setOnAction(event -> {
             String newName = nameField.getText();
             if (!newName.isEmpty()) {
@@ -91,7 +92,7 @@ public class RenameWorkshopPopup extends CustomScene {
             }
         });
         // Button to cancel the renaming
-        Button cancelButton = new Button("Cancel");
+        Button cancelButton = new Button("Annuler");
         cancelButton.setOnAction(event -> stage.close());
 
         buttonContainer.getChildren().addAll(renameButton, cancelButton);

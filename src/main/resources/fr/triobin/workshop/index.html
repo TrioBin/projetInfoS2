@@ -141,7 +141,8 @@
             <!-- User Info (hidden by default) -->
             <div id="user-info" class="hidden fade-in">
                 <div class="flex items-center mb-6">
-                    <div class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 mr-4">
+                    <div
+                        class="w-12 h-12 bg-orange-100 rounded-full flex items-center justify-center text-orange-600 mr-4">
                         <i class="fas fa-user text-xl"></i>
                     </div>
                     <div>
@@ -434,8 +435,14 @@
             });
 
             // Logout handler
-            logoutBtn.addEventListener('click', function () {
-                finishTask();
+            logoutBtn.addEventListener('click', async () => {
+                await finishTask();
+                await fetch(`/userStatus?user=${userIdInput.value}&password=${passwordInput.value}&status=ABSENT`, {
+                    method: 'GET',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                });
                 userInfo.classList.add('hidden');
                 loginForm.classList.remove('hidden');
                 userIdInput.value = '';
