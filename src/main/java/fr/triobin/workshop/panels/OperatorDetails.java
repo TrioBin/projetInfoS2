@@ -123,7 +123,6 @@ public class OperatorDetails extends VBox {
         Label costLabel = new Label("Coût horaire");
         costLabel.setStyle(
                 "-fx-background-color: #dcdcdc; -fx-padding: 5; -fx-effect: dropshadow(gaussian, gray, 2, 0.5, 1, 1);");
-        costBox.getChildren().add(costLabel);
 
         CustomTextField costField = new CustomTextField();
         costField.setPromptText("Coût horaire");
@@ -138,8 +137,11 @@ public class OperatorDetails extends VBox {
                 return;
             }
             float amount = Float.parseFloat(input);
+            costField.setText(String.valueOf(amount));
             operator.setCost(new Cost(amount));
         });
+
+        costBox.getChildren().addAll(costLabel, costField);
 
         HBox OptBoxContent = new HBox(10);
         OptBoxContent.setPrefWidth(350);

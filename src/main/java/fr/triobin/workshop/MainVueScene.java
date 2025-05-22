@@ -5,12 +5,14 @@ import java.util.Map;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.httpserver.HTTPServer;
 import fr.triobin.workshop.map.MapStage;
 import fr.triobin.workshop.panels.OperatorPanel;
 import fr.triobin.workshop.panels.ProductPanel;
 import fr.triobin.workshop.panels.WorkshopPanel;
 import fr.triobin.workshop.panels.WorkstationPanel;
+import fr.triobin.workshop.popups.InClipboardConfirm;
 import fr.triobin.workshop.panels.StatisticPanel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -25,6 +27,7 @@ import javafx.scene.control.SeparatorMenuItem;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.image.Image;
+import javafx.scene.input.Clipboard;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.Priority;
 import javafx.scene.layout.Region;
@@ -34,7 +37,11 @@ import javafx.scene.text.Font;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
+import javafx.scene.input.Clipboard;
+import javafx.scene.input.ClipboardContent;
+
 public class MainVueScene extends CustomScene {
+    private Stage stage;
 
     public MainVueScene() {
         super(new VBox(), 1000, 500);
@@ -50,6 +57,29 @@ public class MainVueScene extends CustomScene {
         topBar.setStyle("-fx-background-color: #E5E5E5;");
         topBar.setAlignment(Pos.CENTER_LEFT);
 
+        MenuItem duplicateButton = new MenuItem("Dupliquer");
+        duplicateButton.setOnAction(e -> {
+            Memory.workshops.add(Memory.currentWorkshop.clone());
+            Memory.saveFile();
+            App app = App.getInstance();
+            if (mapStage[0] != null) {
+                mapStage[0].close();
+            }
+            HTTPServer.stop();
+            app.changeWindow(new SelectScene());
+        });
+
+        MenuItem exportButton = new MenuItem("Exporter");
+        exportButton.setOnAction(e -> {
+            String myString = FileManager.generateWorkshop(Memory.currentWorkshop);
+            ClipboardContent content = new ClipboardContent();
+            content.putString(myString);
+            Clipboard.getSystemClipboard().setContent(content);
+            Modal dialog = new Modal(this.stage, new InClipboardConfirm());
+            dialog.onClose((event) -> {
+            });
+        });
+
         MenuItem openMapButton = new MenuItem("Open Map");
         openMapButton.setOnAction(e -> {
             if (mapStage[0] != null) {
@@ -62,7 +92,8 @@ public class MainVueScene extends CustomScene {
         MenuButton fileMenu = new MenuButton("Menu");
         fileMenu.setFont(Font.font(14));
         fileMenu.getItems().addAll(
-                new MenuItem("Dupliquer"),
+                duplicateButton,
+                exportButton,
                 new SeparatorMenuItem(),
                 openMapButton);
 
@@ -70,7 +101,9 @@ public class MainVueScene extends CustomScene {
         Button backButton = new Button("<");
         backButton.setOnAction(e -> {
             App app = App.getInstance();
-            mapStage[0].close();
+            if (mapStage[0] != null) {
+                mapStage[0].close();
+            }
             HTTPServer.stop();
             app.changeWindow(new SelectScene());
         });
@@ -98,7 +131,9 @@ public class MainVueScene extends CustomScene {
         closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
         closeButton.setOnAction(e -> {
             App app = App.getInstance();
-            mapStage[0].close();
+            if (mapStage[0] != null) {
+                mapStage[0].close();
+            }
             HTTPServer.stop();
             app.changeWindow(new SelectScene());
         });
@@ -162,6 +197,7 @@ public class MainVueScene extends CustomScene {
 
     @Override
     public void onload(Stage stage) {
+        this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
         // get topBar
         HBox topBar = (HBox) ((VBox) getRoot()).getChildren().get(0);

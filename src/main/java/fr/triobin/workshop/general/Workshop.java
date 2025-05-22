@@ -8,7 +8,7 @@ import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.Machine.MachineStatus;
 import fr.triobin.workshop.general.NonFinishedProduct.ProductStatus;
 
-public class Workshop {
+public class Workshop implements Cloneable {
     private String designation;
     private ArrayList<Workstation> workstations;
     private ArrayList<Product> products;
@@ -298,5 +298,17 @@ public class Workshop {
     public void addBank(Float bank) {
         this.bank += bank;
         Memory.saveFile();
+    }
+
+    public Workshop clone() {
+        Workshop clone = new Workshop(this.designation, this.bank);
+        clone.workstations = new ArrayList<>(this.workstations);
+        clone.products = new ArrayList<>(this.products);
+        clone.operators = new ArrayList<>(this.operators);
+        clone.goals = new ArrayList<>(this.goals);
+        clone.machinesRef = new ArrayList<>(this.machinesRef);
+        clone.operations = new ArrayList<>(this.operations);
+        clone.machines = new ArrayList<>(this.machines);
+        return clone;
     }
 }

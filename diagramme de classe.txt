@@ -128,6 +128,20 @@ class Workstation {
     +Workstation(refWorkstation: String, dworkstation: String, position: Position, dimension: Dimension2D, machines: ArrayList<Machine>)
 }
 
+class BankEvent {
+    -timestamp: Timestamp
+    -operator operator
+    -reason String
+    -cost: Float
+}
+
+class MachineEvent {
+    -timestamp: Timestamp
+    -machineName: String
+    -refMachine: RefMachine
+    -reason String
+}
+
 ' Héritages
 GeneralGoal --|> Goal
 SpecializedGoal --|> Goal
@@ -177,4 +191,10 @@ NonFinishedProduct "1" --> "1" ProductStatus
 
 Cost "1" --> "1" Time
 
+' Associations pour MachineEvent et BankEvent
+MachineEvent "1" --> "1" Timestamp        : timestamp
+MachineEvent "1" --> "1" RefMachine       : refMachine
+
+BankEvent "1" --> "1" Timestamp          : timestamp
+BankEvent "1" --> "1" Operator           : operator
 @enduml

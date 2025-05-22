@@ -1,1 +1,2 @@
 22052025,08:16,Machine 1,RefMachine 1,panne
+22052025,10:18,Machine 1,RefMachine 1,maintenance
