@@ -9,7 +9,6 @@ import java.util.HashMap;
 import java.util.Map;
 
 import com.sun.net.httpserver.HttpHandler;
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;

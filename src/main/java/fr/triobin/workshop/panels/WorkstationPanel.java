@@ -70,7 +70,9 @@ public class WorkstationPanel extends CustomPanel {
             wsBtn.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(wsBtn, Priority.ALWAYS);
             wsBtn.setOnAction(e -> {
-                rightPane.getChildren().setAll(new WorkstationDetail(workstation));
+                WorkstationDetail workstationDetail = new WorkstationDetail(workstation);
+                rightPane.getChildren().setAll(workstationDetail);
+                workstationDetail.onload(stage);
             });
 
             // bouton supprimer

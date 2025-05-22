@@ -5,11 +5,9 @@ import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.popups.CreateOperatorPopup;
 import javafx.geometry.Insets;
-import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
-import javafx.scene.text.Font;
 import javafx.stage.Stage;
 
 public class OperatorPanel extends CustomPanel {

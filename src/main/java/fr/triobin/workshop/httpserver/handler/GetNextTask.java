@@ -11,7 +11,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.Operator;
-import fr.triobin.workshop.general.SpecializedGoal;
 import fr.triobin.workshop.general.Task;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
 

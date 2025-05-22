@@ -2,8 +2,6 @@ package fr.triobin.workshop.httpserver;
 
 import com.sun.net.httpserver.HttpServer;
 
-import fr.triobin.workshop.FileManager;
-import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.httpserver.handler.FinishTask;
 import fr.triobin.workshop.httpserver.handler.GetNextTask;
 import fr.triobin.workshop.httpserver.handler.GetUser;
@@ -16,9 +14,7 @@ import com.sun.net.httpserver.HttpExchange;
 import java.io.OutputStream;
 import java.net.InetSocketAddress;
 
-import java.io.FileReader;
 import java.io.BufferedReader;
-import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
 import java.nio.charset.StandardCharsets;

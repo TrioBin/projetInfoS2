@@ -1,7 +1,6 @@
 package fr.triobin.workshop.general;
 
 import java.sql.Timestamp;
-import java.time.Instant;
 
 public class Task {
     private SpecializedGoal goal;

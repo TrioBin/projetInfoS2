@@ -110,7 +110,7 @@ public class WorkstationDetail extends HBox {
     }
 
     private void openAddMachinePopup() {
-        Modal dialog = new Modal(stage, new CreateMachinePopup());
+        Modal dialog = new Modal(this.stage, new CreateMachinePopup());
         dialog.onClose(o -> {
             // Recharge la liste des machines depuis FileManager
             buildLeftPane();

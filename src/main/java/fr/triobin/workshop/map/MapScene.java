@@ -7,7 +7,6 @@ import fr.triobin.workshop.MainVueScene;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomScene;
 import fr.triobin.workshop.general.Position;
-import javafx.geometry.Point2D;
 import javafx.scene.Group;
 import javafx.scene.Scene;
 import javafx.scene.input.MouseButton;

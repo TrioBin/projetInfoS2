@@ -7,7 +7,6 @@ import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.Cost;
-import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.popups.AddSkillOperatorPopup;
 import fr.triobin.workshop.popups.RemoveConfirmationPopup;
@@ -27,7 +26,6 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.Text;
-import javafx.stage.Stage;
 
 public class OperatorDetails extends VBox {
     private Operator operator;

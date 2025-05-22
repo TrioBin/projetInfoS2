@@ -1,6 +1,5 @@
 package fr.triobin.workshop.general;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;

@@ -12,7 +12,6 @@ import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.general.Operator;
-import fr.triobin.workshop.general.Operator.OperatorStatus;
 
 public class GetUser implements HttpHandler {
     @Override
