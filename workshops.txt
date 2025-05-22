@@ -1,10 +1,15 @@
-test,0.0
+test,1220.3
 __________
+cdhxfvgg
+Table
 __________
 __________
 __________
 test,test,0.0,0.0,0.0,0.0,[]
 __________
+O1,Rusché,Constant,[],LIBRE,password,100.0
+__________
+Casserole,Casserole,[]
 __________
 __________
-__________
+Ggoal,Casserole,50

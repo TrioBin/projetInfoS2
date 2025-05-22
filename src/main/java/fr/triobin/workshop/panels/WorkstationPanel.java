@@ -71,6 +71,7 @@ public class WorkstationPanel extends CustomPanel {
             HBox.setHgrow(wsBtn, Priority.ALWAYS);
             wsBtn.setOnAction(e -> {
                 WorkstationDetail workstationDetail = new WorkstationDetail(workstation);
+                Memory.currentWorkstation = workstation;
                 rightPane.getChildren().setAll(workstationDetail);
                 workstationDetail.onload(stage);
             });

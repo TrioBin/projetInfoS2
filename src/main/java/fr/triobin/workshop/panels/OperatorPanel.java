@@ -41,6 +41,7 @@ public class OperatorPanel extends CustomPanel {
             leftPane.getChildren().add(operatorButton);
 
             operatorButton.setOnAction(event -> {
+                Memory.currentOperator = operator;
                 rightPane.getChildren().clear();
                 rightPane.getChildren().add(new OperatorDetails(operator));
             });

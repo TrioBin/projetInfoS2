@@ -91,7 +91,7 @@ public class WorkshopPanel extends CustomPanel {
                 objectifLabel.setStyle("-fx-text-fill: red;");
             }
             objectifsContent.getChildren().remove(objectifPanel);
-            Button deleteButton = new Button("Delete");
+            Button deleteButton = new Button("Supprimer");
             deleteButton.setOnAction(event -> {
                 if (objectif instanceof GeneralGoal) {
                     Memory.currentWorkshop.removeGoal((GeneralGoal) objectif);

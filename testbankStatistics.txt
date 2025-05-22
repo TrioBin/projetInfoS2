@@ -1,0 +1,2 @@
+22052025,14:38,null,Ajout d'argent dans la banque,500.0
+22052025,14:38,null,Ajout d'argent dans la banque,720.3

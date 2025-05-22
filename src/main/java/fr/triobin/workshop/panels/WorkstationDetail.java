@@ -72,6 +72,7 @@ public class WorkstationDetail extends HBox {
             machineBtn.setMaxWidth(Double.MAX_VALUE);
             HBox.setHgrow(machineBtn, Priority.ALWAYS);
             machineBtn.setOnAction(e -> {
+                Memory.currentMachine = machine;
                 rightPane.getChildren().setAll(new MachineDetails(machine));
             });
 
