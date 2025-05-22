@@ -37,6 +37,7 @@ public class CreateWorkshopPopup extends CustomScene {
                         "-fx-text-fill: black;");
         btnCreer.setOnAction(e -> {
             Memory.workshops.add(new Workshop(nomAtelier.getText(), 0f));
+            Memory.saveFile();
             this.stage.close();
         });
 

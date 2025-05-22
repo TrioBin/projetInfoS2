@@ -87,7 +87,7 @@ public class CreateWorkstationPopup extends CustomScene {
         position.getChildren().addAll(x, y);
 
         HBox dimension = new HBox(10);
-        position.getChildren().addAll(width, heigth);
+        dimension.getChildren().addAll(width, heigth);
 
         // Bouton « Créer »
         Button btnCreer = new Button("Créer");
