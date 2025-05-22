@@ -33,7 +33,7 @@ public class Memory {
     }
 
     public static void fakeLoad() {
-        Workshop workshop1 = new Workshop("Atelier 1");
+        Workshop workshop1 = new Workshop("Atelier 1", 1000f);
 
         Memory.workshops.add(workshop1);
 
@@ -57,9 +57,9 @@ public class Memory {
         Product product1 = new Product("Produit 1", "Description 1", opList1);
         workshop1.add(product1);
 
-        workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, "12345"));
-        workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.LIBRE, ""));
-        workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, ""));
+        workshop1.add(new Operator("O1", "Nom 1", "Prénom 1", new ArrayList<>(), OperatorStatus.LIBRE, "12345", new Cost(0)));
+        workshop1.add(new Operator("O2", "Nom 2", "Prénom 2", new ArrayList<>(), OperatorStatus.LIBRE, "", new Cost(0)));
+        workshop1.add(new Operator("O3", "Nom 3", "Prénom 3", new ArrayList<>(), OperatorStatus.LIBRE, "", new Cost(0)));
 
         workshop1.add(new GeneralGoal(product1, 10));
     }

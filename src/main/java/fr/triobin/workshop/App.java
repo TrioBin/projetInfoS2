@@ -19,7 +19,6 @@ public class App extends Application {
     public void start(Stage primaryStage) {
         //Memory.fakeLoad();
         Memory.workshops = FileManager.loadFile();
-        System.out.println("Number of workshops: " + Memory.workshops.size());
         FileManager.saveFile(Memory.workshops);
 
         CustomScene selectScene = new SelectScene();

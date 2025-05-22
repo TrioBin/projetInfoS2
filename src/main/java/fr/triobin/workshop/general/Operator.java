@@ -12,14 +12,16 @@ public class Operator {
     private OperatorStatus status;
     private String password;
     private Task currentTask;
+    private Cost cost;
 
-    public Operator(String code, String name, String surname, ArrayList<RefMachine> skills, OperatorStatus status, String password) {
+    public Operator(String code, String name, String surname, ArrayList<RefMachine> skills, OperatorStatus status, String password, Cost cost) {
         this.code = code;
         this.name = name;
         this.surname = surname;
         this.skills = skills;
         this.status = status;
         this.password = password;
+        this.cost = cost;
         Memory.saveFile();
     }
 
@@ -108,5 +110,9 @@ public class Operator {
 
     public Task getCurrentTask() {
         return this.currentTask;
+    }
+
+    public Cost getCost() {
+        return this.cost;
     }
 }

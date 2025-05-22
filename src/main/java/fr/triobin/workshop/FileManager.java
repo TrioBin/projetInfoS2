@@ -58,7 +58,7 @@ public class FileManager {
                 String[] parts = line.split(separator);
                 switch (loadOrder[lineIndex]) {
                     case "workshop":
-                        workshops.add(new Workshop(parts[0]));
+                        workshops.add(new Workshop(parts[0], Float.parseFloat(parts[1])));
                         break;
                     case "refmachine":
                         workshops.get(workshops.size() - 1).addMachineRef(new RefMachine(parts[0]));
@@ -106,7 +106,7 @@ public class FileManager {
                             }
                         }
                         workshops.get(workshops.size() - 1).add(new Operator(parts[0], parts[1], parts[2],
-                                skillsList, OperatorStatus.valueOf(parts[4]), parts[5]));
+                                skillsList, OperatorStatus.valueOf(parts[4]), parts[5], new Cost(Float.parseFloat(parts[6]))));
                         break;
                     case "product":
                         OPList opList2 = new OPList(new ArrayList<>());
@@ -150,14 +150,14 @@ public class FileManager {
         try (BufferedWriter writer = new BufferedWriter(new FileWriter("workshops.txt"))) {
             String text = "";
             for (Workshop workshop : workshops) {
-                text += workshop.getDesignation() + "\n";
+                text += workshop.getDesignation() + separator + workshop.getBank() + "\n";
                 text += separation + "\n";
                 for (RefMachine refMachine : workshop.getMachinesRef()) {
                     text += refMachine.getName() + "\n";
                 }
                 text += separation + "\n";
                 for (Operation operation : workshop.getOperations()) {
-                    text += operation.getName() + "," + operation.getTime().toString() + "\n";
+                    text += operation.getName() + separator + operation.getTime().toString() + "\n";
                 }
                 text += separation + "\n";
                 for (Machine machine : workshop.getMachines()) {
@@ -171,11 +171,11 @@ public class FileManager {
                         operations = operations.substring(0, operations.length() - 1);
                     }
                     operations += "]";
-                    text += machine.getRefMachine().getName() + "," + machine.getName() + ","
-                            + machine.getPosition().x + "," + machine.getPosition().y + ","
-                            + machine.getDimension().getWidth() + "," + machine.getDimension().getHeight() + ","
+                    text += machine.getRefMachine().getName() + separator + machine.getName() + separator
+                            + machine.getPosition().x + separator + machine.getPosition().y + separator
+                            + machine.getDimension().getWidth() + separator + machine.getDimension().getHeight() + separator
                             + machine.getCost().getCost()
-                            + "," + operations + "," + machine.getStatus() + "\n";
+                            + separator + operations + separator + machine.getStatus() + "\n";
                 }
                 text += separation + "\n";
                 for (Workstation workstation : workshop.getWorkstations()) {
@@ -189,10 +189,10 @@ public class FileManager {
                         machines = machines.substring(0, machines.length() - 1);
                     }
                     machines += "]";
-                    text += workstation.getRefWorkstation() + "," + workstation.getDworkstation() + ","
-                            + workstation.getPosition().x + "," + workstation.getPosition().y
-                            + "," + workstation.getDimension().getWidth() + "," + workstation.getDimension().getHeight()
-                            + "," + machines + "\n";
+                    text += workstation.getRefWorkstation() + separator + workstation.getDworkstation() + separator
+                            + workstation.getPosition().x + separator + workstation.getPosition().y
+                            + separator + workstation.getDimension().getWidth() + separator + workstation.getDimension().getHeight()
+                            + separator + machines + "\n";
                 }
                 text += separation + "\n";
                 for (Operator operator : workshop.getOperators()) {
@@ -206,9 +206,9 @@ public class FileManager {
                         skills = skills.substring(0, skills.length() - 1);
                     }
                     skills += "]";
-                    text += operator.getCode() + "," + operator.getName() + "," + operator.getSurname() + ","
-                            + skills + "," + operator.getStatus() + "," +
-                            operator.getPassword() +
+                    text += operator.getCode() + separator + operator.getName() + separator + operator.getSurname() + separator
+                            + skills + separator + operator.getStatus() + separator +
+                            operator.getPassword() + separator + operator.getCost().getCost() +
                             "\n";
                 }
                 text += separation + "\n";
@@ -223,7 +223,7 @@ public class FileManager {
                         operations = operations.substring(0, operations.length() - 1);
                     }
                     operations += "]";
-                    text += product.getId() + "," + product.getName() + "," + operations + "\n";
+                    text += product.getId() + separator + product.getName() + separator + operations + "\n";
                 }
                 text += separation + "\n";
 
@@ -235,7 +235,7 @@ public class FileManager {
                 for (Goal goal : workshop.getGoals()) {
                     if (goal instanceof GeneralGoal) {
                         GeneralGoal ggoal = (GeneralGoal) goal;
-                        goalString += "Ggoal" + "," + ggoal.getProduct().getId() + "," + ggoal.getQuantity() + "\n";
+                        goalString += "Ggoal" + separator + ggoal.getProduct().getId() + separator + ggoal.getQuantity() + "\n";
                     } else if (goal instanceof SpecializedGoal) {
                         SpecializedGoal sgoal = (SpecializedGoal) goal;
                         int elementIndex = -1;
@@ -246,7 +246,7 @@ public class FileManager {
                         } else {
                             elementIndex = nonFinishedProductsHash.indexOf(sgoal.getProduct().hashCode());
                         }
-                        goalString += "Sgoal" + "," + sgoal.getOperation().getName() + ","
+                        goalString += "Sgoal" + separator + sgoal.getOperation().getName() + separator
                                 + elementIndex
                                 + "\n";
                     }

@@ -13,7 +13,9 @@ public class Cost {
     }
 
     public float calcCost(Time t) {
-        return this.cost * t.getTime();
+        // prix à la l'heure
+        float result = this.cost * (t.getTime() / 3600000f);
+        return Math.round(result * 100f) / 100f;
     }
 
     public float getCost() {

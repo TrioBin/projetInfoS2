@@ -122,7 +122,7 @@ public class CreateMachinePopup extends CustomScene {
 
         // input cout horaire
         TextField coutHoraire = new TextField();
-        coutHoraire.setPromptText("Coût horaire");
+        coutHoraire.setPromptText("Coût / heure");
         coutHoraire.setPrefWidth(250);
         CustomCapacities.forceFloatTextFieldEffect(coutHoraire);
 
@@ -136,7 +136,6 @@ public class CreateMachinePopup extends CustomScene {
                         "-fx-font-size: 14px;" +
                         "-fx-text-fill: black;");
         btnCreer.setOnAction(e -> {
-            System.out.println("Poste créé : " + nomMachine.getText());
             Memory.currentWorkstation
                     .addMachine(new Machine(
                             Memory.currentWorkshop.getMachinesRef()

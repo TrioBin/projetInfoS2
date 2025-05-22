@@ -56,10 +56,7 @@ public class WorkstationDetail extends HBox {
         titleButton.setMaxWidth(Double.MAX_VALUE);
         leftPane.getChildren().add(titleButton);
 
-        System.out.println("Workstation: " + workstation.getMachines());
-
         workstation.getMachines().forEach(machine -> {
-            System.out.println("Machine: " + machine);
             Button machineButton = new Button(machine.getName());
             machineButton.setMaxWidth(Double.MAX_VALUE);
             leftPane.getChildren().add(machineButton);

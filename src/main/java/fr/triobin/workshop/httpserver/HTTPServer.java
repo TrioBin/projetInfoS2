@@ -21,32 +21,11 @@ import java.io.BufferedReader;
 import java.io.File;
 import java.io.IOException;
 import java.io.InputStreamReader;
+import java.nio.charset.StandardCharsets;
 
 public class HTTPServer {
 
     public static HttpServer serveur;
-
-    // public static void main(String[] args) {
-    // Memory.workshops = FileManager.loadFile();
-    // Memory.saveFile();
-    // Memory.currentWorkshop = Memory.workshops.get(0);
-    // try {
-    // HttpServer serveur = HttpServer.create(new InetSocketAddress(8000), 0);
-    // serveur.createContext("/", new MonHandler());
-    // serveur.createContext("/userAuthentification", new
-    // ValidateUserAuthentification());
-    // serveur.createContext("/userStatus", new GetUserStatus());
-    // serveur.createContext("/getNextTask", new GetNextTask());
-    // serveur.createContext("/user", new GetUser());
-    // serveur.createContext("/finishTask", new FinishTask());
-    // serveur.setExecutor(null); // Default executor
-    // serveur.start();
-    // HTTPServer.serveur = serveur;
-    // System.out.println("Serveur HTTP démarré sur http://localhost:8000");
-    // } catch (Exception e) {
-    // e.printStackTrace();
-    // }
-    // }
 
     public static void start() {
         try {
@@ -60,7 +39,6 @@ public class HTTPServer {
             serveur.setExecutor(null); // Default executor
             serveur.start();
             HTTPServer.serveur = serveur;
-            System.out.println("Serveur HTTP démarré sur http://localhost:8000");
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -93,10 +71,12 @@ public class HTTPServer {
 
                 // Envoyer le contenu HTML en réponse
                 String reponse = contenuHTML.toString();
-                echange.sendResponseHeaders(200, reponse.getBytes().length);
-                OutputStream os = echange.getResponseBody();
-                os.write(reponse.getBytes());
-                os.close();
+                byte[] reponseBytes = reponse.getBytes(StandardCharsets.UTF_8);
+                echange.getResponseHeaders().add("Content-Type", "text/html; charset=UTF-8");
+                echange.sendResponseHeaders(200, reponseBytes.length);
+                try (OutputStream os = echange.getResponseBody()) {
+                    os.write(reponseBytes);
+                }
 
             } catch (IOException ex) {
                 ex.printStackTrace();

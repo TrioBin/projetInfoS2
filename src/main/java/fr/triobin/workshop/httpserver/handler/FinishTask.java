@@ -3,6 +3,8 @@ package fr.triobin.workshop.httpserver.handler;
 import java.io.OutputStream;
 import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
+import java.sql.Time;
+import java.sql.Timestamp;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -11,6 +13,7 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 import com.sun.net.httpserver.HttpExchange;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.Statistic;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Task;
 import fr.triobin.workshop.general.Machine.MachineStatus;
@@ -35,14 +38,27 @@ public class FinishTask implements HttpHandler {
                 if (operator != null) {
                     // On termine la tâche de l'opérateur
                     Task currentTask = operator.getCurrentTask();
+                    System.out.println("Tâche courante : " + currentTask);
                     if (currentTask == null) {
                         reponse = "{\"message\": \"Aucune tâche en cours\"}";
                     } else {
-                    operator.setCurrentTask(null);
-                    operator.modify(OperatorStatus.LIBRE);
-                    currentTask.getMachine().modify(MachineStatus.AVAILABLE);
-                    Memory.currentWorkshop.removeActualGoal(currentTask.getGoal());
-                    reponse = "{}";
+                        Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), operator, "Salaire opérateur",
+                                operator.getCost().calcCost(new Time(
+                                        System.currentTimeMillis() - currentTask.getStartTime().getTime())));
+                        Statistic.addStatBank(new Timestamp(System.currentTimeMillis()), operator, "Cout machine",
+                                currentTask.getMachine().getCost().calcCost(new Time(
+                                        System.currentTimeMillis() - currentTask.getStartTime().getTime())));
+
+                        Memory.currentWorkshop.addBank(-operator.getCost().calcCost(new Time(
+                                System.currentTimeMillis() - currentTask.getStartTime().getTime())));
+                        Memory.currentWorkshop.addBank(-currentTask.getMachine().getCost().calcCost(new Time(
+                                System.currentTimeMillis() - currentTask.getStartTime().getTime())));
+
+                        operator.setCurrentTask(null);
+                        operator.modify(OperatorStatus.LIBRE);
+                        currentTask.getMachine().modify(MachineStatus.AVAILABLE);
+                        Memory.currentWorkshop.removeActualGoal(currentTask.getGoal());
+                        reponse = "{}";
                     }
                 } else {
                     reponse = "{\"message\": \"Opérateur non trouvé\"}";

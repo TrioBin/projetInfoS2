@@ -3,7 +3,10 @@ package fr.triobin.workshop.popups;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
+import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomScene;
+import fr.triobin.workshop.customgui.CustomTextField;
+import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.general.Operator.OperatorStatus;
 import javafx.geometry.Insets;
@@ -69,6 +72,16 @@ public class CreateOperatorPopup extends CustomScene {
                 passwordContainer.setPadding(new Insets(10, 0, 0, 0));
                 passwordContainer.setPrefWidth(250);
 
+                CustomTextField costField = new CustomTextField();
+                costField.setPromptText("Coût / heure");
+                costField.setPrefWidth(250);
+                // style pour fond gris clair et bords arrondis
+                costField.setStyle(
+                                "-fx-background-color: #e0e0e0;" +
+                                                "-fx-background-radius: 5;" +
+                                                "-fx-prompt-text-fill: derive(-fx-control-inner-background, -30%);");
+                CustomCapacities.forceFloatTextFieldEffect(costField);
+
                 // Bouton « Créer »
                 Button btnCreer = new Button("Créer");
                 btnCreer.setPrefWidth(100);
@@ -79,11 +92,10 @@ public class CreateOperatorPopup extends CustomScene {
                                                 "-fx-font-size: 14px;" +
                                                 "-fx-text-fill: black;");
                 btnCreer.setOnAction(e -> {
-                        System.out.println("Poste créé : " + reference.getText());
                         Memory.currentWorkshop.add(
                                         new Operator(reference.getText(), name.getText(), surname.getText(),
                                                         new ArrayList<>(), OperatorStatus.LIBRE,
-                                                        password.getText()));
+                                                        password.getText(), new Cost(Float.parseFloat(costField.getText()))));
                         this.stage.close();
                 });
 
@@ -92,7 +104,7 @@ public class CreateOperatorPopup extends CustomScene {
                 btnContainer.setAlignment(javafx.geometry.Pos.TOP_RIGHT);
                 btnContainer.getChildren().add(btnCreer);
 
-                root.getChildren().addAll(reference, labelIdentity, position, passwordContainer, btnContainer);
+                root.getChildren().addAll(reference, labelIdentity, position, passwordContainer, costField, btnContainer);
                 root.setPadding(new Insets(20));
         }
 

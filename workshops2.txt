@@ -1,22 +1,17 @@
-Atelier 1
+Atelier 1,200.0
 __________
 RefMachine 1
 __________
 Operation 1,00:00:00
 Operation 2,00:00:01
 __________
-RefMachine 1,Machine 1,142.0,93.0,50.0,50.0,2.0,[Operation 1],AVAILABLE
+RefMachine 1,Machine 1,149.0,97.0,50.0,50.0,30.0,[Operation 1],AVAILABLE
 __________
 Poste 1,Poste 1,93.0,61.0,300.0,500.0,[Machine 1]
 __________
-O1,Nom 1,Prenom 1,[RefMachine 1],LIBRE,password
+O1,Nom 1,Prenom 1,[RefMachine 1],TRAVAILLANT,password,100.0
 __________
 Produit 1,Produit 1,[Operation 1;Operation 2;Operation 1]
 __________
-Produit 1
-Produit 1
 __________
 Ggoal,Produit 1,10
-Sgoal,Operation 1,0
-Sgoal,Operation 1,0
-Sgoal,Operation 1,1

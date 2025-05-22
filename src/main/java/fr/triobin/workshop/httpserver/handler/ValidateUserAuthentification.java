@@ -68,7 +68,6 @@ public class ValidateUserAuthentification implements HttpHandler {
         }
 
         for (Operator operator : Memory.currentWorkshop.getOperators()) {
-            System.out.println("  - code = '" + operator.getCode() + "', password = '" + operator.getPassword() + "'");
             if (operator.getCode().trim().equals(username.trim()) &&
                 operator.getPassword().trim().equals(password.trim())) {
                 return true;

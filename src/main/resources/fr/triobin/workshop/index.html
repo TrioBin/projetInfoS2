@@ -346,7 +346,6 @@
                     },
                 });
                 const res = await rawRes.json();
-                console.log(res);
 
                 if (res.message) {
                     showError(res.message);
@@ -436,16 +435,11 @@
 
             // Logout handler
             logoutBtn.addEventListener('click', function () {
+                finishTask();
                 userInfo.classList.add('hidden');
                 loginForm.classList.remove('hidden');
                 userIdInput.value = '';
                 passwordInput.value = '';
-                fetch('/userStatus?user=' + userIdInput.value + '&password=' + passwordInput.value + '&status=LIBRE', {
-                    method: 'GET',
-                    headers: {
-                        'Content-Type': 'application/json'
-                    },
-                });
             });
 
             // Allow submission with Enter key

@@ -6,12 +6,14 @@ import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.Modal;
 import fr.triobin.workshop.general.GeneralGoal;
 import fr.triobin.workshop.general.SpecializedGoal;
+import fr.triobin.workshop.popups.AddInBankPopup;
 import fr.triobin.workshop.popups.CreateGeneralGoal;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Region;
 import javafx.scene.layout.StackPane;
 import javafx.scene.layout.VBox;
@@ -33,7 +35,22 @@ public class WorkshopPanel extends CustomPanel {
         atelierPanel.setPadding(new Insets(20));
         Label atelierLabel = new Label(Memory.currentWorkshop.getDesignation() + " :");
         atelierLabel.setFont(Font.font(24));
-        atelierPanel.getChildren().add(atelierLabel);
+
+        Label bankLabel = new Label("Bank: " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
+        bankLabel.setFont(Font.font(18));
+        Button addInBankButton = new Button("+");
+        addInBankButton.setOnAction(event -> {
+            Modal dialog = new Modal(this.stage, new AddInBankPopup());
+            dialog.onClose((obj) -> {
+                bankLabel.setText("Bank: " + Math.round(Memory.currentWorkshop.getBank() * 100f) / 100f + " €");
+            });
+        });
+        HBox bankContainer = new HBox();
+        bankContainer.setAlignment(Pos.CENTER);
+        bankContainer.setSpacing(10);
+        bankContainer.getChildren().addAll(bankLabel, addInBankButton);
+
+        atelierPanel.getChildren().addAll(atelierLabel, bankContainer);
 
         ScrollPane objectifsContainer = new ScrollPane();
         objectifsContainer.setPrefSize(500, 400);

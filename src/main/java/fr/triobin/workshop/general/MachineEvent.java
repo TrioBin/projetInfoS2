@@ -2,13 +2,13 @@ package fr.triobin.workshop.general;
 
 import java.sql.Timestamp;
 
-public class Event {
-    Timestamp timestamp;
-    String machineName;
-    RefMachine refMachine;
-    String reason;
+public class MachineEvent {
+    private Timestamp timestamp;
+    private String machineName;
+    private RefMachine refMachine;
+    private String reason;
 
-    public Event (String date, String time, String machineName, String refMachine, String reason) {
+    public MachineEvent (String date, String time, String machineName, String refMachine, String reason) {
         this.timestamp = convertToTimestamp(date, time);
         this.machineName = machineName;
         this.refMachine = new RefMachine(refMachine);
@@ -22,5 +22,21 @@ public class Event {
         dateHeure = dateHeure.replaceAll("(\\d{2}):(\\d{2})", "$1:$2:00");
         // Conversion en Timestamp
         return Timestamp.valueOf(dateHeure);
+    }
+
+    public Timestamp getTimestamp() {
+        return timestamp;
+    }
+
+    public String getMachineName() {
+        return machineName;
+    }
+
+    public RefMachine getRefMachine() {
+        return refMachine;
+    }
+
+    public String getReason() {
+        return reason;
     }
 }

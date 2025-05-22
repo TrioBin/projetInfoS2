@@ -11,6 +11,7 @@ import fr.triobin.workshop.panels.OperatorPanel;
 import fr.triobin.workshop.panels.ProductPanel;
 import fr.triobin.workshop.panels.WorkshopPanel;
 import fr.triobin.workshop.panels.WorkstationPanel;
+import fr.triobin.workshop.panels.StatisticPanel;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Cursor;
@@ -73,10 +74,12 @@ public class MainVueScene extends CustomScene {
         ToggleButton tab2 = new ToggleButton("Postes");
         ToggleButton tab3 = new ToggleButton("Opérateurs");
         ToggleButton tab4 = new ToggleButton("Produits");
+        ToggleButton tab5 = new ToggleButton("Statistiques");
         tab1.setToggleGroup(tabsGroup);
         tab2.setToggleGroup(tabsGroup);
         tab3.setToggleGroup(tabsGroup);
         tab4.setToggleGroup(tabsGroup);
+        tab5.setToggleGroup(tabsGroup);
         tab1.setSelected(true);
 
         // Spacer et placeholders rouges
@@ -97,6 +100,7 @@ public class MainVueScene extends CustomScene {
         topBar.getChildren().addAll(
                 fileMenu, backButton,
                 tab1, tab2, tab3, tab4,
+                tab5,
                 spacer,
                 closeButton);
 
@@ -128,6 +132,13 @@ public class MainVueScene extends CustomScene {
         tab4.setOnAction(e -> {
             // remplace mainContent par le panneau de produits
             mainContent[0] = new ProductPanel();
+            mainContent[0].onload(App.stage);
+            root.getChildren().set(1, mainContent[0]); // Update the displayed content
+        });
+
+        tab5.setOnAction(e -> {
+            // remplace mainContent par le panneau de statistiques
+            mainContent[0] = new StatisticPanel();
             mainContent[0].onload(App.stage);
             root.getChildren().set(1, mainContent[0]); // Update the displayed content
         });

@@ -98,7 +98,6 @@ public class CreateWorkstationPopup extends CustomScene {
                         "-fx-font-size: 14px;" +
                         "-fx-text-fill: black;");
         btnCreer.setOnAction(e -> {
-            System.out.println("Poste créé : " + nomAtelier.getText());
             Memory.currentWorkshop.add(
                     new Workstation(nomAtelier.getText(), nomAtelier.getText(), new Position(Float.parseFloat(x.getText()), Float.parseFloat(y.getText())), new Dimension2D(Float.parseFloat(width.getText()), Float.parseFloat(heigth.getText())), new ArrayList<>()));
             this.stage.close();

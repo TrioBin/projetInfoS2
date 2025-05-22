@@ -1,5 +1,7 @@
 package fr.triobin.workshop.general;
 
+import java.sql.Timestamp;
+import java.time.Instant;
 import java.util.ArrayList;
 
 import fr.triobin.workshop.Memory;
@@ -15,10 +17,11 @@ public class Workshop {
     private ArrayList<Operation> operations = new ArrayList<>();
     private ArrayList<Machine> machines = new ArrayList<>();
     private ArrayList<Goal> goals;
+    private Float bank;
 
     private ArrayList<SpecializedGoal> actualGoals;
 
-    public Workshop(String designation) {
+    public Workshop(String designation, Float bank) {
         this.designation = designation;
         this.workstations = new ArrayList<>();
         this.products = new ArrayList<>();
@@ -26,6 +29,7 @@ public class Workshop {
         this.goals = new ArrayList<>();
         this.actualGoals = new ArrayList<>();
         this.machinesRef = new ArrayList<>();
+        this.bank = bank;
         Memory.saveFile();
     }
 
@@ -107,7 +111,7 @@ public class Workshop {
                         specializedGoal.getProduct().setStatus(ProductStatus.USED);
                         actualGoals.add(specializedGoal);
                         possibleMachines.get(0).modify(MachineStatus.USED);
-                        return new Task(specializedGoal, possibleMachines.get(0));
+                        return new Task(specializedGoal, possibleMachines.get(0), Timestamp.from(Instant.now()));
                     } else {
                         notValidProductHashes.add(specializedGoal.getProduct().hashCode());
                     }
@@ -280,5 +284,19 @@ public class Workshop {
             }
         }
         return null;
+    }
+
+    public Float getBank() {
+        return bank;
+    }
+
+    public void setBank(Float bank) {
+        this.bank = bank;
+        Memory.saveFile();
+    }
+
+    public void addBank(Float bank) {
+        this.bank += bank;
+        Memory.saveFile();
     }
 }

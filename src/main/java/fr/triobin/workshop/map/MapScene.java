@@ -87,7 +87,6 @@ public class MapScene extends CustomScene {
             // Clic simple : affichage
             r.setOnMouseClicked(evt -> {
                 if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 1) {
-                    System.out.println("Workstation sélectionnée : " + workstation.getDworkstation());
                     evt.consume();
                 }
             });
@@ -158,7 +157,6 @@ public class MapScene extends CustomScene {
             // Clic simple : affichage
             r.setOnMouseClicked(evt -> {
                 if (evt.getButton() == MouseButton.PRIMARY && evt.getClickCount() == 1) {
-                    System.out.println("Machine sélectionnée : " + machine.getName());
                     evt.consume();
                 }
             });

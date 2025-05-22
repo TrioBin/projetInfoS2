@@ -30,7 +30,7 @@ public class MaintenanceReason extends CustomScene {
 
         confirmButton.setOnAction(event -> {
             Memory.confimation = true;
-            Statistic.addStat(new Timestamp(System.currentTimeMillis()), Memory.currentMachine.getName(), Memory.currentMachine.getRefMachine(), reasonField.getText());
+            Statistic.addStatMachine(new Timestamp(System.currentTimeMillis()), Memory.currentMachine.getName(), Memory.currentMachine.getRefMachine(), reasonField.getText());
             this.stage.close();
         });
 
