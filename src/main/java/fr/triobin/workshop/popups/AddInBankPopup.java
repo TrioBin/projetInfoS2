@@ -25,7 +25,7 @@ public class AddInBankPopup extends CustomScene {
         moneyInput.setPromptText("Combien d'€ ?");
         moneyInput.setMaxWidth(200);
         moneyInput.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
-        CustomCapacities.forceFloatTextFieldEffect(moneyInput);
+        CustomCapacities.forceFloatTextFieldEffect(moneyInput, true);
         moneyInput.setOnAction(event -> {
             String input = moneyInput.getText();
             if (input.isEmpty()) {

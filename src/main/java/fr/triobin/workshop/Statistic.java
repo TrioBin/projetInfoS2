@@ -19,7 +19,7 @@ public class Statistic {
     public static void addStatMachine(Timestamp timestamp, String machineName, RefMachine refMachine, String reason) {
         try {
             // use file writer to append the statistics to a file
-            FileWriter fileWriter = new FileWriter("machineStatistics.txt", true);
+            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt", true);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy"+separator+"HH:mm");
             String toWrite = timestamp.toLocalDateTime().format(formatter);
             toWrite += separator + machineName + separator + refMachine.getName() + separator + reason;
@@ -33,7 +33,7 @@ public class Statistic {
     public static List<MachineEvent> readMachineStatistics() {
         List<MachineEvent> events = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("machineStatistics.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(Memory.currentWorkshop.getDesignation() + "machineStatistics.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(separator);
@@ -56,10 +56,10 @@ public class Statistic {
     public static void addStatBank(Timestamp timestamp, Operator operator, String reason, Float cost) {
         try {
             // use file writer to append the statistics to a file
-            FileWriter fileWriter = new FileWriter("bankStatistics.txt", true);
+            FileWriter fileWriter = new FileWriter(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt", true);
             DateTimeFormatter formatter = DateTimeFormatter.ofPattern("ddMMyyyy"+separator+"HH:mm");
             String toWrite = timestamp.toLocalDateTime().format(formatter);
-            toWrite += separator + operator.getName()  + separator + reason + separator + cost;
+            toWrite += separator + operator.getCode()  + separator + reason + separator + cost;
             fileWriter.write(toWrite + "\n");
             fileWriter.close();
         } catch (Exception e) {
@@ -70,11 +70,10 @@ public class Statistic {
     public static List<BankEvent> readBankStatistics() {
         List<BankEvent> events = new ArrayList<>();
         try {
-            BufferedReader reader = new BufferedReader(new FileReader("bankStatistics.txt"));
+            BufferedReader reader = new BufferedReader(new FileReader(Memory.currentWorkshop.getDesignation() + "bankStatistics.txt"));
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] parts = line.split(separator);
-                System.out.println("parts.length = " + parts.length);
                 if (parts.length == 5) {
                     String date = parts[0];
                     String time = parts[1];

@@ -1,4 +1,0 @@
-21052025,22:06,Machine 1,RefMachine 1,maintenance
-21052025,22:06,Machine 2,RefMachine 2,X
-23052025,22:06,Machine 3,RefMachine 3,X
-23052025,22:06,Machine 4,RefMachine 4,panne

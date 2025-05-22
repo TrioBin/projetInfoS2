@@ -3,6 +3,7 @@ package fr.triobin.workshop.customgui;
 import javafx.scene.Cursor;
 import javafx.scene.Node;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TextFormatter;
 import javafx.stage.Stage;
 
 public class CustomCapacities {
@@ -24,12 +25,19 @@ public class CustomCapacities {
         hoverElement.setOnMouseExited(e -> element.setStyle("-fx-strikethrough: false;"));
     }
 
-    public static void forceFloatTextFieldEffect(TextField element) {
-        element.textProperty().addListener((observable, oldValue, newValue) -> {
-            if (!newValue.matches("\\d*[.,]?\\d*")) {
-                element.setText(oldValue); // Revenir à l'ancienne valeur si la nouvelle est invalide
+    public static void forceFloatTextFieldEffect(TextField element, Boolean allowNegative) {
+        element.setTextFormatter(new TextFormatter<>(change -> {
+            String newText = change.getControlNewText();
+            String regex = allowNegative ? "[-]?\\d*\\.?\\d*" : "\\d*\\.?\\d*";
+            if (newText.matches(regex)) {
+                return change;
             }
-        });
+            return null;
+        }));
+    }
+
+    public static void forceFloatTextFieldEffect(TextField element) {
+        forceFloatTextFieldEffect(element, false);
     }
 
     public static void showElementWhenHoverEffect(Node element, Node hoverElement) {

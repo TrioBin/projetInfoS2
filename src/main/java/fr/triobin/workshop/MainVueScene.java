@@ -42,7 +42,7 @@ public class MainVueScene extends CustomScene {
 
         HTTPServer.start();
 
-        MapStage mapStage = new MapStage(this);
+        final MapStage[] mapStage = { null };
 
         // BARRE DU HAUT
         HBox topBar = new HBox(10);
@@ -50,20 +50,27 @@ public class MainVueScene extends CustomScene {
         topBar.setStyle("-fx-background-color: #E5E5E5;");
         topBar.setAlignment(Pos.CENTER_LEFT);
 
+        MenuItem openMapButton = new MenuItem("Open Map");
+        openMapButton.setOnAction(e -> {
+            if (mapStage[0] != null) {
+                mapStage[0].close();
+            }
+            mapStage[0] = new MapStage(this);
+        });
+
         // --- Menu "File" déroulant ---
-        MenuButton fileMenu = new MenuButton("File");
+        MenuButton fileMenu = new MenuButton("Menu");
         fileMenu.setFont(Font.font(14));
         fileMenu.getItems().addAll(
-                new MenuItem("Sauvegarder sous..."),
+                new MenuItem("Dupliquer"),
                 new SeparatorMenuItem(),
-                new MenuItem("Exporter"),
-                new MenuItem("Importer"));
+                openMapButton);
 
         // Bouton retour
         Button backButton = new Button("<");
         backButton.setOnAction(e -> {
             App app = App.getInstance();
-            mapStage.close();
+            mapStage[0].close();
             HTTPServer.stop();
             app.changeWindow(new SelectScene());
         });
@@ -91,7 +98,7 @@ public class MainVueScene extends CustomScene {
         closeButton.setStyle("-fx-background-color: transparent; -fx-text-fill: red;");
         closeButton.setOnAction(e -> {
             App app = App.getInstance();
-            mapStage.close();
+            mapStage[0].close();
             HTTPServer.stop();
             app.changeWindow(new SelectScene());
         });

@@ -1,0 +1,4 @@
+22052025,08:17,O1,Salaire opérateur,0.09
+22052025,08:17,O1,Cout machine,0.03
+22052025,08:17,O1,Salaire opérateur,0.23
+22052025,08:17,O1,Cout machine,0.07

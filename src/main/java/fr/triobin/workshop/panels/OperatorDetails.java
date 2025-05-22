@@ -4,7 +4,9 @@ import fr.triobin.workshop.App;
 import fr.triobin.workshop.MainVueScene;
 import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
+import fr.triobin.workshop.customgui.CustomTextField;
 import fr.triobin.workshop.customgui.Modal;
+import fr.triobin.workshop.general.Cost;
 import fr.triobin.workshop.general.Machine;
 import fr.triobin.workshop.general.Operator;
 import fr.triobin.workshop.popups.AddSkillOperatorPopup;
@@ -122,6 +124,22 @@ public class OperatorDetails extends VBox {
         costLabel.setStyle(
                 "-fx-background-color: #dcdcdc; -fx-padding: 5; -fx-effect: dropshadow(gaussian, gray, 2, 0.5, 1, 1);");
         costBox.getChildren().add(costLabel);
+
+        CustomTextField costField = new CustomTextField();
+        costField.setPromptText("Coût horaire");
+        costField.setMaxWidth(100);
+        costField.setStyle("-fx-font-size: 14px; -fx-text-fill: black;");
+        CustomCapacities.forceFloatTextFieldEffect(costField);
+        costField.setText(String.valueOf(operator.getCost().getCost()));
+
+        costField.setOnAction(event -> {
+            String input = costField.getText();
+            if (input.isEmpty()) {
+                return;
+            }
+            float amount = Float.parseFloat(input);
+            operator.setCost(new Cost(amount));
+        });
 
         HBox OptBoxContent = new HBox(10);
         OptBoxContent.setPrefWidth(350);

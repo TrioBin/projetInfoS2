@@ -115,4 +115,9 @@ public class Operator {
     public Cost getCost() {
         return this.cost;
     }
+
+    public void setCost(Cost cost) {
+        this.cost = cost;
+        Memory.saveFile();
+    }
 }
