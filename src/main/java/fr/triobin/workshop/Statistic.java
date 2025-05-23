@@ -65,7 +65,7 @@ public class Statistic {
             if (operator == null) {
                 toWrite += separator + "null";
             } else {
-                toWrite += separator + operator.getName();
+                toWrite += separator + operator.getCode();
             }
             toWrite += separator + reason + separator + cost;
             fileWriter.write(toWrite + "\n");
