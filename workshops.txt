@@ -1,15 +1,71 @@
-test,1220.3
+test,1216.6799
 __________
-cdhxfvgg
 Table
 __________
+assembler les vis,00:00:45
 __________
+Table,Table IKEA 123,205.0,121.0,50.0,50.0,1.0,[assembler les vis],AVAILABLE
 __________
-test,test,0.0,0.0,0.0,0.0,[]
+test,test,131.0,93.0,500.0,500.0,[Table IKEA 123]
 __________
-O1,Rusché,Constant,[],LIBRE,password,100.0
+O1,Rusché,Constant,[Table],ABSENT,password,100.0
 __________
-Casserole,Casserole,[]
+Casserole,Casserole,[assembler les vis]
 __________
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
+Casserole
 __________
-Ggoal,Casserole,50
+Sgoal,assembler les vis,0
+Sgoal,assembler les vis,1
+Sgoal,assembler les vis,2
+Sgoal,assembler les vis,3
+Sgoal,assembler les vis,4
+Sgoal,assembler les vis,5
+Sgoal,assembler les vis,6
+Sgoal,assembler les vis,7
+Sgoal,assembler les vis,8
+Sgoal,assembler les vis,9
+Sgoal,assembler les vis,10
+Sgoal,assembler les vis,11
+Sgoal,assembler les vis,12
+Sgoal,assembler les vis,13
+Sgoal,assembler les vis,14
+Sgoal,assembler les vis,15
+Sgoal,assembler les vis,16
+Sgoal,assembler les vis,17
+Sgoal,assembler les vis,18
+Sgoal,assembler les vis,19
+Sgoal,assembler les vis,20
+Sgoal,assembler les vis,21
+Sgoal,assembler les vis,22
+Sgoal,assembler les vis,23
+Sgoal,assembler les vis,24
+Sgoal,assembler les vis,25
+Sgoal,assembler les vis,26
+Sgoal,assembler les vis,27

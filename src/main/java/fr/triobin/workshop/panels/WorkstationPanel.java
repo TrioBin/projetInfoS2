@@ -4,6 +4,7 @@ import fr.triobin.workshop.Memory;
 import fr.triobin.workshop.customgui.CustomCapacities;
 import fr.triobin.workshop.customgui.CustomPanel;
 import fr.triobin.workshop.customgui.Modal;
+import fr.triobin.workshop.popups.ChangeWorkstationPosition;
 import fr.triobin.workshop.popups.CreateWorkstationPopup;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
@@ -76,6 +77,24 @@ public class WorkstationPanel extends CustomPanel {
                 workstationDetail.onload(stage);
             });
 
+            Button modifyBtn = new Button("✎");
+            modifyBtn.setFont(Font.font(8));
+            modifyBtn.setPrefSize(24, 24);
+            modifyBtn.setBackground(new Background(
+                new BackgroundFill(Color.WHITE, new CornerRadii(4), Insets.EMPTY)));
+            modifyBtn.setBorder(new Border(
+                new BorderStroke(Color.LIGHTGRAY, BorderStrokeStyle.SOLID,
+                                 new CornerRadii(4), BorderWidths.DEFAULT)));
+            modifyBtn.setEffect(new DropShadow(3, Color.gray(0.4)));
+            modifyBtn.setOnAction(evt -> {
+                evt.consume();
+                Modal dialog = new Modal(stage, new ChangeWorkstationPosition());
+                dialog.onClose(o -> {
+                    rebuildLeftPane();
+                    rightPane.getChildren().clear();
+                });
+            });
+
             // bouton supprimer
             Button delBtn = new Button("✖");
             delBtn.setFont(Font.font(8));
@@ -93,7 +112,7 @@ public class WorkstationPanel extends CustomPanel {
                 rightPane.getChildren().clear();
             });
 
-            HBox row = new HBox(5, wsBtn, delBtn);
+            HBox row = new HBox(5, wsBtn, modifyBtn, delBtn);
             row.setAlignment(Pos.CENTER_LEFT);
             leftPane.getChildren().add(row);
         }

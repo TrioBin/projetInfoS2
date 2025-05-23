@@ -67,6 +67,8 @@ public class WorkstationDetail extends HBox {
         leftPane.getChildren().add(titleLabel);
 
         for (Machine machine : workstation.getMachines()) {
+            if (machine == null) continue; // Skip null machines
+
             // Bouton machine
             Button machineBtn = new Button(machine.getName());
             machineBtn.setMaxWidth(Double.MAX_VALUE);

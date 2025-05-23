@@ -199,6 +199,7 @@ public class MainVueScene extends CustomScene {
     public void onload(Stage stage) {
         this.stage = stage;
         stage.initStyle(StageStyle.UNDECORATED);
+        stage.setResizable(true);
         // get topBar
         HBox topBar = (HBox) ((VBox) getRoot()).getChildren().get(0);
         CustomCapacities.dragZoneEffect(stage, topBar);

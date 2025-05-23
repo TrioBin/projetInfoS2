@@ -137,6 +137,15 @@ public class CreateMachinePopup extends CustomScene {
                         "-fx-font-size: 14px;" +
                         "-fx-text-fill: black;");
         btnCreer.setOnAction(e -> {
+            Machine machine = new Machine(
+                    Memory.currentWorkshop.getMachinesRef()
+                            .get(typeMachine.getSelectionModel().getSelectedIndex()),
+                    nomMachine.getText(),
+                    new Position(Float.parseFloat(x.getText()), Float.parseFloat(y.getText())),
+                    new Dimension2D(Float.parseFloat(width.getText()), Float.parseFloat(heigth.getText())),
+                    new Cost(Float.parseFloat(coutHoraire.getText())), new ArrayList<>(),
+                    MachineStatus.AVAILABLE);
+            Memory.currentWorkshop.getMachines().add(machine);
             Memory.currentWorkstation
                     .addMachine(new Machine(
                             Memory.currentWorkshop.getMachinesRef()
@@ -146,6 +155,7 @@ public class CreateMachinePopup extends CustomScene {
                             new Dimension2D(Float.parseFloat(width.getText()), Float.parseFloat(heigth.getText())),
                             new Cost(Float.parseFloat(coutHoraire.getText())), new ArrayList<>(),
                             MachineStatus.AVAILABLE));
+            Memory.saveFile();
             this.stage.close();
         });
 
